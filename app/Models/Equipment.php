@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
-use App\Traits\CustomProperties;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\{CustomProperties, HasUuid};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Equipment extends Model
 {
-    use HasFactory, CustomProperties;
+    use HasFactory,
+        CustomProperties,
+        HasUuid;
 
     /**
      * The table associated with the model.
@@ -24,13 +27,14 @@ class Equipment extends Model
      * @var array
      */
     protected $fillable = [
-        'site_id',
         'equipment_type_id',
+        'uuid',
         'name',
         'brand',
         'model',
         'serial',
         'custom_properties',
+        'custom_properties->inspections',
     ];
 
     /**
@@ -44,7 +48,6 @@ class Equipment extends Model
 
     /**
      * Equipment type related model.
-     *
      *
      * @return BelongsTo
      */
