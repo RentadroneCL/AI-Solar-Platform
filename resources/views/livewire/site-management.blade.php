@@ -1,5 +1,5 @@
 <div>
-  <div class="px-4 py-5 bg-white shadow sm:px-0 sm:p-6 sm:rounded-lg">
+  <div class="px-4 py-5 bg-white shadow sm:p-6 sm:rounded-lg">
     <div class="md:grid md:grid-cols-3 md:gap-6">
       <div class="px-4 md:col-span-1">
         <div class="text-lg font-semibold text-slate-900">{{ __('Site Management') }}</div>
