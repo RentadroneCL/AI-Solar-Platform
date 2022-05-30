@@ -21,11 +21,11 @@
                 <td class="p-4 border-b border-slate-100 text-slate-500">{{ $equipment->type->name }}</td>
                 <td class="p-4 pr-8 border-b border-slate-100 text-slate-500">
                   <div class="inline-flex items-center w-full">
-                    <button x-on:click="$wire.emit('editEquipment', {{ $equipment->id }})" class="px-2 py-2 ml-auto mr-1 text-sm bg-transparent border-transparent rounded-lg active:bg-slate-50 active:text-slate-600 text-slate-500 focus:outline-none hover:bg-slate-50 hover:text-slate-600">
-                      <i class="fa-solid fa-pencil fa-fw"></i>
+                    <button x-on:click="$wire.emit('editEquipment', {{ $equipment->id }})" class="px-3 py-2 ml-auto mr-1 text-sm bg-transparent border-transparent rounded-lg active:bg-slate-50 active:text-slate-600 text-slate-500 focus:outline-none hover:bg-slate-50 hover:text-slate-600">
+                      <i class="text-slate-400 fa-solid fa-pencil fa-fw"></i>
                     </button>
 
-                    <button x-on:click="$wire.emit('deleteEquipment', {{ $equipment->id }})" class="px-2 py-2 mr-4 text-sm bg-transparent border-transparent rounded-lg active:bg-slate-50 active:text-red-500 focus:outline-none hover:bg-slate-50 text-rose-400 hover:text-rose-500">
+                    <button x-on:click="$wire.emit('deleteEquipment', {{ $equipment->id }})" class="px-3 py-2 mr-4 text-sm bg-transparent border-transparent rounded-lg active:bg-slate-50 active:text-red-500 focus:outline-none hover:bg-slate-50 text-rose-400 hover:text-rose-500">
                       <i class="fa-solid fa-trash fa-fw"></i>
                     </button>
                   </div>

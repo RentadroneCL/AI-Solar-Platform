@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Site;
 use Livewire\Component;
 use Illuminate\Support\Arr;
-use App\Models\{Equipment, EquipmentType};
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
+use App\Models\{Site, EquipmentType, Equipment};
 
 class EquipmentManagement extends Component
 {
@@ -43,7 +43,7 @@ class EquipmentManagement extends Component
      *
      * @var integer|Collection
      */
-    public int|Collection $equipmentsTypes;
+    public int|Collection $equipmentTypes;
 
     /**
      * Indicates if equipment creation is being confirmed.
@@ -107,11 +107,10 @@ class EquipmentManagement extends Component
      */
     public function mount(): void
     {
-        $this->equipmentsTypes = EquipmentType::count();
+        $this->equipmentTypes = $this->site->equipmentTypes->count();
 
         $this->equipments = $this->site->equipments;
 
-        $this->state['site_id'] = $this->site->id;
         $this->state['custom_properties'] = [
             ['key' => null, 'value' => null],
         ];
@@ -128,7 +127,22 @@ class EquipmentManagement extends Component
 
         $this->validate();
 
-        Equipment::create($this->state);
+        DB::transaction(function () {
+            // Checking equipment quantity to proceed.
+            $counter = $this->site->equipments()
+                ->where(['equipment_type_id' => $this->equipmentType->id])
+                ->count();
+
+            if ($this->equipmentType->quantity === $counter) {
+                // there's no way to proceed. equipment are completed.
+                $this->emit('completed-equipment');
+                return;
+            }
+
+            Equipment::create($this->state);
+
+            $this->emit('stored-equipment');
+        });
 
         $this->state['name'] = '';
         $this->state['brand'] = '';
@@ -141,8 +155,6 @@ class EquipmentManagement extends Component
         $this->displayEquipmentCreationForm = false;
 
         $this->equipmentType = null;
-
-        $this->emit('stored-equipment');
     }
 
     /**
@@ -175,11 +187,12 @@ class EquipmentManagement extends Component
      */
     public function search(): void
     {
-        $filtered = EquipmentType::query()->select('name', 'id')
+        $filtered = $this->site->equipmentTypes()
+            ->select('name', 'id')
             ->where('name', 'like', '%' . $this->query . '%')
             ->get();
 
-        $this->equipmentsTypes = $filtered;
+        $this->equipmentTypes = $filtered;
     }
 
     /**
@@ -220,6 +233,16 @@ class EquipmentManagement extends Component
     {
         $this->equipments = $this->site->equipments;
 
+        $this->dispatchBrowserEvent('equipment-content-change');
+    }
+
+    /**
+     * Runs after the property is updated.
+     *
+     * @return void
+     */
+    public function updatedDisplayEquipmentCreationForm(): void
+    {
         $this->dispatchBrowserEvent('equipment-content-change');
     }
 }

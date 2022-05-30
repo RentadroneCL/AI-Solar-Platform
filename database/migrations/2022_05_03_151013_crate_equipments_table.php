@@ -16,8 +16,8 @@ class CrateEquipmentsTable extends Migration
     {
         Schema::create('equipments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Site::class, 'site_id')->constrained('sites_information', 'id')->cascadeOnDelete();
             $table->foreignIdFor(EquipmentType::class, 'equipment_type_id')->constrained('equipment_type', 'id')->cascadeOnDelete();
+            $table->uuid('uuid')->unique()->index();
             $table->string('name');
             $table->string('brand')->nullable();
             $table->string('model')->nullable();
