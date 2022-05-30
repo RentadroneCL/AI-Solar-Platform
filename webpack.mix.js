@@ -18,6 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
     ])
     .copy('resources/img/*', 'public/img')
     .copy('resources/svg/*', 'public/svg')
+    .copy('resources/examples/*', 'public/examples')
     .webpackConfig({
       resolve: {
         fallback: {
