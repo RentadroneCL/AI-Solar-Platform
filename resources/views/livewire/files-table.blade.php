@@ -1,51 +1,57 @@
-<div x-data="table()" x-init="init()" wire:ignore>
+<div wire:ignore>
   <div class="px-4 py-5 sm:p-6">
     @if (! Auth::user()->hasRole('administrator'))
       <h3 class="mb-4 text-lg font-medium text-slate-900">{{ __('File Management') }}</h3>
     @endif
-    <div class="w-full overflow-x-auto">
-      <div class="inline-block min-w-full overflow-hidden align-middle">
-        <table id="files-table" class="h-full min-w-full divide-y divide-gray-200 rounded">
-          <thead class="text-xs font-medium tracking-wider text-left text-gray-600 uppercase rounded bg-gray-50">
-            <tr>
-              <th class="px-6 py-3 rounded-tl">{{ __('Filename') }}</th>
-              <th class="px-6 py-3">{{ __('Collection') }}</th>
-              <th class="px-6 py-3">{{ __('File Size') }}</th>
-              <th class="px-6 py-3">{{ __('File Type') }}</th>
-              <th class="relative px-6 py-3 rounded-tr">
-                <span class="sr-only">{{ __('Manage') }}</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-            @foreach ($files as $file)
-              <tr id="{{ $file->id }}">
-                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                  {{ $file->file_name }}
-                </td>
-                <td class="px-6 py-4 text-gray-600 uppercase whitespace-nowrap">
-                  {{ $file->collection_name }}
-                </td>
-                <td class="px-6 py-4 text-gray-900 whitespace-nowrap">
-                  {{ $file->human_readable_size }}
-                </td>
-                <td class="px-6 py-4 text-gray-600 uppercase whitespace-nowrap">
-                  {{ explode('/', $file->mime_type)[1] }}
-                </td>
-                <td class="flex flex-row items-center px-6 py-4 text-sm font-medium text-right justify-items-center whitespace-nowrap">
-                  <a href="{!! Storage::temporaryUrl($file->getPath(), Carbon::now()->addMinutes(60)) !!}" download target="_blank" class="inline-flex items-center p-2 mr-2 text-base font-normal tracking-widest text-gray-400 uppercase transition duration-150 ease-in-out bg-transparent border border-transparent rounded-md cursor-pointer hover:text-gray-500 hover:bg-gray-200 active:bg-gray-200 focus:outline-none focus:border-transparent focus:shadow-outline-gray disabled:opacity-25">
-                    <i class="fas fa-download fa-fw"></i>
-                  </a>
-                  @if (Auth::user()->hasRole('administrator'))
-                    <button x-on:click='$wire.confirmMediaDeletion({{ $file->id }})' class="inline-flex items-center p-2 text-base font-normal tracking-widest text-gray-400 uppercase transition duration-150 ease-in-out bg-transparent border border-transparent rounded-md hover:text-gray-500 hover:bg-gray-200 active:bg-gray-200 focus:outline-none focus:border-transparent focus:shadow-outline-gray disabled:opacity-25">
-                      <i class="text-red-400 fas fa-trash fa-fw"></i>
-                    </button>
-                  @endif
-                </td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
+    <div class="w-full overflow-x-auto border bg-slate-50 rounded-xl">
+      <div class="bg-gradient-to-b from-white to-slate-100">
+        <div class="overflow-auto rounded-xl">
+          <div class="overflow-hidden shadow-sm">
+            <table x-data="fileTable()" x-init="init()" id="files-table" class="w-full text-sm border-collapse table-auto">
+              <thead>
+                <tr>
+                  <th class="p-4 pt-0 pb-3 pl-8 font-medium text-left border-b text-slate-400">{{ __('ID') }}</th>
+                  <th class="p-4 pt-0 pb-3 font-medium text-left border-b text-slate-400">{{ __('Filename') }}</th>
+                  <th class="p-4 pt-0 pb-3 font-medium text-left border-b text-slate-400">{{ __('Collection') }}</th>
+                  <th class="p-4 pt-0 pb-3 font-medium text-left border-b text-slate-400">{{ __('File Size') }}</th>
+                  <th class="p-4 pt-0 pb-3 font-medium text-left border-b text-slate-400">{{ __('File Type') }}</th>
+                  <th class="p-4 pt-0 pb-3 pr-8 font-medium text-left border-b text-slate-400">
+                    <span class="sr-only">{{ __('Actions') }}</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white">
+                @foreach ($files as $file)
+                  <tr id="{{ $file->id }}">
+                    <td class="p-4 pl-8 border-b border-slate-100 text-slate-500">{{ $file->id }}</td>
+                    <td class="p-4 border-b border-slate-100 text-slate-500">
+                      {{ $file->file_name }}
+                    </td>
+                    <td class="p-4 border-b border-slate-100 text-slate-500">
+                      {{ $file->collection_name }}
+                    </td>
+                    <td class="p-4 border-b border-slate-100 text-slate-500">
+                      {{ $file->human_readable_size }}
+                    </td>
+                    <td class="p-4 border-b border-slate-100 text-slate-500">
+                      {{ explode('/', $file->mime_type)[1] }}
+                    </td>
+                    <td class="p-4 pr-8 border-b border-slate-100 text-slate-500">
+                      <a href="{!! Storage::temporaryUrl($file->getPath(), Carbon::now()->addMinutes(60)) !!}" download target="_blank" class="inline-flex items-center p-2 mr-2 text-base font-normal tracking-widest text-gray-400 uppercase transition duration-150 ease-in-out bg-transparent border border-transparent rounded-md cursor-pointer hover:text-gray-500 hover:bg-gray-200 active:bg-gray-200 focus:outline-none focus:border-transparent focus:shadow-outline-gray disabled:opacity-25">
+                        <i class="fas fa-download fa-fw"></i>
+                      </a>
+                      @if (Auth::user()->hasRole('administrator'))
+                        <button x-on:click='$wire.confirmMediaDeletion({{ $file->id }})' class="inline-flex items-center p-2 text-base font-normal tracking-widest text-gray-400 uppercase transition duration-150 ease-in-out bg-transparent border border-transparent rounded-md hover:text-gray-500 hover:bg-gray-200 active:bg-gray-200 focus:outline-none focus:border-transparent focus:shadow-outline-gray disabled:opacity-25">
+                          <i class="text-red-400 fas fa-trash fa-fw"></i>
+                        </button>
+                      @endif
+                    </td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -71,7 +77,7 @@
 
   {{-- Alpine JS --}}
   <script>
-    const table = () => {
+    const fileTable = () => {
       return {
         init() {
           this.render();
