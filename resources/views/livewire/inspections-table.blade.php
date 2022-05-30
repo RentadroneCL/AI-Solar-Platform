@@ -28,8 +28,8 @@
                     <td class="p-4 border-b border-slate-100 text-slate-500">{{ $inspection->name }}</td>
                     <td class="p-4 border-b border-slate-100 text-slate-500">{{ __($inspection->commissioning_date->toFormattedDateString()) }}</td>
                     <td class="p-4 pr-8 border-b border-slate-100 text-slate-500">
-                      <a class="px-2 py-2 ml-auto mr-1 text-sm bg-transparent border-transparent rounded-lg active:bg-slate-50 active:text-slate-600 text-slate-500 focus:outline-none hover:bg-slate-50 hover:text-slate-600" href="{{ route('inspection.show', $inspection) }}" title="{{ __('Manage') }}">
-                        <i class="fa-solid fa-eye fa-fw"></i>
+                      <a class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 transition duration-150 ease-in-out bg-white border border-transparent rounded-md text-slate-500 hover:bg-slate-50 hover:text-slate-700 focus:outline-none focus:bg-slate-50 active:bg-slate-50" href="{{ route('inspection.show', $inspection) }}" title="{{ __('Manage') }}">
+                        <i class="text-slate-400 fa-solid fa-pencil fa-fw"></i>
                       </a>
                     </td>
                   </tr>
