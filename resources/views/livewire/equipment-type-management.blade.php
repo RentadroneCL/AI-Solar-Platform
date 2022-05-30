@@ -8,14 +8,14 @@
       <i class="mr-2 fa-solid fa-cloud-arrow-up fa-fw text-slate-500"></i> {{ __('Import CSV') }}
     </x-jet-secondary-button>
 
-    @if (!$equipmentsTypes->isEmpty())
+    @if (!$equipmentTypes->isEmpty())
       <x-jet-secondary-button class="w-full md:ml-2 md:w-auto" wire:click="export">
         <i class="mr-2 fa-solid fa-download fa-fw text-slate-500"></i> {{ __('Export CSV') }}
       </x-jet-secondary-button>
     @endif --}}
   </div>
 
-  @if ($equipmentsTypes->isEmpty())
+  @if ($equipmentTypes->isEmpty())
     <div class="flex flex-col items-center justify-center px-6 py-12 border-2 border-dashed rounded-lg border-slate-200">
       <i class="mb-4 fa-solid fa-database fa-fw fa-2x text-slate-500"></i>
       <p class="font-semibold text-slate-900">{{ __('Load new data') }}</p>
@@ -33,7 +33,7 @@
       <i class="p-1 mr-2 text-blue-200 bg-blue-400 border border-blue-400 rounded-md shadow-sm fa-solid fa-info fa-fw"></i> {{ __('Deleted record!') }}
     </x-jet-action-message>
 
-    <livewire:equipment-type-table :site="$site" :equipmentsTypes="$equipmentsTypes">
+    <livewire:equipment-type-table :site="$site" :equipmentTypes="$equipmentTypes">
   @endif
 
   {{-- Create equipment type modal --}}
@@ -57,6 +57,12 @@
           <x-jet-label for="name" value="{{ __('Name') }}" />
           <x-jet-input id="name" type="text" class="block w-full mt-1" wire:model.lazy="state.name" autocomplete="name" required />
           <x-jet-input-error for="state.name" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 mb-4">
+          <x-jet-label for="quantity" value="{{ __('Quantity') }}" />
+          <x-jet-input id="quantity" type="number" class="block w-full mt-1" wire:model.lazy="state.quantity" autocomplete="quantity" required />
+          <x-jet-input-error for="state.quantity" class="mt-2" />
         </div>
 
         <div class="col-span-6 mb-4">

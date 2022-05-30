@@ -23,7 +23,9 @@ class EquipmentType extends Model
      * @var array
      */
     protected $fillable = [
+        'site_id',
         'name',
+        'quantity',
         'custom_properties',
     ];
 

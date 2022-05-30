@@ -7,23 +7,25 @@
             <tr>
               <th class="p-4 pt-0 pb-3 pl-8 font-medium text-left border-b text-slate-400">{{ __('ID') }}</th>
               <th class="p-4 pt-0 pb-3 font-medium text-left border-b text-slate-400">{{ __('Name') }}</th>
+              <th class="p-4 pt-0 pb-3 font-medium text-left border-b text-slate-400">{{ __('Quantity') }}</th>
               <th class="p-4 pt-0 pb-3 pr-8 font-medium text-left border-b text-slate-400">
                 <span class="sr-only">{{ __('Actions') }}</span>
               </th>
             </tr>
           </thead>
           <tbody class="bg-white">
-            @foreach ($equipmentsTypes as $equipmentType)
+            @foreach ($equipmentTypes as $equipmentType)
               <tr data-id="{{ $equipmentType->id }}">
                 <td class="p-4 pl-8 border-b border-slate-100 text-slate-500">{{ $equipmentType->id }}</td>
                 <td class="p-4 border-b border-slate-100 text-slate-500">{{ $equipmentType->name }}</td>
+                <td class="p-4 border-b border-slate-100 text-slate-500">{{ $equipmentType->quantity }}</td>
                 <td class="p-4 pr-8 border-b border-slate-100 text-slate-500">
                   <div class="inline-flex items-center w-full">
-                    <button x-on:click="$wire.emit('editEquipmentType', {{ $equipmentType->id }})" class="px-2 py-2 ml-auto mr-1 text-sm bg-transparent border-transparent rounded-lg active:bg-slate-50 active:text-slate-600 text-slate-500 focus:outline-none hover:bg-slate-50 hover:text-slate-600">
-                      <i class="fa-solid fa-pencil fa-fw"></i>
+                    <button x-on:click="$wire.emit('editEquipmentType', {{ $equipmentType->id }})" class="px-3 py-2 ml-auto mr-1 text-sm bg-transparent border-transparent rounded-lg active:bg-slate-50 active:text-slate-600 text-slate-500 focus:outline-none hover:bg-slate-50 hover:text-slate-600">
+                      <i class="text-slate-400 fa-solid fa-pencil fa-fw"></i>
                     </button>
 
-                    <button x-on:click="$wire.emit('deleteEquipmentType', {{ $equipmentType->id }})" class="px-2 py-2 mr-4 text-sm bg-transparent border-transparent rounded-lg active:bg-slate-50 active:text-red-500 focus:outline-none hover:bg-slate-50 text-rose-400 hover:text-rose-500">
+                    <button x-on:click="$wire.emit('deleteEquipmentType', {{ $equipmentType->id }})" class="px-3 py-2 mr-4 text-sm bg-transparent border-transparent rounded-lg active:bg-slate-50 active:text-red-500 focus:outline-none hover:bg-slate-50 text-rose-400 hover:text-rose-500">
                       <i class="fa-solid fa-trash fa-fw"></i>
                     </button>
                   </div>
@@ -57,6 +59,12 @@
           <x-jet-label for="name" value="{{ __('Name') }}" />
           <x-jet-input id="name" type="text" class="block w-full mt-1" wire:model.lazy="state.name" autocomplete="name" required />
           <x-jet-input-error for="state.name" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 mb-4">
+          <x-jet-label for="quantity" value="{{ __('Quantity') }}" />
+          <x-jet-input id="quantity" type="number" class="block w-full mt-1" wire:model.lazy="state.quantity" autocomplete="quantity" required />
+          <x-jet-input-error for="state.quantity" class="mt-2" />
         </div>
 
         <div class="col-span-6 mb-4">

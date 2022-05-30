@@ -39,7 +39,7 @@ class EquipmentTypeManagement extends Component
      *
      * @var Collection
      */
-    public Collection $equipmentsTypes;
+    public Collection $equipmentTypes;
 
     /**
      * The component's state.
@@ -48,6 +48,7 @@ class EquipmentTypeManagement extends Component
      */
     public array $state = [
         'name' => '',
+        'quantity' => 0,
         'custom_properties' => null,
     ];
 
@@ -58,6 +59,7 @@ class EquipmentTypeManagement extends Component
      */
     protected array $rules = [
         'state.name' => 'required|string|min:2',
+        'state.quantity' => 'required|integer|min:1',
         'state.custom_properties.*.key' =>'nullable|string|min:2',
         'state.custom_properties.*.value' =>'nullable|string|min:2',
         //'file' => 'required|file|mimes:csv',
@@ -70,6 +72,8 @@ class EquipmentTypeManagement extends Component
      */
     protected $messages = [
         'state.name.required' => 'The name field is required.',
+        'state.quantity.required' => 'The quantity field is required.',
+        'state.quantity.min' => 'The quantity must be at least 1.',
         'state.custom_properties.*.key.filled' => 'The feature field must have a value.',
         'state.custom_properties.*.value.filled' => 'The value field must have a value.',
     ];
@@ -90,8 +94,9 @@ class EquipmentTypeManagement extends Component
      */
     public function mount(): void
     {
-        $this->equipmentsTypes = EquipmentType::all();
+        $this->equipmentTypes = $this->site->equipmentTypes;
 
+        $this->state['site_id'] = $this->site->id;
         $this->state['custom_properties'] = [
             ['key' => null, 'value' => null],
         ];
@@ -111,6 +116,7 @@ class EquipmentTypeManagement extends Component
         EquipmentType::create($this->state);
 
         $this->state['name'] = '';
+        $this->state['quantity'] = 0;
         $this->state['custom_properties'] = [
             ['key' => null, 'value' => null],
         ];
@@ -150,8 +156,18 @@ class EquipmentTypeManagement extends Component
      */
     public function updateCollection(): void
     {
-        $this->equipmentsTypes = EquipmentType::all();
+        $this->equipmentTypes = $this->site->equipmentTypes;
 
+        $this->dispatchBrowserEvent('equipment-type-content-change');
+    }
+
+    /**
+     * Runs after the property is updated.
+     *
+     * @return void
+     */
+    public function updatedDisplayEquipmentTypeCreationForm(): void
+    {
         $this->dispatchBrowserEvent('equipment-type-content-change');
     }
 }

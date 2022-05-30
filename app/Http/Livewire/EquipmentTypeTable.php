@@ -30,7 +30,7 @@ class EquipmentTypeTable extends Component
      *
      * @var Collection
      */
-    public Collection $equipmentsTypes;
+    public Collection $equipmentTypes;
 
     /**
      * Indicates if equipment type deletion is being confirmed.
@@ -53,6 +53,7 @@ class EquipmentTypeTable extends Component
      */
     public array $state = [
         'name' => '',
+        'quantity' => 0,
         'custom_properties' => null,
     ];
 
@@ -79,6 +80,7 @@ class EquipmentTypeTable extends Component
      */
     protected $messages = [
         'state.name.required' => 'The name field is required.',
+        'state.name.quantity' => 'The quantity field is required.',
         'state.custom_properties.*.key.filled' => 'The feature field must have a value.',
         'state.custom_properties.*.value.filled' => 'The value field must have a value.',
     ];
@@ -103,6 +105,8 @@ class EquipmentTypeTable extends Component
      */
     public function mount(): void
     {
+        // $this->equipmentTypes = $this->site->equipmentTypes;
+
         $this->state['custom_properties'] = [
             ['key' => null, 'value' => null],
         ];
@@ -116,6 +120,7 @@ class EquipmentTypeTable extends Component
 
         Validator::make($this->state, [
             'state.name' => 'required|string|min:2',
+            'state.quantity' => 'required|integer|min:1',
             'state.custom_properties.*.key' =>'nullable|string|min:2',
             'state.custom_properties.*.value' =>'nullable|string|min:2',
         ]);
@@ -170,6 +175,7 @@ class EquipmentTypeTable extends Component
         $this->equipmentType = $equipmentType;
 
         $this->state['name'] = $equipmentType->name;
+        $this->state['quantity'] = $equipmentType->quantity;
         $this->state['custom_properties'] = $equipmentType->custom_properties;
 
         $this->confirmingEquipmentTypeEdition = true;
@@ -226,8 +232,28 @@ class EquipmentTypeTable extends Component
      */
     public function updateCollection(): void
     {
-        $this->equipmentsTypes = EquipmentType::all();
+        $this->equipmentTypes = $this->site->equipmentTypes;
 
+        $this->dispatchBrowserEvent('equipment-type-content-change');
+    }
+
+    /**
+     * Runs after the property is updated.
+     *
+     * @return void
+     */
+    public function updatedConfirmingEquipmentTypeDeletion(): void
+    {
+        $this->dispatchBrowserEvent('equipment-type-content-change');
+    }
+
+    /**
+     * Runs after the property is updated.
+     *
+     * @return void
+     */
+    public function updatedConfirmingEquipmentTypeEdition(): void
+    {
         $this->dispatchBrowserEvent('equipment-type-content-change');
     }
 }
