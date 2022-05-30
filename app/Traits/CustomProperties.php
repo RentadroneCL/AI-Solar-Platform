@@ -2,25 +2,91 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Arr;
+use Illuminate\Database\Eloquent\Model;
+
 trait CustomProperties
 {
     /**
-     * Eliminate null values from the array.
+     * Check if the data object key is created & not empty
      *
-     * @param array $values
-     * @return void
+     * @return boolean
      */
-    public function setCustomPropertiesAttribute(array $values = []): void
+    public function dataIsNotEmpty(): bool
     {
-        $properties = [];
+        return isset($this->custom_properties['data'])
+            && count((array) $this->custom_properties['data'])
+            > 0;
+    }
 
-        // Ensure that does not store null values.
-        foreach ($values as $value) {
-            if (!is_null($value['key']) && !is_null($value['value'])) {
-                $properties[] = $value;
-            }
-        }
+    /**
+     * Set custom properties.
+     *
+     * @param array $customProperties
+     * @return self
+     */
+    public function withCustomProperties(array $customProperties = []): self
+    {
+        $this->custom_properties = $customProperties;
 
-        $this->attributes['custom_properties'] = json_encode($properties);
+        return $this;
+    }
+
+    /**
+     * Check if the property exists.
+     *
+     * @param string $propertyName
+     * @return boolean
+     */
+    public function hasCustomProperty(string $propertyName): bool
+    {
+        return Arr::has($this->custom_properties, $propertyName);
+    }
+
+    /**
+     * Get the value of custom property with the given name.
+     *
+     * @param string $propertyName
+     * @param mixed $default
+     * @return mixed
+     */
+    public function getCustomProperty(string $propertyName, $default = null): mixed
+    {
+        return Arr::get($this->custom_properties, $propertyName, $default);
+    }
+
+    /**
+     * Set the value of custom property with the given name.
+     *
+     * @param string $name
+     * @param mixed $value
+     * @return self
+     */
+    public function setCustomProperty(string $name, $value): self
+    {
+        $customProperties = $this->custom_properties;
+
+        Arr::set($customProperties, $name, $value);
+
+        $this->custom_properties = $customProperties;
+
+        return $this;
+    }
+
+    /**
+     * Removes the value of custom property with the given name.
+     *
+     * @param string $name
+     * @return self
+     */
+    public function forgetCustomProperty(string $name): self
+    {
+        $customProperties = $this->custom_properties;
+
+        Arr::forget($customProperties, $name);
+
+        $this->custom_properties = $customProperties;
+
+        return $this;
     }
 }
