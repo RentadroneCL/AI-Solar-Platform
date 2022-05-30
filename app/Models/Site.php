@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Site extends Model
 {
@@ -63,13 +64,28 @@ class Site extends Model
     }
 
     /**
+     * Equipment types related to the site.
+     *
+     * @return HasMany
+     */
+    public function equipmentTypes(): HasMany
+    {
+        return $this->hasMany(EquipmentType::class, 'site_id');
+    }
+
+    /**
      * The equipments related to the site.
      *
      * @return HasMany
      */
-    public function equipments(): HasMany
+    public function equipments(): HasManyThrough
     {
-        return $this->hasMany(Equipment::class, 'site_id');
+        return $this->hasManyThrough(
+            Equipment::class,
+            EquipmentType::class,
+            'site_id',
+            'equipment_type_id'
+        );
     }
 
     /**
