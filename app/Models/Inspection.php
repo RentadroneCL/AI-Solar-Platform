@@ -2,18 +2,19 @@
 
 namespace App\Models;
 
-use App\Traits\HasManyAnnotations;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\MediaLibrary\HasMedia;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Traits\{HasManyAnnotations, CustomProperties};
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Inspection extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
     use HasManyAnnotations;
+    use CustomProperties;
 
     /**
      * The table associated with the model.
@@ -31,6 +32,17 @@ class Inspection extends Model implements HasMedia
         'site_id',
         'name',
         'commissioning_date',
+        'custom_properties',
+        'custom_properties->data',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'custom_properties' => 'array',
     ];
 
     /**
@@ -42,6 +54,11 @@ class Inspection extends Model implements HasMedia
         'commissioning_date',
     ];
 
+    /**
+     * Site related model.
+     *
+     * @return BelongsTo
+     */
     public function site(): BelongsTo
     {
         return $this->belongsTo(Site::class, 'site_id');
