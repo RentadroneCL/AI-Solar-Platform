@@ -2,43 +2,16 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
-use Illuminate\Support\Arr;
-use App\Models\{Site, Equipment};
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\{Auth, Validator, Hash};
+use App\Models\{Equipment, Site};
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
 
-class EquipmentTable extends Component
+class EquipmentTable extends DataTableComponent
 {
-    /**
-     * Indicates if equipment edition is being confirmed.
-     *
-     * @var boolean
-     */
-    public bool $confirmingEquipmentEdition = false;
-
-    /**
-     * Indicates if equipment deletion is being confirmed.
-     *
-     * @var boolean
-     */
-    public bool $confirmingEquipmentDeletion = false;
-
-    /**
-     * Check ownership.
-     *
-     * @var boolean
-     */
-    protected bool $isOwner = false;
-
-    /**
-     * The user's current password.
-     *
-     * @var string
-     */
-    public string $password = '';
-
     /**
      * Site model.
      *
@@ -47,106 +20,106 @@ class EquipmentTable extends Component
     public Site $site;
 
     /**
-     * Equipment model.
-     *
-     * @var Equipment|null
-     */
-    public ?Equipment $equipment;
-
-    /**
-     * Equipments collection.
-     *
-     * @var Collection
-     */
-    public Collection $equipments;
-
-    /**
-     * The component's state.
-     *
-     * @var array
-     */
-    public array $state = [
-        'name' => '',
-        'brand' => null,
-        'model' => null,
-        'serial' => null,
-        'custom_properties' => null,
-    ];
-
-    /**
-     * Validation rules.
-     *
-     * @var array
-     */
-    protected array $rules = [
-        'state.name' => 'required|string|min:2',
-        'state.brand' => 'nullable|string|min:2',
-        'state.model' => 'nullable|string|min:2',
-        'state.serial' => 'nullable|string|min:2',
-        'state.custom_properties.*.key' =>'nullable|string|min:2',
-        'state.custom_properties.*.value' =>'nullable|string|min:2',
-        //'file' => 'required|file|mimes:csv',
-    ];
-
-    /**
-     * Custom error messages.
-     *
-     * @var array
-     */
-    protected $messages = [
-        'state.name.required' => 'The name field is required.',
-        'state.custom_properties.*.key.filled' => 'The feature field must have a value.',
-        'state.custom_properties.*.value.filled' => 'The value field must have a value.',
-    ];
-
-    /**
      * Event listeners.
      *
      * @var array
      */
     protected $listeners = [
-        'editEquipment',
-        'deleteEquipment',
-        'stored-equipment' => 'updateCollection',
-        'updated-equipment' => 'updateCollection',
-        'deleted-equipment' => 'updateCollection',
+        'edit',
+        'delete',
+        'saved-row' => '$refresh',
+        'edited-row' => '$refresh',
+        'deleted-row' => '$refresh',
     ];
 
     /**
-     * Set the component state.
+     * Calls the query method on the model.
+     *
+     * @return Builder
+     */
+    public function builder(): Builder
+    {
+        return Equipment::query()
+            ->with('type')
+            ->leftJoin('equipment_type', 'equipment_type.id', '=', 'equipments.equipment_type_id')
+            ->select('equipments.id', 'equipment_type.name as type', 'equipments.name', 'brand', 'model', 'serial', 'equipments.custom_properties')
+            ->where(['equipment_type.site_id' => $this->site->id]);
+    }
+
+    /**
+     * Component configuration.
      *
      * @return void
      */
-    public function mount(): void
+    public function configure(): void
     {
-        $this->isOwner = $this->site->isOwner();
+        $this->setPrimaryKey('equipments.id');
 
-        $this->equipments = $this->site->equipments;
+        // Perform methods on selected rows.
+        // $this->setBulkActions([
+        //     'delete' => __('Delete'),
+        // ]);
+    }
 
-        $this->state['custom_properties'] = [
-            ['key' => null, 'value' => null],
+    /**
+     * Column objects in the order you wish to see them on the table.
+     *
+     * @return array
+     */
+    public function columns(): array
+    {
+        return [
+            Column::make('Id', 'id')
+                ->sortable(),
+            Column::make('Type', 'type.name')
+                ->sortable(),
+            Column::make('Name', 'name')
+                ->sortable()
+                ->searchable(),
+            Column::make('Brand', 'brand')
+                ->sortable()
+                ->searchable(),
+            Column::make('Model', 'model')
+                ->sortable()
+                ->searchable(),
+            Column::make('Serial', 'serial')
+                ->sortable()
+                ->searchable(),
+            ButtonGroupColumn::make(__('Actions'))
+                ->buttons([
+                    LinkColumn::make(__('Edit'))
+                        ->title(fn($row) => __('Edit'))
+                        ->attributes(function ($row) {
+                            return [
+                                'class' => 'text-slate-400 hover:text-slate-500 hover:underline',
+                                'x-on:click' => "\$wire.emit('edit', {$row})"
+                            ];
+                        })
+                        ->location(fn($row) => '#'),
+                    LinkColumn::make(__('Delete'))
+                        ->title(fn($row) => __('Delete'))
+                        ->attributes(function ($row) {
+                            return [
+                                'class' => 'text-rose-400 hover:text-rose-500 hover:underline',
+                                'x-on:click' => "\$wire.emit('delete', {$row})",
+                            ];
+                        })
+                        ->location(fn($row) => '#'),
+                ]),
         ];
     }
 
     /**
-     * Update the specified resource in storage.
+     * Confirm that the user would like to edit the equipment.
      *
+     * @param array $row
      * @return void
      */
-    public function update(): void
+    public function edit(array $row): void
     {
-        abort_unless(!$this->isOwner || !Auth::user()->hasRole('administrator'), 403);
+        abort_unless($this->site->isOwner() || Auth::user()->hasRole('administrator'), 403);
 
-        $this->resetErrorBag();
-
-        $this->validate();
-
-        $this->equipment->update($this->state);
-        $this->equipment = null;
-
-        $this->confirmingEquipmentEdition = false;
-
-        $this->emit('updated-equipment');
+        $this->emitUp('edit-row', $row);
     }
 
     /**
@@ -154,126 +127,10 @@ class EquipmentTable extends Component
      *
      * @return void
      */
-    public function destroy(): void
+    public function delete(array $row): void
     {
-        abort_unless(!$this->isOwner || !Auth::user()->hasRole('administrator'), 403);
+        abort_unless($this->site->isOwner() || Auth::user()->hasRole('administrator'), 403);
 
-        $this->resetErrorBag();
-
-        Validator::make(['password' => $this->password], ['password' => 'required|string|min:2']);
-
-        if (! Hash::check($this->password, Auth::user()->password)) {
-            throw ValidationException::withMessages([
-                'password' => [__('This password does not match our records.')],
-            ]);
-        }
-
-        $this->equipment->delete();
-        $this->equipment = null;
-
-        $this->password = '';
-
-        $this->confirmingEquipmentDeletion = false;
-
-        $this->emit('deleted-equipment');
-    }
-
-    /**
-     * Confirm that the user would like to edit the equipment.
-     *
-     * @param Equipment $equipment
-     * @return void
-     */
-    public function editEquipment(Equipment $equipment): void
-    {
-        abort_unless(!$this->isOwner || !Auth::user()->hasRole('administrator'), 403);
-
-        $this->equipment = $equipment;
-
-        $this->state['name'] = $equipment->name;
-        $this->state['brand'] = $equipment->brand;
-        $this->state['model'] = $equipment->model;
-        $this->state['serial'] = $equipment->serial;
-        $this->state['custom_properties'] = $equipment->custom_properties;
-
-        $this->confirmingEquipmentEdition = true;
-
-        $this->dispatchBrowserEvent('equipment-content-change');
-    }
-
-    /**
-     * Confirm that the user would like to delete the equipment.
-     *
-     * @param Equipment $equipment
-     * @return void
-     */
-    public function deleteEquipment(Equipment $equipment): void
-    {
-        abort_unless(!$this->isOwner || !Auth::user()->hasRole('administrator'), 403);
-
-        $this->resetErrorBag();
-
-        $this->password = '';
-
-        $this->equipment = $equipment;
-
-        $this->confirmingEquipmentDeletion = true;
-
-        $this->dispatchBrowserEvent('confirming-delete-equipment');
-    }
-
-    /**
-     * Create dynamic input fields.
-     *
-     * @return void
-     */
-    public function addCustomPropertyInput(): void
-    {
-        array_push($this->state['custom_properties'], ['key' => null, 'value' => null]);
-    }
-
-    /**
-     * Remove specific input field.
-     *
-     * @param integer|null $key
-     * @return void
-     */
-    public function removeCustomPropertyInput(int $key = null): void
-    {
-        Arr::forget($this->state['custom_properties'], $key);
-
-        $this->emit('removed-custom-property');
-    }
-
-    /**
-     * Update equipments collection.
-     *
-     * @return void
-     */
-    public function updateCollection(): void
-    {
-        $this->equipments = $this->site->equipments;
-
-        $this->dispatchBrowserEvent('equipment-content-change');
-    }
-
-    /**
-     * Runs after the property is updated.
-     *
-     * @return void
-     */
-    public function updatedConfirmingEquipmentEdition(): void
-    {
-        $this->dispatchBrowserEvent('equipment-content-change');
-    }
-
-    /**
-     * Runs after the property is updated.
-     *
-     * @return void
-     */
-    public function updatedConfirmingEquipmentDeletion(): void
-    {
-        $this->dispatchBrowserEvent('equipment-content-change');
+        $this->emitUp('delete-row', $row);
     }
 }
