@@ -1,6 +1,6 @@
 # Solar Platform
 
-[![Continuous Integration](https://github.com/RentadroneCL/AI-Solar-Platform/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/afariasfermin/droneraising-next/actions/workflows/continuous-integration.yml)
+[![Continuous Integration](https://github.com/RentadroneCL/AI-Solar-Platform/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/RentadroneCL/AI-Solar-Platform/actions/workflows/continuous-integration.yml)
 [![PHP Version Require](https://img.shields.io/packagist/php-v/laravel/framework)](https://img.shields.io/packagist/php-v/laravel/framework)
 [![License](https://poser.pugx.org/composer/spdx-licenses/license)](https://packagist.org/packages/composer/spdx-licenses)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
