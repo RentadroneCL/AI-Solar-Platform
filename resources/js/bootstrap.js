@@ -43,10 +43,6 @@ if (token) {
 //     forceTLS: true
 // });
 
-import GeoTIFF, { fromUrl } from 'geotiff';
-window.GeoTIFF = GeoTIFF;
-window.fromUrl= fromUrl;
-
 import 'ol/ol.css';
 import * as ol from 'ol';
 window.ol = ol;
@@ -92,14 +88,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@fortawesome/fontawesome-free/js/all.min.js';
 
 import Chart from 'chart.js/dist/Chart.min.js';
-import 'chart.js/dist/Chart.min.css';
 window.Chart = Chart;
-
-import geojsonMerge from '@mapbox/geojson-merge';
-window.geojsonMerge = geojsonMerge;
-
-import { propEach } from '@turf/meta';
-window.propEach = propEach;
 
 import 'simple-datatables/dist/style.css';
 import { DataTable } from 'simple-datatables';
