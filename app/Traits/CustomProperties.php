@@ -3,22 +3,9 @@
 namespace App\Traits;
 
 use Illuminate\Support\Arr;
-use Illuminate\Database\Eloquent\Model;
 
 trait CustomProperties
 {
-    /**
-     * Check if the data object key is created & not empty
-     *
-     * @return boolean
-     */
-    public function dataIsNotEmpty(): bool
-    {
-        return isset($this->custom_properties['data'])
-            && count((array) $this->custom_properties['data'])
-            > 0;
-    }
-
     /**
      * Set custom properties.
      *
