@@ -48,7 +48,7 @@ class SiteController extends Controller
     public function show(int $id = null): View
     {
         return view('sites.show', [
-            'site' => Site::findOrFail($id),
+            'site' => Site::query()->with('inspections')->findOrFail($id),
         ]);
     }
 
