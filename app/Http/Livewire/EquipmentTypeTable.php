@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
-use Illuminate\Support\Arr;
-use App\Models\{Site, EquipmentType};
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\{Auth, Hash, Validator};
+use App\Models\{EquipmentType, Site};
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
 
-class EquipmentTypeTable extends Component
+class EquipmentTypeTable extends DataTableComponent
 {
     /**
      * Site model.
@@ -19,241 +20,102 @@ class EquipmentTypeTable extends Component
     public Site $site;
 
     /**
-     * Equipment type model.
-     *
-     * @var EquipmentType|null
-     */
-    public ?EquipmentType $equipmentType = null;
-
-    /**
-     * Equipments types collection.
-     *
-     * @var Collection
-     */
-    public Collection $equipmentTypes;
-
-    /**
-     * Indicates if equipment type deletion is being confirmed.
-     *
-     * @var bool
-     */
-    public bool $confirmingEquipmentTypeDeletion = false;
-
-    /**
-     * Indicates if equipment type edition is being confirmed.
-     *
-     * @var boolean
-     */
-    public bool $confirmingEquipmentTypeEdition = false;
-
-    /**
-     * The component's state.
-     *
-     * @var array
-     */
-    public array $state = [
-        'name' => '',
-        'quantity' => 0,
-        'custom_properties' => null,
-    ];
-
-    /**
-     * The user's current password.
-     *
-     * @var string
-     */
-    public string $password = '';
-
-    /**
-     * Validation rules.
-     *
-     * @var array
-     */
-    protected array $rules = [
-        'password' => 'required|string|min:2'
-    ];
-
-    /**
-     * Custom error messages.
-     *
-     * @var array
-     */
-    protected $messages = [
-        'state.name.required' => 'The name field is required.',
-        'state.name.quantity' => 'The quantity field is required.',
-        'state.custom_properties.*.key.filled' => 'The feature field must have a value.',
-        'state.custom_properties.*.value.filled' => 'The value field must have a value.',
-    ];
-
-    /**
      * Event listeners.
      *
      * @var array
      */
     protected $listeners = [
-        'editEquipmentType',
-        'deleteEquipmentType',
-        'stored-equipment-type' => 'updateCollection',
-        'updated-equipment-type' => 'updateCollection',
-        'deleted-equipment-type' => 'updateCollection',
+        'edit-type' => 'edit',
+        'delete-type' => 'delete',
+        'saved-type-row' => '$refresh',
+        'edited-type-row' => '$refresh',
+        'deleted-type-row' => '$refresh',
     ];
 
     /**
-     * Set the component state.
+     * Calls the query method on the model.
+     *
+     * @return Builder
+     */
+    public function builder(): Builder
+    {
+        return EquipmentType::query()
+            ->leftJoin('sites_information', 'sites_information.id', '=', 'equipment_type.site_id')
+            ->select('equipment_type.name', 'equipment_type.id', 'quantity', 'custom_properties')
+            ->where(['sites_information.id' => $this->site->id]);
+    }
+
+    /**
+     * Component configuration.
      *
      * @return void
      */
-    public function mount(): void
+    public function configure(): void
     {
-        // $this->equipmentTypes = $this->site->equipmentTypes;
+        $this->setPrimaryKey('id');
+    }
 
-        $this->state['custom_properties'] = [
-            ['key' => null, 'value' => null],
+    /**
+     * Column objects in the order you wish to see them on the table.
+     *
+     * @return array
+     */
+    public function columns(): array
+    {
+        return [
+            Column::make("Id", "id")
+                ->sortable(),
+            Column::make("Name", "name")
+                ->sortable()
+                ->searchable(),
+            Column::make("Quantity", "quantity")
+                ->sortable(),
+            ButtonGroupColumn::make(__('Actions'))
+                ->buttons([
+                    LinkColumn::make(__('Edit'))
+                        ->title(fn($row) => __('Edit'))
+                        ->attributes(function ($row) {
+                            return [
+                                'class' => 'text-slate-400 hover:text-slate-500 hover:underline',
+                                'x-on:click' => "\$wire.emit('edit-type', {$row})"
+                            ];
+                        })
+                        ->location(fn($row) => '#'),
+                    LinkColumn::make(__('Delete'))
+                        ->title(fn($row) => __('Delete'))
+                        ->attributes(function ($row) {
+                            return [
+                                'class' => 'text-rose-400 hover:text-rose-500 hover:underline',
+                                'x-on:click' => "\$wire.emit('delete-type', {$row})",
+                            ];
+                        })
+                        ->location(fn($row) => '#'),
+                ]),
         ];
     }
 
-    public function update(): void
+    /**
+     * Confirm that the user would like to edit the equipment.
+     *
+     * @param array $row
+     * @return void
+     */
+    public function edit(array $row): void
     {
-        abort_unless(Auth::user()->hasRole('administrator'), 403);
+        abort_unless($this->site->isOwner() || Auth::user()->hasRole('administrator'), 403);
 
-        $this->resetErrorBag();
-
-        Validator::make($this->state, [
-            'state.name' => 'required|string|min:2',
-            'state.quantity' => 'required|integer|min:1',
-            'state.custom_properties.*.key' =>'nullable|string|min:2',
-            'state.custom_properties.*.value' =>'nullable|string|min:2',
-        ]);
-
-        $this->equipmentType->update($this->state);
-        $this->equipmentType = null;
-
-        $this->confirmingEquipmentTypeEdition = false;
-
-        $this->emit('updated-equipment-type');
+        $this->emitUp('edit-type-row', $row);
     }
 
     /**
-     * Delete the current equipment type.
+     * Delete the specified resource in storage.
      *
      * @return void
      */
-    public function destroy(): void
+    public function delete(array $row): void
     {
-        abort_unless(Auth::user()->hasRole('administrator'), 403);
+        abort_unless($this->site->isOwner() || Auth::user()->hasRole('administrator'), 403);
 
-        $this->resetErrorBag();
-
-        Validator::make(['password' => $this->password], ['password' => 'required|string|min:2']);
-
-        if (! Hash::check($this->password, Auth::user()->password)) {
-            throw ValidationException::withMessages([
-                'password' => [__('This password does not match our records.')],
-            ]);
-        }
-
-        $this->equipmentType->delete();
-        $this->equipmentType = null;
-
-        $this->password = '';
-
-        $this->confirmingEquipmentTypeDeletion = false;
-
-        $this->emit('deleted-equipment-type');
-    }
-
-    /**
-     * Confirm that the user would like to edit the equipment type.
-     *
-     * @param EquipmentType $equipmentType
-     * @return void
-     */
-    public function editEquipmentType(EquipmentType $equipmentType): void
-    {
-        abort_unless(Auth::user()->hasRole('administrator'), 403);
-
-        $this->equipmentType = $equipmentType;
-
-        $this->state['name'] = $equipmentType->name;
-        $this->state['quantity'] = $equipmentType->quantity;
-        $this->state['custom_properties'] = $equipmentType->custom_properties;
-
-        $this->confirmingEquipmentTypeEdition = true;
-    }
-
-    /**
-     * Confirm that the user would like to delete the equipment type.
-     *
-     * @param EquipmentType $equipmentType
-     * @return void
-     */
-    public function deleteEquipmentType(EquipmentType $equipmentType): void
-    {
-        abort_unless(Auth::user()->hasRole('administrator'), 403);
-
-        $this->resetErrorBag();
-
-        $this->password = '';
-
-        $this->confirmingEquipmentTypeDeletion = true;
-
-        $this->equipmentType = $equipmentType;
-
-        $this->dispatchBrowserEvent('confirming-delete-equipment-type');
-    }
-
-    /**
-     * Create dynamic input fields.
-     *
-     * @return void
-     */
-    public function addCustomPropertyInput(): void
-    {
-        array_push($this->state['custom_properties'], ['key' => null, 'value' => null]);
-    }
-
-    /**
-     * Remove specific input field.
-     *
-     * @param integer|null $key
-     * @return void
-     */
-    public function removeCustomPropertyInput(int $key = null): void
-    {
-        Arr::forget($this->state['custom_properties'], $key);
-
-        $this->emit('removed-custom-property');
-    }
-
-    /**
-     * Update equipments types collection.
-     *
-     * @return void
-     */
-    public function updateCollection(): void
-    {
-        $this->equipmentTypes = $this->site->equipmentTypes;
-
-        $this->dispatchBrowserEvent('equipment-type-content-change');
-    }
-
-    /**
-     * Runs after the property is updated.
-     *
-     * @return void
-     */
-    public function updatedConfirmingEquipmentTypeDeletion(): void
-    {
-        $this->dispatchBrowserEvent('equipment-type-content-change');
-    }
-
-    /**
-     * Runs after the property is updated.
-     *
-     * @return void
-     */
-    public function updatedConfirmingEquipmentTypeEdition(): void
-    {
-        $this->dispatchBrowserEvent('equipment-type-content-change');
+        $this->emitUp('delete-type-row', $row);
     }
 }
