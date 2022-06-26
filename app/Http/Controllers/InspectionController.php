@@ -49,7 +49,7 @@ class InspectionController extends Controller
     public function show(int $id = null): View
     {
         return view('inspections.show', [
-            'inspection' => Inspection::findOrFail($id)
+            'inspection' => Inspection::query()->with('site')->findOrFail($id)
         ]);
     }
 
