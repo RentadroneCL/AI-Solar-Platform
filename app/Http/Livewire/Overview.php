@@ -2,27 +2,73 @@
 
 namespace App\Http\Livewire;
 
+use League\Csv\Writer;
 use Livewire\Component;
-use Illuminate\View\View;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\Model;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\{Auth, DB};
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Illuminate\Support\{LazyCollection, Arr, Collection};
+use App\Models\{Inspection, Site, Equipment, EquipmentType};
 
 class Overview extends Component
 {
-    /**
-     * The given model
-     *
-     * @var \Illuminate\Database\Eloquent\Model $model
-     */
-    public Model $model;
+    use WithFileUploads;
 
     /**
-     * Files collection.
+     * Display import CSV modal.
      *
-     * @var mixed $files
+     * @var boolean
      */
-    public $files;
+    public bool $showImportModal = false;
+
+    /**
+     * CSV file.
+     */
+    public $file;
+
+    /**
+     * Uploaded filename.
+     *
+     * @var string
+     */
+    public string $filename = 'Browse file';
+
+    /**
+     * CSV headers.
+     *
+     * @var array
+     */
+    protected array $csvHeader = [];
+
+    /**
+     * Site model.
+     *
+     * @var Site
+     */
+    public Site $site;
+
+    /**
+     * Inspection model.
+     *
+     * @var Inspection
+     */
+    public Inspection $inspection;
+
+    /**
+     * Custom property data.
+     *
+     * @var Collection
+     */
+    public Collection $dataset;
+
+    /**
+     * Validation rules.
+     *
+     * @var array
+     */
+    protected array $rules = [
+        'file' => 'required|file|mimes:csv',
+    ];
 
     /**
      * Set the component state.
@@ -31,27 +77,129 @@ class Overview extends Component
      */
     public function mount(): void
     {
-        $files = $this->model->getMedia('orthomosaic-geojson')
-            ->filter(fn($file) => in_array($file->mime_type, ['application/json', 'text/plain']))
-            ->map(function ($item) {
-                return (object) [
-                    'id' => $item->id,
-                    'file_name' => $item->file_name,
-                    'mime_type' => $item->mime_type,
-                    'url' => Storage::temporaryUrl($item->getPath(), Carbon::now()->addMinutes(60)),
-                ];
-            });
+        $this->site = $this->inspection->site;
 
-        $this->files = $files;
+        $this->dataset = collect($this->inspection->getCustomProperty('data'));
     }
 
     /**
-     * Render the component.
+     * Import csv file. -> This method need to be moved to a queue
      *
-     * @return View
+     * @return mixed
      */
-    public function render(): View
+    public function import(): mixed
     {
-        return view('livewire.overview');
+        abort_unless(
+            $this->site->isOwner() || Auth::user()->hasRole('administrator'),
+            403
+        );
+
+        $this->resetErrorBag();
+
+        $this->validate();
+
+        $collection = collect([]);
+
+        // Read CSV file.
+        LazyCollection::make(function () {
+            $file = fopen($this->file->temporaryUrl(), 'r');
+
+            while ($data = fgetcsv($file)) {
+                yield $data;
+            }
+        })->each(function ($item) use ($collection) {
+            $collection->push($item);
+        });
+
+        $this->csvHeader = $collection->first();
+
+        $filtered = $collection
+            ->skip(1)
+            ->map(fn($item) => array_combine($this->csvHeader, $item));
+
+        $quantity = EquipmentType::findOrFail(
+            $filtered->first()['equipment_type_id']
+        )->quantity;
+
+        $counter = $this->site->equipments()
+            ->where(['equipment_type_id' => $filtered->first()['equipment_type_id']])
+            ->count();
+
+        try {
+            DB::transaction(function () use ($filtered) {
+                // Update the inspection metadata.
+                $this->inspection->setCustomProperty('data', $filtered)->save();
+
+                // Update inspection tracking data for the current item.
+                $filtered->map(function ($item) {
+                    $equipment = Equipment::query()->where([
+                        'equipment_type_id' => $item['equipment_type_id'],
+                        'uuid' => $item['uuid'],
+                        'name' => $item['name'],
+                    ])->firstOr(function () use ($item) {
+                        $newEquipment = Equipment::create([
+                            'equipment_type_id' => $item['equipment_type_id'],
+                            'uuid' => $item['uuid'],
+                            'name' => $item['name'],
+                            'brand' => $item['brand'] ?? null,
+                            'model' => $item['model'] ?? null,
+                            'serial' => $item['serial'] ?? null,
+                        ]);
+
+                        return $newEquipment;
+                    });
+
+                    // Adds a new custom property or updates an existing one.
+                    $value = collect($item)
+                        ->except(['equipment_type_id', 'uuid', 'name'])
+                        ->toArray();
+
+                    $equipment->setCustomProperty("inspections.{$this->inspection->id}", $value)->save();
+                });
+            });
+
+            return redirect()->route('inspection.show', $this->inspection);
+
+        } catch (\Throwable $th) {
+            $this->showImportModal = false;
+            $this->emit('error', $th->getMessage());
+        }
+    }
+
+    /**
+     * Export csv data.
+     *
+     * @return StreamedResponse
+     */
+    public function export(): StreamedResponse
+    {
+        $collection = $this->inspection->getCustomProperty('data');
+
+        $header = Arr::except(collect($collection)->first(), 'equipment_type_id');
+
+        $csv = Writer::createFromFileObject(file: new \SplTempFileObject());
+        $csv->insertOne(
+            record: collect($header)->keys()->toArray()
+        );
+        $csv->insertAll(
+            records: collect($collection)
+                ->map(fn($item) => Arr::except($item, 'equipment_type_id'))
+                ->toArray()
+        );
+
+        return response()->streamDownload(
+            callback: fn() => $csv->output(),
+            name: "inspection-{$this->inspection->name}-data.csv"
+        );
+    }
+
+    /**
+     * Updated file property.
+     *
+     * @return void
+     */
+    public function updatedFile(): void
+    {
+        $this->filename = $this->file->temporaryUrl();
     }
 }
