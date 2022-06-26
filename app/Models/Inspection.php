@@ -11,10 +11,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Inspection extends Model implements HasMedia
 {
-    use HasFactory;
-    use InteractsWithMedia;
-    use HasManyAnnotations;
-    use CustomProperties;
+    use HasFactory,
+        InteractsWithMedia,
+        CustomProperties;
 
     /**
      * The table associated with the model.
