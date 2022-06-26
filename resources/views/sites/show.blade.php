@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="text-xl font-semibold leading-tight text-gray-800">
-      {{ $site->name }} <small class="ml-4 text-xs text-gray-600">{{ $site->inspections->count() }} {{ __('Inspections') }}</small>
+    <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-slate-400">
+      {{ $site->name }} <small class="ml-4 text-xs text-gray-600 dark:text-slate-500">{{ $site->inspections->count() }} {{ __('Inspections') }}</small>
     </h2>
   </x-slot>
 
@@ -16,7 +16,7 @@
     </div>
   @endif
 
-  <div class="py-10 mx-auto max-w-7xl sm:px-6 lg:px-8">
+  <div class="py-10 mx-auto max-w-fit sm:px-6 lg:px-8">
     <x-jet-action-section>
       <x-slot name="title">{{ __('Site Inspections') }}</x-slot>
 
@@ -24,12 +24,10 @@
 
       <x-slot name="content">
         @if (Auth::user()->hasRole('administrator'))
-          <div class="mb-5">
-            <livewire:new-inspection-modal-dialog :site="$site">
-          </div>
+          <livewire:new-inspection-modal-dialog :site="$site">
         @endif
 
-        <livewire:inspections-table :site="$site">
+        <livewire:inspection-table :site="$site">
       </x-slot>
     </x-jet-action-section>
 

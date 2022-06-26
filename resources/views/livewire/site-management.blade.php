@@ -1,22 +1,12 @@
 <div>
-  <div class="px-4 py-5 bg-white shadow sm:p-6 sm:rounded-lg">
-    <div class="md:grid md:grid-cols-3 md:gap-6">
-      <div class="px-4 md:col-span-1">
-        <div class="text-lg font-semibold text-slate-900">{{ __('Site Management') }}</div>
-        <div class="mt-1 text-sm text-slate-600">
-          {{ __('Register new sites or find the site and click on it to continue to the inspection page.') }}
-        </div>
-      </div>
-      <div class="px-4 mt-5 md:mt-0 md:col-span-2">
-        @if (Auth::user()->hasRole('administrator'))
-          <x-jet-button wire:click="$toggle('confirmingSiteCreation')">
-            <i class="mr-2 text-blue-300 fa-solid fa-solar-panel fa-fw"></i> {{ __('Create site') }}
-          </x-jet-button>
-        @endif
-      </div>
-    </div>
-    <x-jet-section-border></x-jet-section-border>
-    <livewire:sites-table :sites="$sites">
+  <div class="flex flex-col justify-start px-4 py-5 bg-white shadow dark:bg-slate-800 sm:p-6 sm:rounded-lg ring-1 ring-slate-900/5">
+    @if (Auth::user()->hasRole('administrator'))
+      <x-jet-button class="mx-4 mb-4 md:mx-0 md:ml-auto" wire:click="$toggle('confirmingSiteCreation')">
+        <i class="mr-2 text-blue-300 dark:text-white fa-solid fa-solar-panel fa-fw"></i> {{ __('Create site') }}
+      </x-jet-button>
+    @endif
+
+    <livewire:site-table>
   </div>
 
   {{-- Create site modal --}}
@@ -31,8 +21,8 @@
           @if (is_null($owner))
             <div class="inline-flex w-full">
               <x-jet-input wire:keyup="search" type="text" class="w-full mt-1 border-r-0 rounded-none rounded-l-md" wire:model.defer="query" placeholder="{{ __('Search user...') }}" />
-              <div class="p-2 mt-1 border-l shadow-sm bg-slate-200 rounded-r-md">
-                <i class="fa-solid fa-magnifying-glass text-slate-500 fa-fw"></i>
+              <div class="p-2 mt-1 border-l shadow-sm bg-slate-200 rounded-r-md dark:border-slate-600 dark:bg-slate-700/25">
+                <i class="fa-solid fa-magnifying-glass text-slate-500 dark:text-slate-400 fa-fw"></i>
               </div>
             </div>
           @endif
@@ -125,7 +115,7 @@
         </x-jet-secondary-button>
 
         <x-jet-button class="ml-2" wire:click="store" wire:loading.attr="disabled">
-          <i class="mr-2 text-blue-300 fa-solid fa-solar-panel fa-fw"></i> {{ __('Create') }}
+          <i class="mr-2 text-blue-300 dark:text-white fa-solid fa-solar-panel fa-fw"></i> {{ __('Create') }}
         </x-jet-button>
       </div>
     </x-slot>

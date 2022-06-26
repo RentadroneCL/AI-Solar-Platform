@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="fixed top-0 z-50 w-full bg-white border-b border-gray-100 opacity-100">
+<nav x-data="{ open: false }" class="fixed top-0 z-50 w-full bg-white border-b border-gray-100 opacity-100 dark:border-slate-900/10 dark:shadow-sm dark:bg-slate-900">
   <!-- Primary Navigation Menu -->
   <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
     <div class="flex justify-between h-16">
@@ -89,7 +89,7 @@
           <x-jet-dropdown align="right" width="48">
             <x-slot name="trigger">
               @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                <button class="flex text-sm transition duration-150 ease-in-out border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
+                <button class="flex text-sm transition duration-150 ease-in-out border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 dark:focus:border-slate-600">
                   <img class="object-cover w-8 h-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                 </button>
               @else
@@ -121,7 +121,7 @@
                 </x-jet-dropdown-link>
               @endif
 
-              <div class="border-t border-gray-100"></div>
+              <div class="border-t border-gray-100 dark:border-slate-600"></div>
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
@@ -138,7 +138,7 @@
 
       <!-- Hamburger -->
       <div class="flex items-center -mr-2 sm:hidden">
-        <button @click="open = ! open" class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
+        <button @click="open = ! open" class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md dark:text-slate-400 hover:text-gray-500 dark:focus:text-slate-500 hover:bg-gray-100 dark:hover:bg-slate-600 focus:outline-none focus:bg-gray-100 dark:focus:bg-slate-600 focus:text-gray-500">
           <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
             <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -166,7 +166,7 @@
     </div>
 
     <!-- Responsive Settings Options -->
-    <div class="pt-4 pb-1 border-t border-gray-200">
+    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-slate-600">
       <div class="flex items-center px-4">
         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
           <div class="flex-shrink-0 mr-3">
@@ -175,8 +175,8 @@
         @endif
 
         <div>
-          <div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
-          <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
+          <div class="text-base font-medium text-gray-800 dark:text-slate-400">{{ Auth::user()->name }}</div>
+          <div class="text-sm font-medium text-gray-500 dark:text-slate-300">{{ Auth::user()->email }}</div>
         </div>
       </div>
 

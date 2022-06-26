@@ -40,7 +40,7 @@
                 @endif
 
                 <x-jet-button class="ml-4">
-                  <i class="mr-2 text-blue-300 fa-solid fa-person-walking-arrow-right fa-fw"></i> {{ __('Login') }}
+                  <i class="mr-2 text-blue-300 dark:text-white fa-solid fa-person-walking-arrow-right fa-fw"></i> {{ __('Login') }}
                 </x-jet-button>
             </div>
         </form>

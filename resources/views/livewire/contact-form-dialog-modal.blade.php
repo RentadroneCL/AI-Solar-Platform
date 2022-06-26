@@ -1,6 +1,6 @@
 <div>
     <span class="inline-flex rounded-md">
-        <button wire:click="$toggle('confirmingContactFormSubmission')" type="button" class="inline-flex items-center px-3 py-2 mr-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none">
+        <button wire:click="$toggle('confirmingContactFormSubmission')" type="button" class="inline-flex items-center px-3 py-2 mr-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md dark:text-slate-400 dark:bg-slate-900 hover:text-gray-700 dark:hover:bg-slate-800 dark:hover:text-white focus:outline-none">
             <i class="fas fa-headset fa-fw fa-lg"></i>
         </button>
     </span>
@@ -31,12 +31,12 @@
 
             <div class="col-span-6 mb-4">
                 <x-jet-label for="type" value="{{ __('Reason for getting in touch') }}" />
-                <select wire:model.lazy="state.type" id="type" name="type" required class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                    <option value="">{{ __('Reason for getting in touch') }}</option>
-                    <option value="Account / Control Panel">Account / Control Panel</option>
-                    <option value="Billing">Billing</option>
-                    <option value="Something is not working">Something Is Not Working</option>
-                    <option value="Other">Other</option>
+                <select wire:model.lazy="state.type" id="type" name="type" required class="w-full border-gray-300 rounded-md shadow-sm dark:bg-slate-600/25 dark:text-slate-200 dark:border-slate-600 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    <option class="dark:bg-slate-600 dark:text-slate-400" value="">{{ __('Reason for getting in touch') }}</option>
+                    <option class="dark:bg-slate-600 dark:text-slate-400" value="Account / Control Panel">Account / Control Panel</option>
+                    <option class="dark:bg-slate-600 dark:text-slate-400" value="Billing">Billing</option>
+                    <option class="dark:bg-slate-600 dark:text-slate-400" value="Something is not working">Something Is Not Working</option>
+                    <option class="dark:bg-slate-600 dark:text-slate-400" value="Other">Other</option>
                 </select>
             </div>
 
@@ -48,7 +48,7 @@
 
             <div class="col-span-6 mb-4">
                 <x-jet-label for="message" value="{{ __('Message') }}" />
-                <textarea wire:model.lazy="state.message" id="message" name="message" rows="3" placeholder="{{ __('Brief description of how can help you') }}" class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" spellcheck="false"></textarea>
+                <textarea wire:model.lazy="state.message" id="message" name="message" rows="3" placeholder="{{ __('Brief description of how can help you') }}" class="w-full mt-1 border-gray-300 rounded-md shadow-sm dark:text-slate-200 dark:bg-slate-600/25 dark:border-slate-600 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" spellcheck="false"></textarea>
                 <x-jet-input-error for="state.message" class="mt-2" />
             </div>
         </x-slot>

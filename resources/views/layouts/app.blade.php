@@ -18,15 +18,15 @@
     <!-- Scripts -->
     <script defer src="{{ mix('js/app.js') }}"></script>
   </head>
-  <body class="font-sans antialiased">
+  <body class="font-sans antialiased bg-gray-100 text-slate-500 dark:bg-slate-900 dark:text-slate-400">
     <x-jet-banner />
 
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen">
       @livewire('navigation-menu')
 
       <!-- Page Heading -->
       @if (isset($header))
-        <header class="pt-16 bg-white shadow">
+        <header class="pt-16 bg-white shadow dark:bg-slate-800/25 dark:text-slate-400">
           <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
             {{ $header }}
           </div>

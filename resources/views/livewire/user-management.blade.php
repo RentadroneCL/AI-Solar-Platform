@@ -1,9 +1,9 @@
-<div>
-  <x-jet-button wire:click="$toggle('confirmingUserCreation')" class="mb-5">
-    <i class="mr-2 text-blue-300 fa-solid fa-user-plus fa-fw"></i> {{ __('Create user') }}
+<div class="flex flex-col justify-start px-4 py-5 bg-white shadow dark:bg-slate-800 sm:p-6 sm:rounded-lg ring-1 ring-slate-900/5">
+  <x-jet-button wire:click="$toggle('confirmingUserCreation')" class="w-auto mx-4 mb-4 md:mx-0 md:ml-auto">
+    <i class="mr-2 text-blue-300 dark:text-white fa-solid fa-user-plus fa-fw"></i> {{ __('Create user') }}
   </x-jet-button>
 
-  <livewire:user-table :users="$users">
+  <livewire:user-table>
 
   {{-- Create user modal --}}
   <x-jet-dialog-modal wire:model="confirmingUserCreation">
@@ -69,7 +69,7 @@
         </x-jet-secondary-button>
 
         <x-jet-button class="ml-2" wire:click="store" wire:loading.attr="disabled">
-          <i class="mr-2 text-blue-300 fa-solid fa-user-plus fa-fw"></i> {{ __('Create') }}
+          <i class="mr-2 text-blue-300 dark:text-white fa-solid fa-user-plus fa-fw"></i> {{ __('Create') }}
         </x-jet-button>
       </div>
     </x-slot>

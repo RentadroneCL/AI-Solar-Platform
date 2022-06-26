@@ -1,6 +1,6 @@
-<div class="mb-4 sm:mb-0">
+<div class="mx-4 mb-4 md:mx-0">
     <x-jet-button class="w-full md:w-auto" wire:click="$toggle('confirmingInspectionCreation')" wire:loading.attr="disabled">
-      <i class="mr-2 text-blue-300 fa-solid fa-solar-panel fa-fw"></i> {{ __('New Inspection') }}
+      <i class="mr-2 text-blue-300 dark:text-white fa-solid fa-solar-panel fa-fw"></i> {{ __('New Inspection') }}
     </x-jet-button>
 
     <!-- Create new inspection Modal -->
@@ -13,8 +13,8 @@
             <div class="md:grid md:grid-cols-3 md:gap-6">
                 <div class="md:col-span-1">
                     <div class="px-4 sm:px-0">
-                        <h3 class="text-lg font-medium text-gray-900">{{ __('New Inspection for this site') }}</h3>
-                        <p class="mt-1 text-sm text-gray-600">{{ __('Means of identifying this inspection, for example, Spring 2021.') }}</p>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-slate-200">{{ __('New Inspection for this site') }}</h3>
+                        <p class="mt-1 text-sm text-gray-600 dark:text-slate-400">{{ __('Means of identifying this inspection, for example, Spring 2021.') }}</p>
                     </div>
                 </div>
 

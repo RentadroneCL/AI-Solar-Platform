@@ -28,10 +28,13 @@
       </div>
     </div>
   @else
-    <div class="max-w-2xl px-4 py-5 mx-auto mt-8 bg-white shadow sm:p-6 sm:rounded-lg">
-      <h3 class="text-lg font-medium text-gray-900">{{ __('The report files are NOT uploaded yet.') }}</h3>
-      <div class="max-w-xl mt-3 text-sm text-gray-600">
-        <p>{{ __('Go to the Files management tab and upload all the data related to this inspection.') }}</p>
+    <div class="py-10 mx-auto sm:px-6 lg:px-8">
+      <div class="flex flex-col items-center justify-center px-6 py-12 border-2 border-dashed rounded-lg border-slate-200 dark:border-slate-600">
+        <i class="mb-4 fa-solid fa-file-pdf fa-fw fa-3x text-slate-400"></i>
+        <p class="font-semibold text-slate-900 dark:text-slate-400">{{ __('The report files are NOT uploaded yet.') }}</p>
+        <div class="mt-3 text-sm text-gray-600 dark:text-slate-500">
+          {{ __('Go to the Files management tab and upload all the data related to this inspection.') }}
+        </div>
       </div>
     </div>
   @endif

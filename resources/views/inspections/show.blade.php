@@ -4,7 +4,7 @@
       <x-jet-nav-link class="text-xl font-semibold leading-tight" href="{{ route('site.show', $inspection->site) }}">
         {{ $inspection->site->name }}
       </x-jet-nav-link>
-        <small class="ml-4 text-xs text-gray-600">{{ $inspection->name }} {{ __($inspection->commissioning_date->toFormattedDateString()) }}</small>
+        <small class="ml-4 text-xs text-gray-600 dark:text-slate-500">{{ $inspection->name }} {{ __($inspection->commissioning_date->toFormattedDateString()) }}</small>
       </h2>
   </x-slot>
 
@@ -20,38 +20,38 @@
   @endif
 
   <div x-data="{ tab: '#overview' }">
-    <nav class="bg-gray-200 border-b-2 border-gray-300">
+    <nav class="bg-gray-200 border-b-2 border-gray-300 dark:bg-slate-800 dark:border-slate-600">
       <div class="px-4 max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between h-full md:h-16">
           <div class="flex flex-col md:flex-row">
             <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
-              <a class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 cursor-pointer hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300" :class="{'text-gray-700 border-blue-400 border-b-2 font-semibold': tab === '#overview'}" @click="tab = '#overview'">
-                {{ __('Overview') }}
+              <a class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 cursor-pointer hover:text-gray-700 dark:hover:text-slate-400 hover:border-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-slate-400 focus:border-gray-300" :class="{'text-gray-700 dark:text-slate-400 border-blue-400 border-b-2 font-semibold': tab === '#overview'}" @click="tab = '#overview'">
+                <i class="mr-2 fa-solid fa-chart-area fa-fw text-slate-500"></i> {{ __('Overview') }}
               </a>
             </div>
 
             <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
-              <a class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 cursor-pointer hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300" :class="{'text-gray-700 border-blue-400 border-b-2 font-semibold': tab === '#map'}" @click="tab = '#map'">
-                {{ __('Map') }}
+              <a class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 cursor-pointer hover:text-gray-700 dark:hover:text-slate-400 hover:border-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-slate-400 focus:border-gray-300" :class="{'text-gray-700 dark:text-slate-400 border-blue-400 border-b-2 font-semibold': tab === '#map'}" @click="tab = '#map'">
+                <i class="mr-2 fa-solid fa-map-location-dot fa-fw text-slate-500"></i> {{ __('Map') }}
               </a>
             </div>
 
             <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
-              <a class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 cursor-pointer hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300" :class="{'text-gray-700 border-blue-400 border-b-2 font-semibold': tab === '#files'}" @click="tab = '#files'">
-                {{ __('Files') }}
+              <a class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 cursor-pointer hover:text-gray-700 dark:hover:text-slate-400 hover:border-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-slate-400 focus:border-gray-300" :class="{'text-gray-700 dark:text-slate-400 border-blue-400 border-b-2 font-semibold': tab === '#files'}" @click="tab = '#files'">
+                <i class="mr-2 fa-solid fa-hard-drive fa-fw text-slate-500"></i> {{ __('Files') }}
               </a>
             </div>
 
             <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
-              <a class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 cursor-pointer hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300" :class="{'text-gray-700 border-blue-400 border-b-2 font-semibold': tab === '#reports'}" @click="tab = '#reports'">
-                {{ __('Reports') }}
+              <a class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 cursor-pointer hover:text-gray-700 dark:hover:text-slate-400 hover:border-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-slate-400 focus:border-gray-300" :class="{'text-gray-700 dark:text-slate-400 border-blue-400 border-b-2 font-semibold': tab === '#reports'}" @click="tab = '#reports'">
+                <i class="mr-2 fa-solid fa-file-pdf fa-fw text-slate-500"></i> {{ __('Reports') }}
               </a>
             </div>
 
             @if (Auth::user()->hasRole('administrator'))
               <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                <a class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 cursor-pointer hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300" :class="{'text-gray-700 border-blue-400 border-b-2 font-semibold': tab === '#settings'}" @click="tab = '#settings'">
-                  {{ __('Settings') }}
+                <a class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 cursor-pointer hover:text-gray-700 dark:hover:text-slate-400 hover:border-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-slate-400 focus:border-gray-300" :class="{'text-gray-700 dark:text-slate-400 border-blue-400 border-b-2 font-semibold': tab === '#settings'}" @click="tab = '#settings'">
+                  <i class="mr-2 fa-solid fa-wrench fa-fw text-slate-500"></i> {{ __('Settings') }}
                 </a>
               </div>
             @endif
@@ -60,9 +60,9 @@
       </div>
     </nav>
 
-    <div x-show="tab === '#overview'" @cloak>
-      <div class="h-full py-10 mx-auto bg-white sm:px-6 lg:px-8">
-        <livewire:overview :model="$inspection">
+    <div class="max-h-full" x-show="tab === '#overview'" @cloak>
+      <div class="py-10 mx-auto sm:px-6 lg:px-8">
+        <livewire:overview :inspection="$inspection">
       </div>
     </div>
 

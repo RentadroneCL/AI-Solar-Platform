@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-slate-400">
             {{ $user->name }}
         </h2>
     </x-slot>
@@ -29,7 +29,7 @@
             </x-slot>
 
             <x-slot name="content">
-                <div class="max-w-xl text-sm text-gray-600">
+                <div class="max-w-xl text-sm text-gray-600 dark:text-slate-400">
                     {{ __('Reset the password once the user clicks on the password reset link that has been emailed to them and provides a new password.') }}
                 </div>
 
