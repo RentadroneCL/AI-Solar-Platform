@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\PanelType;
 use App\Models\Site;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

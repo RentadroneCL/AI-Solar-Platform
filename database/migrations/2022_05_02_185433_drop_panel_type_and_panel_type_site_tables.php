@@ -14,8 +14,10 @@ class DropPanelTypeAndPanelTypeSiteTables extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('panel_type_site');
         Schema::dropIfExists('panel_type');
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

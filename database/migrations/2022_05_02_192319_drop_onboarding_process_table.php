@@ -14,7 +14,9 @@ class DropOnboardingProcessTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('onboarding_process');
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

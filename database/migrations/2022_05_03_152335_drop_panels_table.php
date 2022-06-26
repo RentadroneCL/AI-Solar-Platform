@@ -13,7 +13,9 @@ class DropPanelsTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('panels');
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
