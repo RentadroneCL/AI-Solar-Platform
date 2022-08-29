@@ -2,6 +2,11 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/* Toggle */
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: rgb(59 130 246);
+}
 
 /* Site card little hack */
 .ol-map-site-card

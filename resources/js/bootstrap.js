@@ -43,6 +43,9 @@ if (token) {
 //     forceTLS: true
 // });
 
+import { fromUrl } from 'geotiff';
+window.fromUrl= fromUrl;
+
 import 'ol/ol.css';
 import * as ol from 'ol';
 window.ol = ol;
