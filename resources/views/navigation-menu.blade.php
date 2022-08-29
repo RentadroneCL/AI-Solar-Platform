@@ -38,7 +38,7 @@
             <x-jet-dropdown align="right" width="60">
               <x-slot name="trigger">
                 <span class="inline-flex rounded-md">
-                  <button type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
+                  <button type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md dark:bg-slate-800 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 hover:text-gray-700 dark:hover:text-slate-300 focus:outline-none focus:bg-gray-50 active:bg-gray-50 dark:focus:bg-slate-700 dark:active:bg-slate-700">
                     {{ Auth::user()->currentTeam->name }}
 
                     <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -66,7 +66,7 @@
                     </x-jet-dropdown-link>
                   @endcan
 
-                  <div class="border-t border-gray-100"></div>
+                  <div class="border-t border-gray-100 dark:border-slate-600"></div>
 
                   <!-- Team Switcher -->
                   <div class="block px-4 py-2 text-xs text-gray-400">
