@@ -31,10 +31,27 @@ class SitesCardGrid extends Component
      */
     public function mount(): void
     {
+        // If the user is the root admin load all sites available.
         if (Auth::user()->hasRole('administrator')) {
-            $this->sites = Site::all();
+            $this->sites = Site::query()
+                ->with('inspections')
+                ->select('id', 'name', 'latitude', 'longitude')
+                ->get();
         } else {
-            $this->sites = Auth::user()->sites;
+            // Sites are loading in the scope of the current team selected.
+            if (Auth::user()->currentTeam->id === Auth::user()->personalTeam()->id) {
+                $this->sites = Site::query()->with('inspections')
+                    ->rightJoin('users', 'users.id', '=', 'sites_information.user_id')
+                    ->select('sites_information.id', 'sites_information.name', 'latitude', 'longitude')
+                    ->where(['sites_information.user_id' => Auth::id()])
+                    ->get();
+            } else {
+                $this->sites = Site::query()->with('inspections')
+                    ->rightJoin('users', 'users.id', '=', 'sites_information.user_id')
+                    ->select('sites_information.id', 'sites_information.name', 'latitude', 'longitude')
+                    ->where(['sites_information.user_id' => Auth::user()->currentTeam->user_id])
+                    ->get();
+            }
         }
     }
 
@@ -54,10 +71,12 @@ class SitesCardGrid extends Component
 
             $this->sites = $filtered;
         } else {
-            $filtered = Auth::user()->sites()
-                ->with(['inspections'])
+            $filtered = Site::query()->with(['inspections'])
+                ->rightJoin('users', 'users.id', '=', 'sites_information.user_id')
+                ->select('sites_information.id', 'sites_information.name', 'latitude', 'longitude')
+                ->where(['sites_information.user_id' => Auth::user()->currentTeam->user_id])
                 ->where(function (Builder $query) {
-                    $query->where('name', 'like', '%' . $this->query . '%');
+                    $query->where('sites_information.name', 'like', '%' . $this->query . '%');
                 })
                 ->get();
 

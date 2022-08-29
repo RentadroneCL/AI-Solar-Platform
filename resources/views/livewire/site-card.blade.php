@@ -9,7 +9,8 @@
         </p>
         @if ($site->inspections->isNotEmpty())
           <ul class="list-none">
-            @foreach ($site->inspections()->select('id', 'name')->latest()->get()->take(5) as $inspection)
+            {{-- @foreach ($site->inspections()->select('id', 'name')->latest()->get()->take(5) as $inspection) --}}
+            @foreach ($site->inspections->take(5) as $inspection)
               <li>
                 <x-jet-nav-link href="{{ route('inspection.show', $inspection->id) }}">{{ $inspection->name }}</x-jet-nav-link>
               </li>

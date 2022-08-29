@@ -1,78 +1,104 @@
 <div>
   @if ($files)
-    <div class="h-full bg-white">
+    <div class="h-full bg-white dark:bg-slate-800">
       <div class="flex flex-col md:flex-row">
-        <div class="w-full md:w-1/5 md:border-r md:border-gray-200">
+        <div class="w-full md:w-1/5 md:border-r md:border-gray-200 md:dark:border-slate-600">
           <div class="px-4 py-5">
-            <h3 class="text-lg font-medium text-gray-900">{{ __('Map Viewer') }}</h3>
-            <p class="mt-1 text-sm text-gray-600">{{ __('This view allows you to navigate a geospatial web map of your solar report.') }}</p>
+            <h3 class="text-lg font-medium text-slate-900 dark:text-slate-400">{{ __('Map Viewer') }}</h3>
+            <p class="mt-1 text-sm text-slate-600 dark:text-slate-500">{{ __('This view allows you to navigate a geospatial web map of your solar report.') }}</p>
           </div>
 
           <div class="flex flex-col items-center justify-center p-4" x-data="{ open: true }">
-            <button @click="open = !open" class="inline-flex items-center w-full px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
-              {{ __('Layers') }} <i class="ml-auto text-gray-400 fas fa-fw" :class="{ 'fa-chevron-down': !open, 'fa-chevron-up': open }"></i>
+            <button @click="open = !open" class="inline-flex items-center w-full px-3 py-2 text-sm font-semibold leading-4 transition duration-150 ease-in-out bg-white border border-transparent rounded-md text-slate-500 dark:text-slate-400 dark:bg-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 hover:text-slate-700 dark:hover:text-slate-500 focus:outline-none focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600">
+              {{ __('Layers') }} <i class="ml-auto text-slate-400 fas fa-fw" :class="{ 'fa-chevron-down': !open, 'fa-chevron-up': open }"></i>
             </button>
 
             <div class="w-full transition-all duration-700" x-show="open">
               <div class="overflow-y-auto overscroll-auto h-96">
-                <ul class="list-none">
+                <div class="w-full">
                   {{-- Geotiff layers --}}
                   @if (count($files['geotiff']))
                     @foreach ($files['geotiff'] as $file)
-                      <li x-data="layer()" :class="{ 'text-gray-700 bg-gray-50': checked }" class="inline-flex items-center w-full px-3 py-2 text-sm font-medium text-gray-600 transition duration-150 ease-in-out cursor-pointer hover:text-gray-700 hover:bg-gray-50 focus:outline-none focus:text-gray-700 focus:bg-gray-50">
-                        <i class="mr-2 fas fa-fw" :class="{ 'fa-eye-slash': !checked, 'fa-eye text-blue-600': checked }"></i>
-                        <input @click="activate({ type: 'geotiff', id: {{ $file->id }}, url: '{{ Storage::temporaryUrl($file->getPath(), Carbon::now()->addMinutes(60)) }}' })" id="{{ $file->id }}" type="checkbox" class="mr-2 text-blue-600 border-gray-300 rounded shadow-sm cursor-pointer focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"> {{ $file->name }}
-                        <i id="spinner-{{ $file->id }}" class="hidden ml-auto text-blue-600 fas fa-sync-alt fa-fw fa-spin" title="{{ __('Fetching data') }}"></i>
-                      </li>
+                      <div x-data="layer()"  class="flex items-center justify-start w-full px-1 py-2 my-1">
+                        <label class="flex items-center w-full cursor-pointer" title="{{ $file->name }}">
+                          <!-- toggle -->
+                          <div class="relative">
+                            <!-- input -->
+                            <input id="{{ $file->id }}" type="checkbox" class="sr-only" @click="activate({ type: 'geotiff', id: {{ $file->id }}, url: '{{ Storage::temporaryUrl($file->getPath(), Carbon::now()->addMinutes(60)) }}' })" id="{{ $file->id }}" />
+                            <!-- line -->
+                            <div class="w-10 h-4 rounded-full shadow-inner bg-slate-400"></div>
+                            <!-- dot -->
+                            <div class="absolute w-6 h-6 transition rounded-full shadow bg-slate-50 dark:bg-slate-600 dot -left-1 -top-1"></div>
+                          </div>
+                          <!-- label -->
+                          <div class="ml-3 font-medium text-slate-700 dark:text-slate-500">
+                            {{ Str::limit($file->name, 30, '...') }}
+                          </div>
+                          <i id="spinner-{{ $file->id }}" class="hidden ml-auto text-blue-600 dark:text-slate-500 fas fa-sync-alt fa-fw fa-spin" title="{{ __('Fetching data') }}"></i>
+                        </label>
+                      </div>
                     @endforeach
                   @endif
 
                   {{-- GeoJSON Layers --}}
                   @if (count($files['geojson']))
                     @foreach ($files['geojson'] as $file)
-                      <li x-data="layer()" :class="{ 'text-gray-700 bg-gray-50': checked }" class="inline-flex items-center w-full px-3 py-2 text-sm font-medium text-gray-600 transition duration-150 ease-in-out cursor-pointer hover:text-gray-700 hover:bg-gray-50 focus:outline-none focus:text-gray-700 focus:bg-gray-50">
-                        <i class="mr-2 fas fa-fw" :class="{ 'fa-eye-slash': !checked, 'fa-eye text-blue-600': checked }"></i>
-                        <input @click="activate({ type: 'geojson', id: {{ $file->id }}, url: '{{ Storage::temporaryUrl($file->getPath(), Carbon::now()->addMinutes(60)) }}' })" id="{{ $file->id }}" type="checkbox" class="mr-2 text-blue-600 border-gray-300 rounded shadow-sm cursor-pointer focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"> {{ $file->name }}
-                      </li>
+                      <div x-data="layer()"  class="flex items-center justify-start w-full px-1 py-2 my-1">
+                        <label class="flex items-center w-full cursor-pointer" title="{{ $file->name }}">
+                          <!-- toggle -->
+                          <div class="relative">
+                            <!-- input -->
+                            <input id="{{ $file->id }}" type="checkbox" class="sr-only" @click="activate({ type: 'geojson', id: {{ $file->id }}, url: '{{ Storage::temporaryUrl($file->getPath(), Carbon::now()->addMinutes(60)) }}' })" id="{{ $file->id }}" />
+                            <!-- line -->
+                            <div class="w-10 h-4 rounded-full shadow-inner bg-slate-400"></div>
+                            <!-- dot -->
+                            <div class="absolute w-6 h-6 transition rounded-full shadow bg-slate-50 dark:bg-slate-600 dot -left-1 -top-1"></div>
+                          </div>
+                          <!-- label -->
+                          <div class="ml-3 font-medium text-slate-700 dark:text-slate-500">
+                            {{ Str::limit($file->name, 30, '...') }}
+                          </div>
+                        </label>
+                      </div>
                     @endforeach
                   @endif
-                </ul>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="flex flex-col items-center justify-center p-4" x-data="{ open: false }">
-            <button @click="open = !open" class="inline-flex items-center w-full px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
+            <button @click="open = !open" class="inline-flex items-center w-full px-3 py-2 text-sm font-semibold leading-4 transition duration-150 ease-in-out bg-white border border-transparent rounded-md text-slate-500 dark:text-slate-400 dark:bg-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 hover:text-slate-700 dark:hover:text-slate-500 focus:outline-none focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600">
               {{ __('Legend') }} <i class="ml-auto text-gray-400 fas fa-fw" :class="{ 'fa-chevron-down': !open, 'fa-chevron-up': open }"></i>
             </button>
 
             <div class="transition-all duration-700" x-show="open">
-              <ul class="list-none">
-                <li class="inline-flex items-center w-full px-3 py-2 text-sm text-gray-700">
+              <ul class="list-none text-slate-700 dark:text-slate-500">
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
                   1. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(255, 255, 0);"></div> An Affected Cell or Connection
                 </li>
-                <li class="inline-flex items-center w-full px-3 py-2 text-sm text-gray-700">
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
                   2. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(255, 255, 0);"></div> 2 to 4 Cells Affected
                 </li>
-                <li class="inline-flex items-center w-full px-3 py-2 text-sm text-gray-700">
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
                   3. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(255, 255, 0);"></div> 5 or more Cells Affected
                 </li>
-                <li class="inline-flex items-center w-full px-3 py-2 text-sm text-gray-700">
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
                   4. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(3, 175, 255);"></div> Bypass Diode
                 </li>
-                <li class="inline-flex items-center w-full px-3 py-2 text-sm text-gray-700">
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
                   5. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(229, 0, 3);"></div> Disconnected / Deactivated
                 </li>
-                <li class="inline-flex items-center w-full px-3 py-2 text-sm text-gray-700">
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
                   6. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(229, 0, 3);"></div> Connections or Others
                 </li>
-                <li class="inline-flex items-center w-full px-3 py-2 text-sm text-gray-700">
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
                   7. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(255, 127, 0);"></div> Soiling / Dirty
                 </li>
-                <li class="inline-flex items-center w-full px-3 py-2 text-sm text-gray-700">
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
                   8. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(255, 127, 0);"></div> Damaged Tracker
                 </li>
-                <li class="inline-flex items-center w-full px-3 py-2 text-sm text-gray-700">
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
                   9. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(255, 127, 0);"></div> Shadowing
                 </li>
               </ul>
@@ -95,8 +121,8 @@
               From: "opacity-100"
               To: "opacity-0"
           -->
-          <div class="absolute inset-0 transition-opacity bg-gray-500 bg-opacity-75" aria-hidden="true"></div>
-          <div class="fixed inset-y-0 right-0 flex max-w-full pl-10">
+          <div class="absolute inset-0 transition-opacity bg-opacity-75 bg-slate-500" aria-hidden="true"></div>
+          <div class="fixed inset-y-0 right-0 flex w-2/3 pl-10">
             <!--
               Slide-over panel, show/hide based on slide-over state.
 
@@ -108,7 +134,7 @@
                 To: "translate-x-full"
             -->
             <div
-              class="relative w-screen max-w-lg"
+              class="relative w-screen"
               x-transition:enter="transition ease duration-300"
               x-transition:enter-start="transform translate-x-0"
               x-transition:enter-end="transform translate-x-64"
@@ -126,91 +152,86 @@
                   From: "opacity-100"
                   To: "opacity-0"
               -->
-              <div class="absolute top-0 left-0 flex pt-4 pr-4 mt-16 -ml-10 sm:-ml-12">
-                <button @click="overlay = !overlay" type="button" class="p-1 text-white transition duration-150 ease-in-out bg-blue-900 bg-opacity-25 border-2 border-white border-opacity-25 rounded-md hover:bg-opacity-75 hover:border-opacity-50">
-                  <i class="fas fa-times fa-fw"></i>
-                </button>
-              </div>
-
-              <div class="flex flex-col h-full py-16 overflow-y-scroll bg-white shadow-xl">
-                <div class="px-4 py-3 sm:px-6">
-                  <h2 class="inline-flex items-center justify-start text-lg font-bold text-gray-700" id="slide-over-title">
+              <div class="flex flex-col h-full py-16 overflow-y-scroll bg-white shadow-xl dark:bg-slate-800">
+                <div class="inline-flex items-center justify-between px-4 py-3 sm:px-6">
+                  <h2 class="inline-flex items-center justify-start text-lg font-bold text-slate-700 dark:text-slate-400" id="slide-over-title">
                     <i class="mr-2 text-blue-500 fa-solid fa-solar-panel fa-fw"></i> <span id="panel" class="uppercase"></span>
                   </h2>
+                  <button @click="overlay = !overlay" type="button" class="p-1 transition duration-150 bg-transparent bg-opacity-25 border-2 border-transparent border-opacity-25 rounded-md hover:bg-slate-50 dark:hover:bg-slate-700 dark:text-slate-400 text-slate-600 ease-in-ou hover:bg-opacity-75 hover:border-opacity-50">
+                    <i class="fas fa-times fa-fw"></i>
+                  </button>
                 </div>
-
-                <livewire:sync-panel-information-form :model='$model'>
 
                 <div class="relative flex-1 px-4 sm:px-6">
                   <div class="absolute inset-0 px-4 sm:px-6">
                     <div class="h-full" aria-hidden="true">
                       <table class="w-full table-auto" :class="{ 'mb-2': panelInfo }">
-                        <button type="button" @click="anomalyInfo = !anomalyInfo" class="inline-flex items-center justify-between w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-gray-50 active:bg-gray-50 hover:bg-gray-50 focus:outline-none" :class="{ 'text-gray-600': !location, 'text-gray-700 bg-gray-50': location }">
+                        <button type="button" @click="anomalyInfo = !anomalyInfo" class="inline-flex items-center justify-between w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none" :class="{ 'text-slate-600': !location, 'text-slate-700 dark:text-slate-400 bg-slate-50 dark:bg-slate-700': location }">
                           {{ __('Thermal Anomaly') }} <i class="fas fa-fw" :class="{ 'fa-chevron-down': !anomalyInfo, 'fa-chevron-up': anomalyInfo }"></i>
                         </button>
                         <tbody x-show="anomalyInfo">
                           <tr>
-                            <th class="p-4 font-medium text-left text-gray-400 border-b">{{ __('Code') }}</th>
-                            <td class="p-4 text-gray-500 border-b border-gray-100" id="fail-code"></td>
+                            <th class="p-4 font-medium text-left border-b text-slate-400 border-slate-100 dark:border-slate-600">{{ __('Code') }}</th>
+                            <td class="p-4 border-b text-slate-500 border-slate-100 dark:border-slate-600" id="fail-code"></td>
                           </tr>
                           <tr>
-                            <th class="p-4 font-medium text-left text-gray-400 border-b">{{ __('Type') }}</th>
-                            <td class="p-4 text-gray-500 border-b border-gray-100" id="fail-type"></td>
+                            <th class="p-4 font-medium text-left border-b text-slate-400 border-slate-100 dark:border-slate-600">{{ __('Type') }}</th>
+                            <td class="p-4 border-b text-slate-500 border-slate-100 dark:border-slate-600" id="fail-type"></td>
                           </tr>
                           <tr>
-                            <th class="p-4 font-medium text-left text-gray-400 border-b">{{ __('Severity') }}</th>
-                            <td class="p-4 text-gray-500 border-b border-gray-100" id="severity-level"></td>
+                            <th class="p-4 font-medium text-left border-b text-slate-400 border-slate-100 dark:border-slate-600">{{ __('Severity') }}</th>
+                            <td class="p-4 border-b text-slate-500 border-slate-100 dark:border-slate-600" id="severity-level"></td>
                           </tr>
                           <tr>
-                            <th class="p-4 font-medium text-left text-gray-400 border-b">{{ __('Max Temperature') }}</th>
-                            <td class="p-4 text-gray-500 border-b border-gray-100" id="max-temperature"></td>
+                            <th class="p-4 font-medium text-left border-b text-slate-400 border-slate-100 dark:border-slate-600">{{ __('Max Temperature') }}</th>
+                            <td class="p-4 border-b text-slate-500 border-slate-100 dark:border-slate-600" id="max-temperature"></td>
                           </tr>
                           <tr>
-                            <th class="p-4 font-medium text-left text-gray-400 border-b">{{ __('Mean Temperature') }}</th>
-                            <td class="p-4 text-gray-500 border-b border-gray-100" id="mean-temperature"></td>
+                            <th class="p-4 font-medium text-left border-b text-slate-400 border-slate-100 dark:border-slate-600">{{ __('Mean Temperature') }}</th>
+                            <td class="p-4 border-b text-slate-500 border-slate-100 dark:border-slate-600" id="mean-temperature"></td>
                           </tr>
                           <tr>
-                            <th class="p-4 font-medium text-left text-gray-400 border-b">{{ __('Reference Temperature') }}</th>
-                            <td class="p-4 text-gray-500 border-b border-gray-100" id="ref-temperature"></td>
+                            <th class="p-4 font-medium text-left border-b text-slate-400 border-slate-100 dark:border-slate-600">{{ __('Reference Temperature') }}</th>
+                            <td class="p-4 border-b text-slate-500 border-slate-100 dark:border-slate-600" id="ref-temperature"></td>
                           </tr>
                         </tbody>
                       </table>
 
                       <table class="w-full table-auto" :class="{ 'mb-2': panelInfo }">
-                        <button type="button" @click="panelInfo = !panelInfo" class="inline-flex items-center justify-between w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-gray-50 active:bg-gray-50 hover:bg-gray-50 focus:outline-none" :class="{ 'text-gray-600': !location, 'text-gray-700 bg-gray-50': location }">
+                        <button type="button" @click="panelInfo = !panelInfo" class="inline-flex items-center justify-between w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none" :class="{ 'text-slate-600': !location, 'text-slate-700 dark:text-slate-400 bg-slate-50 dark:bg-slate-700': location }">
                           {{ __('Location') }} <i class="fas fa-fw" :class="{ 'fa-chevron-down': !panelInfo, 'fa-chevron-up': panelInfo }"></i>
                         </button>
                         <tbody x-show="panelInfo">
                           <tr>
-                            <th class="p-4 font-medium text-left text-gray-400 border-b">{{ __('Zone') }}</th>
-                            <td class="p-4 text-gray-500 border-b border-gray-100" id="zone"></td>
+                            <th class="p-4 font-medium text-left border-b text-slate-400 border-slate-100 dark:border-slate-600">{{ __('Zone') }}</th>
+                            <td class="p-4 border-b text-slate-500 border-slate-100 dark:border-slate-600" id="zone"></td>
                           </tr>
                           <tr>
-                            <th class="p-4 font-medium text-left text-gray-400 border-b">{{ __('Sub Zone') }}</th>
-                            <td class="p-4 text-gray-500 border-b border-gray-100" id="sub-zone"></td>
+                            <th class="p-4 font-medium text-left border-b text-slate-400 border-slate-100 dark:border-slate-600">{{ __('Sub Zone') }}</th>
+                            <td class="p-4 border-b text-slate-500 border-slate-100 dark:border-slate-600" id="sub-zone"></td>
                           </tr>
                           <tr>
-                            <th class="p-4 font-medium text-left text-gray-400 border-b">{{ __('String') }}</th>
-                            <td class="p-4 text-gray-500 border-b border-gray-100" id="string"></td>
+                            <th class="p-4 font-medium text-left border-b text-slate-400 border-slate-100 dark:border-slate-600">{{ __('String') }}</th>
+                            <td class="p-4 border-b text-slate-500 border-slate-100 dark:border-slate-600" id="string"></td>
                           </tr>
                           <tr>
-                            <th class="p-4 font-medium text-left text-gray-400 border-b">{{ __('Module') }}</th>
-                            <td class="p-4 text-gray-500 border-b border-gray-100" id="module"></td>
+                            <th class="p-4 font-medium text-left border-b text-slate-400 border-slate-100 dark:border-slate-600">{{ __('Module') }}</th>
+                            <td class="p-4 border-b text-slate-500 border-slate-100 dark:border-slate-600" id="module"></td>
                           </tr>
                           <tr>
-                            <th class="p-4 font-medium text-left text-gray-400 border-b">{{ __('Serial Number') }}</th>
-                            <td class="p-4 text-gray-500 border-b border-gray-100" id="serial-number"></td>
+                            <th class="p-4 font-medium text-left border-b text-slate-400 border-slate-100 dark:border-slate-600">{{ __('Serial Number') }}</th>
+                            <td class="p-4 border-b text-slate-500 border-slate-100 dark:border-slate-600" id="serial-number"></td>
                           </tr>
                         </tbody>
                       </table>
 
                       <div class="flex flex-col justify-start w-full">
-                        <button type="button" @click="imageInfo = !imageInfo" class="inline-flex items-center justify-between w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-gray-50 active:bg-gray-50 hover:bg-gray-50 focus:outline-none" :class="{ 'text-gray-600': !location, 'text-gray-700 bg-gray-50': location }">
+                        <button type="button" @click="imageInfo = !imageInfo" class="inline-flex items-center justify-between w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none" :class="{ 'text-slate-600': !location, 'text-slate-700 dark:text-slate-400 bg-slate-50 dark:bg-slate-700': location }">
                           {{ __('Image File') }} <i class="fas fa-fw" :class="{ 'fa-chevron-down': !imageInfo, 'fa-chevron-up': imageInfo }"></i>
                         </button>
                         <div class="block w-full px-4 py-2" x-show="imageInfo">
-                          <h2 id="img-filename" class="font-bold text-left text-gray-700">N/A</h2>
-                          <p id="img-size" class="w-full mt-1 text-sm font-semibold text-gray-600 uppercase">N/A</p>
+                          <h2 id="img-filename" class="font-bold text-left text-slate-700 dark:text-slate-400">N/A</h2>
+                          <p id="img-size" class="w-full mt-1 text-sm font-semibold uppercase text-slate-600 dark:text-slate-500">N/A</p>
                           <img id="img-file" class="w-full mt-2 mb-4 rounded-lg shadow h-80" src="" alt="">
                         </div>
                       </div>

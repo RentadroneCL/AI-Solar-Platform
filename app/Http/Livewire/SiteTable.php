@@ -76,15 +76,6 @@ class SiteTable extends DataTableComponent
             Column::make("Name", "name")
                 ->sortable()
                 ->searchable(),
-            Column::make("Address", "address")
-                ->sortable()
-                ->searchable(),
-            Column::make("Latitude", "latitude")
-                ->sortable()
-                ->searchable(),
-            Column::make("Longitude", "longitude")
-                ->sortable()
-                ->searchable(),
             ButtonGroupColumn::make(__('Actions'))
                 ->buttons([
                     LinkColumn::make(__('Manage'))
