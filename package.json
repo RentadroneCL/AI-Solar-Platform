@@ -10,6 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@alpinejs/persist": "^3.10.3",
         "@babel/core": "^7.16.7",
         "@babel/plugin-proposal-class-properties": "^7.16.7",
         "@babel/preset-env": "^7.16.7",
@@ -28,7 +29,7 @@
         "geotiff": "^1.0.9",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-        "ol": "^6.9.0",
+        "ol": "^7.1.0",
         "ol-hashed": "^2.1.0",
         "postcss": "^8.1.14",
         "postcss-import": "^14.0.1",
