@@ -101,6 +101,24 @@
                 <li class="inline-flex items-center w-full px-3 py-2 text-sm">
                   9. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(255, 127, 0);"></div> Shadowing
                 </li>
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
+                  10. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(12, 56, 112);"></div> Missing Panel
+                </li>
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
+                  11. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(229, 0, 3);"></div> Disconnected / Deactivated String
+                </li>
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
+                  12. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(229, 0, 3);"></div> Disconnected / Deactivated Zone
+                </li>
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
+                  13. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(229, 0, 3);"></div> Hot Spot Single
+                </li>
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
+                  14. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(229, 0, 3);"></div> Hot Spot Multi
+                </li>
+                <li class="inline-flex items-center w-full px-3 py-2 text-sm">
+                  15. <div class="w-4 h-4 mx-2 rounded-full" style="background-color:rgb(3, 175, 255);"></div> Bypass Diode Multi
+                </li>
               </ul>
             </div>
           </div>
@@ -109,8 +127,8 @@
         <div id="ol-map-container" class="w-full m-5 rounded h-96 md:h-screen md:w-4/5 md:m-0 md:rounded-none md:rounded-r-lg"></div>
       </div>
 
-      <div x-data="{ overlay: false, panelInfo: false, anomalyInfo: true, imageInfo: false, annotations: false }" id="slide-over" :class="{ 'hidden': !overlay }" class="fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-        <div class="absolute inset-0 overflow-hidden">
+      <div x-data="{ overlay: false, panelInfo: false, anomalyInfo: true, imageInfo: false, annotations: false }" id="slide-over" :class="{ 'hidden': !overlay }" class="fixed" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div class="absolute">
           <!--
             Background overlay, show/hide based on slide-over state.
 
@@ -121,8 +139,8 @@
               From: "opacity-100"
               To: "opacity-0"
           -->
-          <div class="absolute inset-0 transition-opacity bg-opacity-75 bg-slate-500" aria-hidden="true"></div>
-          <div class="fixed inset-y-0 right-0 flex w-2/3 pl-10">
+          <!-- <div class="absolute inset-0 transition-opacity bg-opacity-75 bg-slate-500" aria-hidden="true"></div> -->
+          <div class="fixed inset-y-0 right-0 flex w-2/4 pl-10">
             <!--
               Slide-over panel, show/hide based on slide-over state.
 
@@ -369,6 +387,9 @@
           10: "{{ __('MISSING PANEL') }}",
           11: "{{ __('DISCONNECTED / DEACTIVATED STRING') }}",
           12: "{{ __('DISCONNECTED / DEACTIVATED ZONE') }}",
+          13: "{{ __('HOT SPOT SINGLE') }}",
+          14: "{{ __('HOT SPOT MULTI') }}",
+          15: "{{ __('BYPASS DIODE MULTI') }}",
         };
 
         // subtract 1 to match the type, because the return value is an array.
@@ -476,9 +497,9 @@
           const clickedFeatureFailCode = feature.get('failCode') ?? 'N/A';
           const clickedFeatureFailType = feature.get('failCode') ?? 'N/A';
           const clickedFeatureSeverity = feature.get('severity') ?? 'N/A';
-          const clickedFeatureTempMax  = feature.get('tempMax') ?? 'N/A';
-          const clickedFeatureTempMean = feature.get('tempMean') ?? 'N/A';
-          const clickedFeatureTempRef  = feature.get('tempRef') ?? 'N/A';
+          const clickedFeatureTempMax  = feature.get('tempMax') ?? 0;
+          const clickedFeatureTempMean = feature.get('tempMean') ?? 0;
+          const clickedFeatureTempRef  = feature.get('tempRef') ?? 0;
           const clickedFeatureFilename = feature.get('filename') ?? null;
 
           // Set values.
@@ -580,6 +601,18 @@
 
         const missingPanelFillStyle = new Fill({
           color: 'rgba(12, 56, 112, 0.1)',
+        });
+
+        const hotSpotSingleFillStyle = new Fill({
+          color: 'rgba(229, 0, 3, 0.3)',
+        });
+
+        const hotSpotMultiFillStyle = new Fill({
+          color: 'rgba(229, 0, 3, 0.3)',
+        });
+
+        const bypassDiodeMultiFillStyle = new Fill({
+          color: 'rgba(3, 175, 255, 0.3)',
         });
 
         const defaultFillStyle = new Fill({
@@ -727,6 +760,39 @@
             }));
             break;
 
+          case 13:
+            return feature.setStyle(new Style({
+              fill: hotSpotSingleFillStyle,
+              stroke: new Stroke({
+                color: [229, 0, 3, 0.3],
+                width: 1.25,
+              }),
+              text: featureTextLabel,
+            }));
+            break;
+
+          case 14:
+            return feature.setStyle(new Style({
+              fill: hotSpotMultiFillStyle,
+              stroke: new Stroke({
+                color: [229, 0, 3, 0.3],
+                width: 1.25,
+              }),
+              text: featureTextLabel,
+            }));
+            break;
+
+          case 15:
+            return feature.setStyle(new Style({
+              fill: bypassDiodeMultiFillStyle,
+              stroke: new Stroke({
+                color: [3, 175, 255, 0.3],
+                width: 1.25,
+              }),
+              text: featureTextLabel,
+            }));
+            break;
+
           default:
             return feature.setStyle(new Style({
               fill: defaultFillStyle,
@@ -783,11 +849,11 @@
         const checkbox = document.getElementById(payload.id);
 
         const spinner = document.getElementById(`spinner-${payload.id}`);
-        spinner.classList.toggle('hidden');
 
         let data = {...payload};
 
         if (!getLayerById(data.id)) {
+          spinner.classList.remove('hidden');
           // const pool = new Pool();
           const tiff = await fromUrl(data.url);
           const image = await tiff.getImage();
@@ -824,11 +890,12 @@
             }),
             visible: true,
             maxZoom: 20,
+            opacity: 0.9,
           });
 
           store.push(data);
           map.addLayer(data.layer);
-          spinner.classList.toggle('hidden');
+          document.getElementById(`spinner-${payload.id}`).classList.add('hidden');
           checkbox.setAttribute('checked');
         } else {
           checkbox.hasAttribute('checked')

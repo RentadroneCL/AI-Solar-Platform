@@ -19,7 +19,7 @@
     </div>
   @endif
 
-  <div x-data="{ tab: '#overview' }">
+  <div x-data="{ tab: '#map' }">
     <nav class="bg-gray-200 border-b-2 border-gray-300 dark:bg-slate-800 dark:border-slate-600">
       <div class="px-4 max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between h-full md:h-16">

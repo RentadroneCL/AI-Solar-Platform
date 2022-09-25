@@ -85,6 +85,39 @@
         <!-- Settings Dropdown -->
         <livewire:contact-form-dialog-modal>
 
+        <!-- Toggle Dark Mode -->
+        <div
+          x-init="
+            if ('_x_dark' in localStorage) {
+              if (localStorage._x_dark === 'true') {
+                document.documentElement.classList.add('dark');
+                return;
+              }
+              document.documentElement.classList.remove('dark');
+              return;
+            }
+
+            document.documentElement.classList.add('dark');
+          "
+          x-data="{
+            dark: $persist(true),
+            toggle() {
+              if (this.dark === true) {
+                this.dark = !this.dark;
+                document.documentElement.classList.remove('dark');
+              } else {
+                this.dark = !this.dark;
+                document.documentElement.classList.add('dark');
+              }
+            }
+          }"
+          class="ml-1"
+        >
+          <button x-on:click="toggle" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md dark:text-slate-400 dark:bg-slate-900 hover:text-gray-700 dark:hover:bg-slate-800 dark:hover:text-white focus:outline-none">
+            <i class="fa-regular fa-fw fa-lg" :class="{'fa-sun': dark == false, 'fa-moon': dark == true}"></i>
+          </button>
+        </div>
+
         <div class="relative ml-3">
           <x-jet-dropdown align="right" width="48">
             <x-slot name="trigger">

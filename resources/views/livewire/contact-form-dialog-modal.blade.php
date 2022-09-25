@@ -1,6 +1,6 @@
-<div>
+<div class="ml-2">
     <span class="inline-flex rounded-md">
-        <button wire:click="$toggle('confirmingContactFormSubmission')" type="button" class="inline-flex items-center px-3 py-2 mr-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md dark:text-slate-400 dark:bg-slate-900 hover:text-gray-700 dark:hover:bg-slate-800 dark:hover:text-white focus:outline-none">
+        <button wire:click="$toggle('confirmingContactFormSubmission')" type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md dark:text-slate-400 dark:bg-slate-900 hover:text-gray-700 dark:hover:bg-slate-800 dark:hover:text-white focus:outline-none">
             <i class="fas fa-headset fa-fw fa-lg"></i>
         </button>
     </span>
