@@ -1,71 +1,38 @@
 version: '3.9'
 services:
-  mysql:
-    image: 'mysql:latest'
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-      MYSQL_DATABASE: '${DB_DATABASE}'
-      MYSQL_USER: '${DB_USERNAME}'
-      MYSQL_PASSWORD: '${DB_PASSWORD}'
-    volumes:
-      - 'solar-data:/var/lib/mysql'
-    ports:
-      - '3306:3306'
-    networks:
-      - solar-network
   php:
     build:
       context: .
       dockerfile: Dockerfile
-    restart: unless-stopped
     environment:
       DB_DATABASE: '${DB_DATABASE}'
       DB_USERNAME: '${DB_USERNAME}'
       DB_PASSWORD: '${DB_PASSWORD}'
-    depends_on:
-      - mysql
+    env_file:
+      - .env
     ports:
       - '9000:9000'
     volumes:
-      - type: bind
-        source: .
-        target: /var/app/current
+      - simplemap-data:/var/app/current
+      - /var/app/current/.env:/var/app/current/.env:ro
     networks:
-      - solar-network
+      - simplemap
   nginx:
     build:
       context: ./services/nginx
       dockerfile: Dockerfile
-    restart: unless-stopped
     depends_on:
       - php
-      - mysql
     ports:
       - '80:80'
       - '443:443'
     volumes:
-      - type: bind
-        source: .
-        target: /var/app/current
+      - simplemap-data:/var/app/current
+      - /var/app/current/.env:/var/app/current/.env:ro
     networks:
-      - solar-network
-  node:
-    image: 'node:lts-slim'
-    restart: unless-stopped
-    command: npm run watch
-    depends_on:
-      - php
-    volumes:
-      - type: bind
-        source: .
-        target: /var/app/current
-    working_dir: /var/app/current
-    networks:
-      - solar-network
+      - simplemap
 networks:
-  solar-network:
+  simplemap:
     driver: bridge
 volumes:
-  solar-data:
-    driver: local
+  simplemap-data:
