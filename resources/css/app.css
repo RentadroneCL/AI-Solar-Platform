@@ -2,6 +2,51 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/* Customizing theme */
+.assignees-avatars {
+  @apply flex -space-x-2 overflow-hidden p-1;
+}
+
+.assignees-avatars > .avatar {
+  @apply inline-block h-6 w-6 rounded-full ring-2 ring-white;
+}
+
+.priority {
+  @apply font-medium text-slate-400 text-base;
+}
+
+.priority.low {
+  @apply text-blue-500;
+}
+
+.priority.medium {
+  @apply text-yellow-500;
+}
+
+.priority.high {
+  @apply text-rose-500;
+}
+
+.status {
+  @apply font-semibold p-1 rounded-lg shadow-sm text-xs border-2 border-slate-200 text-slate-600 dark:text-slate-400 dark:bg-slate-600 dark:border-slate-600;
+}
+
+.status.pending {
+  @apply text-yellow-500 border-yellow-500 bg-yellow-200;
+}
+
+.status.in_progress {
+  @apply text-blue-500 border-blue-500 bg-blue-200;
+}
+
+.status.delayed {
+  @apply text-rose-500 border-rose-500 bg-rose-200;
+}
+
+.status.done {
+  @apply text-green-500 border-green-500 bg-green-200;
+}
+
 /* Toggle */
 input:checked ~ .dot {
   transform: translateX(100%);

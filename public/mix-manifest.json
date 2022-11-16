@@ -1,9 +1,9 @@
 {
-    "/js/app.js": "/js/app.js?id=904ae92729582826bb3c77ebdbd5b828",
-    "/css/app.css": "/css/app.css?id=bd865a18264dcc4967a8acb571d4529a",
-    "/img/droneraising-logo.png": "/img/droneraising-logo.png?id=c71f9961bbda91e0a8bedc40ad8b1338",
-    "/svg/droneraising-isologotipo.svg": "/svg/droneraising-isologotipo.svg?id=3b569827a348d9e3b7dbfd2d60ed55f6",
-    "/examples/equipment_data_example.csv": "/examples/equipment_data_example.csv?id=25d946b292663b0428453e9ffc3cd28c",
-    "/examples/equipment_type_data_example.csv": "/examples/equipment_type_data_example.csv?id=b0cb5c87ded72bad3064b379dd611be5",
-    "/examples/inspection_data_example.csv": "/examples/inspection_data_example.csv?id=6746aa27319a6c869757e0244f98dea8"
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/img/droneraising-logo.png": "/img/droneraising-logo.png",
+    "/svg/droneraising-isologotipo.svg": "/svg/droneraising-isologotipo.svg",
+    "/examples/equipment_data_example.csv": "/examples/equipment_data_example.csv",
+    "/examples/equipment_type_data_example.csv": "/examples/equipment_type_data_example.csv",
+    "/examples/inspection_data_example.csv": "/examples/inspection_data_example.csv"
 }
