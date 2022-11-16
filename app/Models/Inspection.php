@@ -6,14 +6,15 @@ use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Traits\{HasManyAnnotations, CustomProperties};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Concerns\{HasAnnotations, CustomProperties};
 
 class Inspection extends Model implements HasMedia
 {
     use HasFactory,
         InteractsWithMedia,
-        CustomProperties;
+        CustomProperties,
+        HasAnnotations;
 
     /**
      * The table associated with the model.
