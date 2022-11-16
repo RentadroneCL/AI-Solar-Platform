@@ -7,10 +7,10 @@
       </a>
     </div>
     <p class="mb-1 text-xs text-gray-700 md:mb-0 dark:text-slate-400">
-      Made with <i class="text-red-400 fas fa-heart fa-fw" title="Love"></i> by the <a class="hover:text-blue-400 focus:outline-none hover:underline" href="https://solar.droneraising.com" target="_blank">droneraising</a> team.
+      Made with <i class="text-red-400 fas fa-heart fa-fw" title="Love"></i> by the <a class="hover:text-blue-400 focus:outline-none hover:underline" href="https://simplemap.io" target="_blank">simplemap</a> team.
     </p>
     <span class="text-xs text-gray-600 dark:text-slate-400">
-      <i class="text-gray-400 far fa-copyright fa-fw"></i> {{ Carbon::now()->year }} <a class="hover:text-blue-400 focus:outline-none hover:underline" href="https://solar.droneraising.com" target="_blank">droneraising</a>
+      <i class="text-gray-400 far fa-copyright fa-fw"></i> {{ Carbon::now()->year }} <a class="hover:text-blue-400 focus:outline-none hover:underline" href="https://simplemap.io" target="_blank">simplemap.io</a>
     </span>
   </div>
 </footer>

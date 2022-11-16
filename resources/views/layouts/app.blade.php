@@ -35,6 +35,7 @@
 
       <!-- Page Content -->
       <main class="h-full">
+        <x-alert />
         @if (session('status'))
           <div class="p-4 mb-4 text-sm font-medium text-blue-600 bg-blue-100 border-2 border-blue-300 shadow-sm">
             {{ session('status') }}

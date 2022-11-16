@@ -54,7 +54,8 @@ class SiteTable extends DataTableComponent
      */
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id')
+            ->setHideBulkActionsWhenEmptyEnabled();
     }
 
     /**
@@ -66,7 +67,8 @@ class SiteTable extends DataTableComponent
     {
         return [
             Column::make("Id", "id")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Owner", "user.name")
                 ->sortable()
                 ->searchable(),

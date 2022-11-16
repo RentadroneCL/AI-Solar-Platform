@@ -10,7 +10,7 @@
 
           <div class="flex flex-col items-center justify-center p-4" x-data="{ open: true }">
             <button @click="open = !open" class="inline-flex items-center w-full px-3 py-2 text-sm font-semibold leading-4 transition duration-150 ease-in-out bg-white border border-transparent rounded-md text-slate-500 dark:text-slate-400 dark:bg-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 hover:text-slate-700 dark:hover:text-slate-500 focus:outline-none focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600">
-              {{ __('Layers') }} <i class="ml-auto text-slate-400 fas fa-fw" :class="{ 'fa-chevron-down': !open, 'fa-chevron-up': open }"></i>
+              <i class="mr-2 fa-solid fa-layer-group fa-fw text-slate-400 dark:text-slate-500"></i> {{ __('Layers') }} <i class="ml-auto text-slate-400 fas fa-fw" :class="{ 'fa-chevron-down': !open, 'fa-chevron-up': open }"></i>
             </button>
 
             <div class="w-full transition-all duration-700" x-show="open">
@@ -69,7 +69,7 @@
 
           <div class="flex flex-col items-center justify-center p-4" x-data="{ open: false }">
             <button @click="open = !open" class="inline-flex items-center w-full px-3 py-2 text-sm font-semibold leading-4 transition duration-150 ease-in-out bg-white border border-transparent rounded-md text-slate-500 dark:text-slate-400 dark:bg-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 hover:text-slate-700 dark:hover:text-slate-500 focus:outline-none focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600">
-              {{ __('Legend') }} <i class="ml-auto text-gray-400 fas fa-fw" :class="{ 'fa-chevron-down': !open, 'fa-chevron-up': open }"></i>
+              <i class="mr-2 fa-solid fa-rectangle-list fa-fw text-slate-400 dark:text-slate-500"></i> {{ __('Legend') }} <i class="ml-auto text-gray-400 fas fa-fw" :class="{ 'fa-chevron-down': !open, 'fa-chevron-up': open }"></i>
             </button>
 
             <div class="transition-all duration-700" x-show="open">
@@ -127,7 +127,22 @@
         <div id="ol-map-container" class="w-full m-5 rounded h-96 md:h-screen md:w-4/5 md:m-0 md:rounded-none md:rounded-r-lg"></div>
       </div>
 
-      <div x-data="{ overlay: false, panelInfo: false, anomalyInfo: true, imageInfo: false, annotations: false }" id="slide-over" :class="{ 'hidden': !overlay }" class="fixed" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+      <div
+        x-init="overlay = false"
+        x-data="{
+          overlay: false,
+          panelInfo: false,
+          anomalyInfo: true,
+          imageInfo: false,
+          annotations: false,
+        }"
+        id="slide-over"
+        class="fixed"
+        :class="{ 'hidden': !overlay }"
+        aria-labelledby="slide-over-title"
+        role="dialog"
+        aria-modal="true"
+      >
         <div class="absolute">
           <!--
             Background overlay, show/hide based on slide-over state.
@@ -140,7 +155,7 @@
               To: "opacity-0"
           -->
           <!-- <div class="absolute inset-0 transition-opacity bg-opacity-75 bg-slate-500" aria-hidden="true"></div> -->
-          <div class="fixed inset-y-0 right-0 flex w-2/4 pl-10">
+          <div class="fixed inset-y-0 right-0 flex w-1/3 pl-10">
             <!--
               Slide-over panel, show/hide based on slide-over state.
 
@@ -184,8 +199,8 @@
                   <div class="absolute inset-0 px-4 sm:px-6">
                     <div class="h-full" aria-hidden="true">
                       <table class="w-full table-auto" :class="{ 'mb-2': panelInfo }">
-                        <button type="button" @click="anomalyInfo = !anomalyInfo" class="inline-flex items-center justify-between w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none" :class="{ 'text-slate-600': !location, 'text-slate-700 dark:text-slate-400 bg-slate-50 dark:bg-slate-700': location }">
-                          {{ __('Thermal Anomaly') }} <i class="fas fa-fw" :class="{ 'fa-chevron-down': !anomalyInfo, 'fa-chevron-up': anomalyInfo }"></i>
+                        <button type="button" @click="anomalyInfo = !anomalyInfo" class="inline-flex items-center justify-start w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 dark:hover:text-slate-300 dark:active:text-slate-400 dark:focus:text-slate-400 focus:outline-none" :class="{ 'text-slate-600': !anomalyInfo, 'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-700': anomalyInfo }">
+                          <i class="mr-2 fa-solid fa-temperature-low fa-fw"></i> {{ __('Thermal Anomaly') }} <i class="ml-auto fas fa-fw" :class="{ 'fa-chevron-down': !anomalyInfo, 'fa-chevron-up': anomalyInfo }"></i>
                         </button>
                         <tbody x-show="anomalyInfo">
                           <tr>
@@ -216,8 +231,8 @@
                       </table>
 
                       <table class="w-full table-auto" :class="{ 'mb-2': panelInfo }">
-                        <button type="button" @click="panelInfo = !panelInfo" class="inline-flex items-center justify-between w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none" :class="{ 'text-slate-600': !location, 'text-slate-700 dark:text-slate-400 bg-slate-50 dark:bg-slate-700': location }">
-                          {{ __('Location') }} <i class="fas fa-fw" :class="{ 'fa-chevron-down': !panelInfo, 'fa-chevron-up': panelInfo }"></i>
+                        <button type="button" @click="panelInfo = !panelInfo" class="inline-flex items-center justify-start w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 dark:hover:text-slate-300 dark:active:text-slate-400 dark:focus:text-slate-400 focus:outline-none" :class="{ 'text-slate-600': !panelInfo, 'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-700': panelInfo }">
+                          <i class="mr-2 fa-solid fa-location-arrow fa-fw"></i> {{ __('Location') }} <i class="ml-auto fas fa-fw" :class="{ 'fa-chevron-down': !panelInfo, 'fa-chevron-up': panelInfo }"></i>
                         </button>
                         <tbody x-show="panelInfo">
                           <tr>
@@ -244,8 +259,8 @@
                       </table>
 
                       <div class="flex flex-col justify-start w-full">
-                        <button type="button" @click="imageInfo = !imageInfo" class="inline-flex items-center justify-between w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none" :class="{ 'text-slate-600': !location, 'text-slate-700 dark:text-slate-400 bg-slate-50 dark:bg-slate-700': location }">
-                          {{ __('Image File') }} <i class="fas fa-fw" :class="{ 'fa-chevron-down': !imageInfo, 'fa-chevron-up': imageInfo }"></i>
+                        <button type="button" @click="imageInfo = !imageInfo" class="inline-flex items-center justify-start w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 dark:hover:text-slate-300 dark:active:text-slate-400 dark:focus:text-slate-400 focus:outline-none" :class="{ 'text-slate-600': !imageInfo, 'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-700': imageInfo }">
+                          <i class="mr-2 fa-solid fa-image fa-fw"></i> {{ __('Image File') }} <i class="ml-auto fas fa-fw" :class="{ 'fa-chevron-down': !imageInfo, 'fa-chevron-up': imageInfo }"></i>
                         </button>
                         <div class="block w-full px-4 py-2" x-show="imageInfo">
                           <h2 id="img-filename" class="font-bold text-left text-slate-700 dark:text-slate-400">N/A</h2>
@@ -254,14 +269,14 @@
                         </div>
                       </div>
 
-                      {{-- <div class="flex flex-col justify-start w-full">
-                        <button type="button" @click="annotations = !annotations" class="inline-flex items-center justify-between w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-gray-50 active:bg-gray-50 hover:bg-gray-50 focus:outline-none" :class="{ 'text-gray-600': !location, 'text-gray-700 bg-gray-50': location }">
-                          {{ __('Annotations') }} <i class="fas fa-fw" :class="{ 'fa-chevron-down': !annotations, 'fa-chevron-up': annotations }"></i>
+                      <div class="flex flex-col justify-start w-full">
+                        <button type="button" @click="annotations = !annotations" class="inline-flex items-center justify-start w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 dark:hover:text-slate-300 dark:active:text-slate-400 dark:focus:text-slate-400 focus:outline-none" :class="{ 'text-slate-600': !annotations, 'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-700': annotations }">
+                          <i class="mr-2 fa-solid fa-note-sticky fa-fw"></i> {{ __('Annotations') }} <i class="ml-auto fas fa-fw" :class="{ 'fa-chevron-down': !annotations, 'fa-chevron-up': annotations }"></i>
                         </button>
                         <div class="block w-full px-4 py-2" x-show="annotations">
                           <livewire:annotations :model="$model">
                         </div>
-                      </div> --}}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -554,6 +569,8 @@
 
             setFormValues();
           }
+
+          Livewire.emit('featureAtPixel', feature);
         });
       });
 
