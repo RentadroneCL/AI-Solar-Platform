@@ -6,10 +6,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-it('has site card component', function () {
+it('contains a site card livewire component', function () {
     $site = Site::factory()->create();
-
     $this->actingAs($site->user)
         ->livewire(SiteCard::class, ['site' => $site])
-        ->assertViewIs('livewire.site-card');
+        ->assertViewIs('livewire.site-card')
+        ->assertSet('site', $site)
+        ->assertStatus(200);
 });
