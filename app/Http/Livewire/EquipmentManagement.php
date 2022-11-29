@@ -126,6 +126,7 @@ class EquipmentManagement extends Component
      * @var array
      */
     protected array $rules = [
+        'state.equipment_type_id' => 'required|integer',
         'state.name' => 'required|string|min:2',
         'state.brand' => 'nullable|string|min:2',
         'state.model' => 'nullable|string|min:2',
@@ -576,7 +577,8 @@ class EquipmentManagement extends Component
      */
     public function updatedFile(): void
     {
-        $this->filename = $this->file->temporaryUrl();
+        //$this->filename = $this->file->temporaryUrl();
+        $this->filename = "uploaded-hash-".Str::random();
     }
 
     /**

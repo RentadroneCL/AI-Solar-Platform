@@ -62,11 +62,7 @@ class InspectionTable extends DataTableComponent
                 ->buttons([
                     LinkColumn::make(__('Manage'))
                         ->title(fn($row) => __('Manage'))
-                        ->attributes(function ($row) {
-                            return [
-                                'class' => 'text-slate-400 hover:text-slate-500 hover:underline',
-                            ];
-                        })
+                        ->attributes(fn($row) => ['class' => 'text-slate-400 hover:text-slate-500 hover:underline',])
                         ->location(fn($row) => route('inspection.show', $row)),
                 ]),
         ];

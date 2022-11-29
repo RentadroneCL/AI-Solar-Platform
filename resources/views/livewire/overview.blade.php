@@ -462,7 +462,6 @@
   <!-- Import CSV data modal -->
   <x-jet-dialog-modal wire:model="showImportModal">
     <x-slot name="title">{{ __('Import csv file') }}</x-slot>
-
     <x-slot name="content">
       <p class="text-base text-slate-900 dark:text-slate-400">
         {{ __('You can choose a resource to import them into and match up headings from the CSV to the appropriate fields of the resource.') }}
@@ -473,7 +472,6 @@
           {{ __('We will use the following file ') }} <a class="cursor-pointer" href="{{ asset('examples/inspection_data_example.csv') }}" id="csv_example" target="_blank"><code class="p-1 text-sm font-semibold text-blue-600 bg-blue-200 rounded-md shadow-sm">file.csv</code></a>
         </p>
       </div>
-
       <div class="inline-flex w-full my-4">
         <div class="inline-flex items-center justify-center w-1/6 px-4 py-3 font-semibold tracking-widest transition bg-white border-2 border-r rounded-l-lg shadow-sm cursor-pointer dark:bg-slate-600/25 text-slate-900 dark:text-slate-400 border-slate-200 dark:border-slate-600 hover:text-slate-800 dark:hover:text-slate-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-slate-800 dark:active:text-slate-300 active:bg-slate-50 dark:active:bg-slate-700 disabled:opacity-25">
           <i class="mr-2 cursor-pointer fas fa-folder-open fa-fw fa-lg text-slate-500 dark:text-slate-400"></i>
@@ -481,20 +479,16 @@
         </div>
         <input wire:model="filename" class="w-5/6 px-4 py-3 text-gray-600 border-2 border-l rounded-r-lg shadow-sm dark:text-slate-400 bg-slate-50 dark:bg-slate-600/25 border-slate-200 dark:border-slate-600 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" type="text" readonly disabled>
       </div>
-
       <x-jet-input-error for="file" class="mt-2" />
-
       <div wire:loading class="inline-flex items-center justify-start w-full mt-2 text-sm text-slate-600 dark:text-slate-400">
         <i class="mr-2 fa-solid fa-spinner fa-fw fa-spin text-slate-400"></i> {{ __('Loading...') }}
       </div>
     </x-slot>
-
     <x-slot name="footer">
       <div class="inline-flex items-center">
         <x-jet-secondary-button wire:click="$toggle('showImportModal')" wire:loading.attr="disabled">
           {{ __('Nevermind') }}
         </x-jet-secondary-button>
-
         <x-jet-button class="ml-2" wire:click="import" wire:loading.attr="disabled">
           <i class="mr-2 text-blue-300 dark:text-white fa-solid fa-cloud-arrow-up fa-fw"></i> {{ __('Upload file') }}
         </x-jet-button>

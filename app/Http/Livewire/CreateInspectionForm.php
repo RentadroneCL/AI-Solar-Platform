@@ -2,9 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Inspection;
-use App\Models\Site;
 use Livewire\Component;
+use App\Models\{Site, Inspection};
 
 class CreateInspectionForm extends Component
 {

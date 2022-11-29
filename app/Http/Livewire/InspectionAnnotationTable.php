@@ -135,21 +135,11 @@ class InspectionAnnotationTable extends DataTableComponent
                 ->buttons([
                     LinkColumn::make(__('Manage'))
                         ->title(fn($row) => __('Manage'))
-                        ->attributes(function ($row) {
-                            return [
-                                'class' => 'text-slate-400 hover:text-slate-500 hover:underline',
-                                '@click.prevent' => "\$wire.emit('edit-annotation', {$row})"
-                            ];
-                        })
+                        ->attributes(fn($row) => ['class' => 'text-slate-400 hover:text-slate-500 hover:underline', '@click.prevent' => "\$wire.emit('edit-annotation', {$row})"])
                         ->location(fn($row) => '#'),
                     LinkColumn::make(__('Delete'))
                         ->title(fn($row) => __('Delete'))
-                        ->attributes(function ($row) {
-                            return [
-                                'class' => 'text-rose-400 hover:text-rose-500 hover:underline',
-                                '@click.prevent' => "\$wire.emit('delete-annotation', {$row})",
-                            ];
-                        })
+                        ->attributes(fn($row) => [ 'class' => 'text-rose-400 hover:text-rose-500 hover:underline', '@click.prevent' => "\$wire.emit('delete-annotation', {$row})"])
                         ->location(fn($row) => '#'),
                 ]),
 
@@ -191,9 +181,7 @@ class InspectionAnnotationTable extends DataTableComponent
                     }
                 }),
             DateFilter::make(__('Commissioning at'))
-                ->filter(function (Builder $builder, string $value) {
-                    $builder->whereJsonContains('custom_properties->commissioning_at', $value);
-                }),
+                ->filter(fn(Builder $builder, string $value) => $builder->whereJsonContains('custom_properties->commissioning_at', $value)),
         ];
     }
 

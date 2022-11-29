@@ -74,21 +74,11 @@ class EquipmentTypeTable extends DataTableComponent
                 ->buttons([
                     LinkColumn::make(__('Edit'))
                         ->title(fn($row) => __('Edit'))
-                        ->attributes(function ($row) {
-                            return [
-                                'class' => 'text-slate-400 hover:text-slate-500 hover:underline',
-                                'x-on:click' => "\$wire.emit('edit-type', {$row})"
-                            ];
-                        })
+                        ->attributes(fn($row) => ['class' => 'text-slate-400 hover:text-slate-500 hover:underline', 'x-on:click' => "\$wire.emit('edit-type', {$row})"])
                         ->location(fn($row) => '#'),
                     LinkColumn::make(__('Delete'))
                         ->title(fn($row) => __('Delete'))
-                        ->attributes(function ($row) {
-                            return [
-                                'class' => 'text-rose-400 hover:text-rose-500 hover:underline',
-                                'x-on:click' => "\$wire.emit('delete-type', {$row})",
-                            ];
-                        })
+                        ->attributes(fn($row) => ['class' => 'text-rose-400 hover:text-rose-500 hover:underline', 'x-on:click' => "\$wire.emit('delete-type', {$row})"])
                         ->location(fn($row) => '#'),
                 ]),
         ];
