@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
         if (App::environment('testing')) {
             Storage::disk('local')->buildTemporaryUrlsUsing(function ($path, $expiration, $options) {
                 return URL::temporarySignedRoute(
-                    $path,
+                    'local.temp',
                     $expiration,
                     array_merge($options, ['path' => $path])
                 );

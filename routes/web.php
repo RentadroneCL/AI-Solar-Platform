@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FileUploads;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\RetrieveImage;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserController;
@@ -46,3 +47,12 @@ Route::middleware(['auth:sanctum', 'verified'])
 Route::middleware(['auth:sanctum', 'verified'])
     ->post('/retrieve-image-file', RetrieveImage::class)
     ->name('retrieve-image');
+
+// For testing purposes
+// Temporary URL logic
+Route::get('/local/temp/{path}', function (string $path) {
+    if (! request()->hasValidSignature()) {
+        abort(401);
+    }
+    return Storage::disk('local')->download($path);
+})->name('local.temp');
