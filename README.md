@@ -1,6 +1,7 @@
 # Solar Platform
 
 [![Continuous Integration](https://github.com/RentadroneCL/AI-Solar-Platform/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/RentadroneCL/AI-Solar-Platform/actions/workflows/continuous-integration.yml)
+[![Coverage Status](https://coveralls.io/repos/github/RentadroneCL/AI-Solar-Platform/badge.svg)](https://coveralls.io/github/RentadroneCL/AI-Solar-Platform)
 [![PHP Version Require](https://img.shields.io/packagist/php-v/laravel/framework)](https://img.shields.io/packagist/php-v/laravel/framework)
 [![License](https://poser.pugx.org/composer/spdx-licenses/license)](https://packagist.org/packages/composer/spdx-licenses)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
