@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\CustomProperties;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EquipmentType extends Model
 {
@@ -37,4 +38,14 @@ class EquipmentType extends Model
     protected $casts = [
         'custom_properties' => 'array',
     ];
+
+    /**
+     * Site related model.
+     *
+     * @return BelongsTo
+     */
+    public function site(): BelongsTo
+    {
+        return $this->belongsTo(Site::class, 'site_id');
+    }
 }
