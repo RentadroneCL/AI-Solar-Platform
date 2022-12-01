@@ -66,4 +66,8 @@ jobs:
         DB_DATABASE: testing
         DB_USERNAME: homestead
         DB_PASSWORD: secret
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+        AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
       run: vendor/bin/pest --stop-on-failure

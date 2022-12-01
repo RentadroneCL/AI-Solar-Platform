@@ -47,12 +47,3 @@ Route::middleware(['auth:sanctum', 'verified'])
 Route::middleware(['auth:sanctum', 'verified'])
     ->post('/retrieve-image-file', RetrieveImage::class)
     ->name('retrieve-image');
-
-// For testing purposes
-// Temporary URL logic
-Route::get('/local/temp/{path}', function (string $path) {
-    if (! request()->hasValidSignature()) {
-        abort(401);
-    }
-    return Storage::disk('local')->download($path);
-})->name('local.temp');

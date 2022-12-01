@@ -24,16 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (App::environment('testing')) {
-            Storage::disk('local')->buildTemporaryUrlsUsing(function ($path, $expiration, $options) {
-                return URL::temporarySignedRoute(
-                    'local.temp',
-                    $expiration,
-                    array_merge($options, ['path' => $path])
-                );
-            });
-        }
-
         URL::forceScheme('https');
     }
 }
