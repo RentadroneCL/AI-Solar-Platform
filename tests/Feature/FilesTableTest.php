@@ -82,4 +82,4 @@ it('remove the specified resource from storage', function () {
         ->assertEmitted('deleted-media', $media->id)
         ->assertSet('mediaId', null)
         ->assertStatus(200);
-});
+})->skip('Actions - Does not support creating temporary URLs');
