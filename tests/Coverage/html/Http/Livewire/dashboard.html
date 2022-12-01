@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /home/afariasfermin/code/droneraising-next/app/Http/Livewire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../../_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="../../_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="../../_css/style.css" rel="stylesheet" type="text/css">
+  <link href="../../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../../index.html">/home/afariasfermin/code/droneraising-next/app</a></li>
+         <li class="breadcrumb-item"><a href="../index.html">Http</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Livewire</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Annotations.php.html#12">App\Http\Livewire\Annotations</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="AssetManagement.php.html#14">App\Http\Livewire\AssetManagement</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CreateInspectionForm.php.html#9">App\Http\Livewire\CreateInspectionForm</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CreateSiteForm.php.html#10">App\Http\Livewire\CreateSiteForm</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DeleteInspectionForm.php.html#13">App\Http\Livewire\DeleteInspectionForm</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DeleteSiteForm.php.html#13">App\Http\Livewire\DeleteSiteForm</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DeleteUserAccountForm.php.html#13">App\Http\Livewire\DeleteUserAccountForm</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#15">App\Http\Livewire\EquipmentManagement</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTable.php.html#13">App\Http\Livewire\EquipmentTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#15">App\Http\Livewire\EquipmentTypeManagement</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeTable.php.html#13">App\Http\Livewire\EquipmentTypeTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FilesTable.php.html#11">App\Http\Livewire\FilesTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ImageFilesTable.php.html#7">App\Http\Livewire\ImageFilesTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotationTable.php.html#16">App\Http\Livewire\InspectionAnnotationTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotations.php.html#12">App\Http\Livewire\InspectionAnnotations</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionTable.php.html#13">App\Http\Livewire\InspectionTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MapViewer.php.html#10">App\Http\Livewire\MapViewer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="NewInspectionModalDialog.php.html#11">App\Http\Livewire\NewInspectionModalDialog</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Onboarding.php.html#15">App\Http\Livewire\Onboarding</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="OnboardingManagement.php.html#9">App\Http\Livewire\OnboardingManagement</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Overview.php.html#13">App\Http\Livewire\Overview</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PanelTable.php.html#10">App\Http\Livewire\PanelTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ReportViewer.php.html#10">App\Http\Livewire\ReportViewer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SiteInformationCard.php.html#10">App\Http\Livewire\SiteInformationCard</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SiteManagement.php.html#12">App\Http\Livewire\SiteManagement</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SiteTable.php.html#13">App\Http\Livewire\SiteTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SitesCardGrid.php.html#11">App\Http\Livewire\SitesCardGrid</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SitesList.php.html#9">App\Http\Livewire\SitesList</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SyncPanelInformationForm.php.html#12">App\Http\Livewire\SyncPanelInformationForm</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SyncUserRolesForm.php.html#11">App\Http\Livewire\SyncUserRolesForm</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UpdateInspectionInformationForm.php.html#9">App\Http\Livewire\UpdateInspectionInformationForm</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UpdateSiteInformationForm.php.html#9">App\Http\Livewire\UpdateSiteInformationForm</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UpdateUserInformationForm.php.html#9">App\Http\Livewire\UpdateUserInformationForm</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UploadFiles.php.html#9">App\Http\Livewire\UploadFiles</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserManagement.php.html#12">App\Http\Livewire\UserManagement</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserSitesManagement.php.html#10">App\Http\Livewire\UserSitesManagement</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTable.php.html#12">App\Http\Livewire\UserTable</a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="EquipmentManagement.php.html#15">App\Http\Livewire\EquipmentManagement</a></td><td class="text-right">1122</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#15">App\Http\Livewire\EquipmentTypeManagement</a></td><td class="text-right">756</td></tr>
+       <tr><td><a href="InspectionAnnotationTable.php.html#16">App\Http\Livewire\InspectionAnnotationTable</a></td><td class="text-right">552</td></tr>
+       <tr><td><a href="InspectionAnnotations.php.html#12">App\Http\Livewire\InspectionAnnotations</a></td><td class="text-right">272</td></tr>
+       <tr><td><a href="Annotations.php.html#12">App\Http\Livewire\Annotations</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Onboarding.php.html#15">App\Http\Livewire\Onboarding</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="EquipmentTable.php.html#13">App\Http\Livewire\EquipmentTable</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="EquipmentTypeTable.php.html#13">App\Http\Livewire\EquipmentTypeTable</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Overview.php.html#13">App\Http\Livewire\Overview</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="SyncPanelInformationForm.php.html#12">App\Http\Livewire\SyncPanelInformationForm</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="SiteManagement.php.html#12">App\Http\Livewire\SiteManagement</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="AssetManagement.php.html#14">App\Http\Livewire\AssetManagement</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="OnboardingManagement.php.html#9">App\Http\Livewire\OnboardingManagement</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="SitesCardGrid.php.html#11">App\Http\Livewire\SitesCardGrid</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="DeleteInspectionForm.php.html#13">App\Http\Livewire\DeleteInspectionForm</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="DeleteSiteForm.php.html#13">App\Http\Livewire\DeleteSiteForm</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="DeleteUserAccountForm.php.html#13">App\Http\Livewire\DeleteUserAccountForm</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="SiteTable.php.html#13">App\Http\Livewire\SiteTable</a></td><td class="text-right">20</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Annotations.php.html#126"><abbr title="App\Http\Livewire\Annotations::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Annotations.php.html#145"><abbr title="App\Http\Livewire\Annotations::setFeatureAtPixel">setFeatureAtPixel</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Annotations.php.html#161"><abbr title="App\Http\Livewire\Annotations::resetState">resetState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Annotations.php.html#190"><abbr title="App\Http\Livewire\Annotations::toggleAssigned">toggleAssigned</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Annotations.php.html#206"><abbr title="App\Http\Livewire\Annotations::removeAssigned">removeAssigned</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Annotations.php.html#224"><abbr title="App\Http\Livewire\Annotations::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="AssetManagement.php.html#95"><abbr title="App\Http\Livewire\AssetManagement::updatedFile">updatedFile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="AssetManagement.php.html#105"><abbr title="App\Http\Livewire\AssetManagement::import">import</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="AssetManagement.php.html#140"><abbr title="App\Http\Livewire\AssetManagement::export">export</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CreateInspectionForm.php.html#24"><abbr title="App\Http\Livewire\CreateInspectionForm::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CreateInspectionForm.php.html#29"><abbr title="App\Http\Livewire\CreateInspectionForm::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CreateInspectionForm.php.html#38"><abbr title="App\Http\Livewire\CreateInspectionForm::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CreateSiteForm.php.html#26"><abbr title="App\Http\Livewire\CreateSiteForm::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CreateSiteForm.php.html#37"><abbr title="App\Http\Livewire\CreateSiteForm::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CreateSiteForm.php.html#48"><abbr title="App\Http\Livewire\CreateSiteForm::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DeleteInspectionForm.php.html#41"><abbr title="App\Http\Livewire\DeleteInspectionForm::confirmInspectionDeletion">confirmInspectionDeletion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DeleteInspectionForm.php.html#57"><abbr title="App\Http\Livewire\DeleteInspectionForm::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DeleteInspectionForm.php.html#77"><abbr title="App\Http\Livewire\DeleteInspectionForm::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DeleteSiteForm.php.html#41"><abbr title="App\Http\Livewire\DeleteSiteForm::confirmSiteDeletion">confirmSiteDeletion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DeleteSiteForm.php.html#57"><abbr title="App\Http\Livewire\DeleteSiteForm::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DeleteSiteForm.php.html#77"><abbr title="App\Http\Livewire\DeleteSiteForm::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DeleteUserAccountForm.php.html#41"><abbr title="App\Http\Livewire\DeleteUserAccountForm::confirmUserAccountDeletion">confirmUserAccountDeletion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DeleteUserAccountForm.php.html#59"><abbr title="App\Http\Livewire\DeleteUserAccountForm::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DeleteUserAccountForm.php.html#82"><abbr title="App\Http\Livewire\DeleteUserAccountForm::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#165"><abbr title="App\Http\Livewire\EquipmentManagement::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#184"><abbr title="App\Http\Livewire\EquipmentManagement::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#246"><abbr title="App\Http\Livewire\EquipmentManagement::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#267"><abbr title="App\Http\Livewire\EquipmentManagement::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#317"><abbr title="App\Http\Livewire\EquipmentManagement::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#331"><abbr title="App\Http\Livewire\EquipmentManagement::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#361"><abbr title="App\Http\Livewire\EquipmentManagement::import">import</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#421"><abbr title="App\Http\Livewire\EquipmentManagement::export">export</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#459"><abbr title="App\Http\Livewire\EquipmentManagement::resetState">resetState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#479"><abbr title="App\Http\Livewire\EquipmentManagement::addCustomPropertyInput">addCustomPropertyInput</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#493"><abbr title="App\Http\Livewire\EquipmentManagement::removeCustomPropertyInput">removeCustomPropertyInput</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#508"><abbr title="App\Http\Livewire\EquipmentManagement::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#524"><abbr title="App\Http\Livewire\EquipmentManagement::selectedEquipmentType">selectedEquipmentType</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#538"><abbr title="App\Http\Livewire\EquipmentManagement::discardSelection">discardSelection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#552"><abbr title="App\Http\Livewire\EquipmentManagement::updateCollection">updateCollection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#564"><abbr title="App\Http\Livewire\EquipmentManagement::updateEquipmentTypes">updateEquipmentTypes</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#577"><abbr title="App\Http\Livewire\EquipmentManagement::updatedFile">updatedFile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#587"><abbr title="App\Http\Livewire\EquipmentManagement::updatedDisplayEquipmentCreationForm">updatedDisplayEquipmentCreationForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTable.php.html#40"><abbr title="App\Http\Livewire\EquipmentTable::builder">builder</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTable.php.html#54"><abbr title="App\Http\Livewire\EquipmentTable::configure">configure</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTable.php.html#69"><abbr title="App\Http\Livewire\EquipmentTable::columns">columns</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTable.php.html#118"><abbr title="App\Http\Livewire\EquipmentTable::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTable.php.html#130"><abbr title="App\Http\Livewire\EquipmentTable::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#138"><abbr title="App\Http\Livewire\EquipmentTypeManagement::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#157"><abbr title="App\Http\Livewire\EquipmentTypeManagement::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#203"><abbr title="App\Http\Livewire\EquipmentTypeManagement::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#222"><abbr title="App\Http\Livewire\EquipmentTypeManagement::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#270"><abbr title="App\Http\Livewire\EquipmentTypeManagement::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#284"><abbr title="App\Http\Livewire\EquipmentTypeManagement::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#314"><abbr title="App\Http\Livewire\EquipmentTypeManagement::import">import</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#364"><abbr title="App\Http\Livewire\EquipmentTypeManagement::export">export</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#385"><abbr title="App\Http\Livewire\EquipmentTypeManagement::resetState">resetState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#403"><abbr title="App\Http\Livewire\EquipmentTypeManagement::addCustomPropertyInput">addCustomPropertyInput</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#417"><abbr title="App\Http\Livewire\EquipmentTypeManagement::removeCustomPropertyInput">removeCustomPropertyInput</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#429"><abbr title="App\Http\Livewire\EquipmentTypeManagement::updatedFile">updatedFile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#439"><abbr title="App\Http\Livewire\EquipmentTypeManagement::updatedDisplayEquipmentTypeCreationForm">updatedDisplayEquipmentTypeCreationForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeTable.php.html#40"><abbr title="App\Http\Livewire\EquipmentTypeTable::builder">builder</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeTable.php.html#53"><abbr title="App\Http\Livewire\EquipmentTypeTable::configure">configure</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeTable.php.html#63"><abbr title="App\Http\Livewire\EquipmentTypeTable::columns">columns</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeTable.php.html#103"><abbr title="App\Http\Livewire\EquipmentTypeTable::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EquipmentTypeTable.php.html#115"><abbr title="App\Http\Livewire\EquipmentTypeTable::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FilesTable.php.html#56"><abbr title="App\Http\Livewire\FilesTable::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FilesTable.php.html#66"><abbr title="App\Http\Livewire\FilesTable::confirmMediaDeletion">confirmMediaDeletion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FilesTable.php.html#82"><abbr title="App\Http\Livewire\FilesTable::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FilesTable.php.html#102"><abbr title="App\Http\Livewire\FilesTable::updateFilesCollection">updateFilesCollection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="FilesTable.php.html#112"><abbr title="App\Http\Livewire\FilesTable::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ImageFilesTable.php.html#9"><abbr title="App\Http\Livewire\ImageFilesTable::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotationTable.php.html#41"><abbr title="App\Http\Livewire\InspectionAnnotationTable::builder">builder</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotationTable.php.html#57"><abbr title="App\Http\Livewire\InspectionAnnotationTable::configure">configure</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotationTable.php.html#70"><abbr title="App\Http\Livewire\InspectionAnnotationTable::columns">columns</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotationTable.php.html#164"><abbr title="App\Http\Livewire\InspectionAnnotationTable::filters">filters</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotationTable.php.html#206"><abbr title="App\Http\Livewire\InspectionAnnotationTable::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotationTable.php.html#224"><abbr title="App\Http\Livewire\InspectionAnnotationTable::destroySelected">destroySelected</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotations.php.html#110"><abbr title="App\Http\Livewire\InspectionAnnotations::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotations.php.html#124"><abbr title="App\Http\Livewire\InspectionAnnotations::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotations.php.html#140"><abbr title="App\Http\Livewire\InspectionAnnotations::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotations.php.html#176"><abbr title="App\Http\Livewire\InspectionAnnotations::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotations.php.html#187"><abbr title="App\Http\Livewire\InspectionAnnotations::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotations.php.html#226"><abbr title="App\Http\Livewire\InspectionAnnotations::resetState">resetState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotations.php.html#259"><abbr title="App\Http\Livewire\InspectionAnnotations::addAssigned">addAssigned</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionAnnotations.php.html#278"><abbr title="App\Http\Livewire\InspectionAnnotations::removeAssigned">removeAssigned</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionTable.php.html#27"><abbr title="App\Http\Livewire\InspectionTable::builder">builder</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionTable.php.html#40"><abbr title="App\Http\Livewire\InspectionTable::configure">configure</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="InspectionTable.php.html#50"><abbr title="App\Http\Livewire\InspectionTable::columns">columns</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MapViewer.php.html#41"><abbr title="App\Http\Livewire\MapViewer::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MapViewer.php.html#54"><abbr title="App\Http\Livewire\MapViewer::updateFilesCollection">updateFilesCollection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MapViewer.php.html#72"><abbr title="App\Http\Livewire\MapViewer::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="NewInspectionModalDialog.php.html#53"><abbr title="App\Http\Livewire\NewInspectionModalDialog::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="NewInspectionModalDialog.php.html#63"><abbr title="App\Http\Livewire\NewInspectionModalDialog::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="NewInspectionModalDialog.php.html#79"><abbr title="App\Http\Livewire\NewInspectionModalDialog::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Onboarding.php.html#73"><abbr title="App\Http\Livewire\Onboarding::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Onboarding.php.html#84"><abbr title="App\Http\Livewire\Onboarding::updated">updated</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Onboarding.php.html#95"><abbr title="App\Http\Livewire\Onboarding::setSite">setSite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Onboarding.php.html#106"><abbr title="App\Http\Livewire\Onboarding::setOnboarding">setOnboarding</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Onboarding.php.html#116"><abbr title="App\Http\Livewire\Onboarding::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Onboarding.php.html#137"><abbr title="App\Http\Livewire\Onboarding::finish">finish</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Onboarding.php.html#153"><abbr title="App\Http\Livewire\Onboarding::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="OnboardingManagement.php.html#30"><abbr title="App\Http\Livewire\OnboardingManagement::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="OnboardingManagement.php.html#46"><abbr title="App\Http\Livewire\OnboardingManagement::markAsCompleted">markAsCompleted</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="OnboardingManagement.php.html#62"><abbr title="App\Http\Livewire\OnboardingManagement::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Overview.php.html#78"><abbr title="App\Http\Livewire\Overview::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Overview.php.html#90"><abbr title="App\Http\Livewire\Overview::import">import</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Overview.php.html#174"><abbr title="App\Http\Livewire\Overview::export">export</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Overview.php.html#201"><abbr title="App\Http\Livewire\Overview::updatedFile">updatedFile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PanelTable.php.html#36"><abbr title="App\Http\Livewire\PanelTable::imported">imported</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ReportViewer.php.html#41"><abbr title="App\Http\Livewire\ReportViewer::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ReportViewer.php.html#53"><abbr title="App\Http\Livewire\ReportViewer::updateFilesCollection">updateFilesCollection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ReportViewer.php.html#65"><abbr title="App\Http\Livewire\ReportViewer::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SiteInformationCard.php.html#31"><abbr title="App\Http\Livewire\SiteInformationCard::confirmInspectionCreation">confirmInspectionCreation</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SiteInformationCard.php.html#45"><abbr title="App\Http\Livewire\SiteInformationCard::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SiteInformationCard.php.html#55"><abbr title="App\Http\Livewire\SiteInformationCard::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SiteManagement.php.html#89"><abbr title="App\Http\Livewire\SiteManagement::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SiteManagement.php.html#103"><abbr title="App\Http\Livewire\SiteManagement::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SiteManagement.php.html#121"><abbr title="App\Http\Livewire\SiteManagement::selectedOwner">selectedOwner</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SiteManagement.php.html#139"><abbr title="App\Http\Livewire\SiteManagement::discardSelection">discardSelection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SiteManagement.php.html#153"><abbr title="App\Http\Livewire\SiteManagement::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SiteTable.php.html#35"><abbr title="App\Http\Livewire\SiteTable::builder">builder</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SiteTable.php.html#55"><abbr title="App\Http\Livewire\SiteTable::configure">configure</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SiteTable.php.html#66"><abbr title="App\Http\Livewire\SiteTable::columns">columns</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SitesCardGrid.php.html#32"><abbr title="App\Http\Livewire\SitesCardGrid::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SitesCardGrid.php.html#63"><abbr title="App\Http\Livewire\SitesCardGrid::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SitesList.php.html#16"><abbr title="App\Http\Livewire\SitesList::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SyncPanelInformationForm.php.html#79"><abbr title="App\Http\Livewire\SyncPanelInformationForm::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SyncPanelInformationForm.php.html#90"><abbr title="App\Http\Livewire\SyncPanelInformationForm::checkingForPanelExistence">checkingForPanelExistence</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SyncPanelInformationForm.php.html#127"><abbr title="App\Http\Livewire\SyncPanelInformationForm::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SyncPanelInformationForm.php.html#170"><abbr title="App\Http\Livewire\SyncPanelInformationForm::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SyncUserRolesForm.php.html#41"><abbr title="App\Http\Livewire\SyncUserRolesForm::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SyncUserRolesForm.php.html#53"><abbr title="App\Http\Livewire\SyncUserRolesForm::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SyncUserRolesForm.php.html#67"><abbr title="App\Http\Livewire\SyncUserRolesForm::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UpdateInspectionInformationForm.php.html#33"><abbr title="App\Http\Livewire\UpdateInspectionInformationForm::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UpdateInspectionInformationForm.php.html#44"><abbr title="App\Http\Livewire\UpdateInspectionInformationForm::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UpdateInspectionInformationForm.php.html#58"><abbr title="App\Http\Livewire\UpdateInspectionInformationForm::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UpdateSiteInformationForm.php.html#51"><abbr title="App\Http\Livewire\UpdateSiteInformationForm::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UpdateSiteInformationForm.php.html#66"><abbr title="App\Http\Livewire\UpdateSiteInformationForm::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UpdateSiteInformationForm.php.html#82"><abbr title="App\Http\Livewire\UpdateSiteInformationForm::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UpdateUserInformationForm.php.html#44"><abbr title="App\Http\Livewire\UpdateUserInformationForm::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UpdateUserInformationForm.php.html#55"><abbr title="App\Http\Livewire\UpdateUserInformationForm::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UpdateUserInformationForm.php.html#71"><abbr title="App\Http\Livewire\UpdateUserInformationForm::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UploadFiles.php.html#23"><abbr title="App\Http\Livewire\UploadFiles::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserManagement.php.html#64"><abbr title="App\Http\Livewire\UserManagement::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserManagement.php.html#91"><abbr title="App\Http\Livewire\UserManagement::randomPassword">randomPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserSitesManagement.php.html#31"><abbr title="App\Http\Livewire\UserSitesManagement::mount">mount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserSitesManagement.php.html#40"><abbr title="App\Http\Livewire\UserSitesManagement::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTable.php.html#19"><abbr title="App\Http\Livewire\UserTable::builder">builder</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTable.php.html#30"><abbr title="App\Http\Livewire\UserTable::configure">configure</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserTable.php.html#40"><abbr title="App\Http\Livewire\UserTable::columns">columns</abbr></a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="InspectionAnnotationTable.php.html#70"><abbr title="App\Http\Livewire\InspectionAnnotationTable::columns">columns</abbr></a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#184"><abbr title="App\Http\Livewire\EquipmentManagement::store">store</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#267"><abbr title="App\Http\Livewire\EquipmentManagement::update">update</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#361"><abbr title="App\Http\Livewire\EquipmentManagement::import">import</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#222"><abbr title="App\Http\Livewire\EquipmentTypeManagement::update">update</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#314"><abbr title="App\Http\Livewire\EquipmentTypeManagement::import">import</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="InspectionAnnotationTable.php.html#224"><abbr title="App\Http\Livewire\InspectionAnnotationTable::destroySelected">destroySelected</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="InspectionAnnotations.php.html#187"><abbr title="App\Http\Livewire\InspectionAnnotations::destroy">destroy</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Overview.php.html#90"><abbr title="App\Http\Livewire\Overview::import">import</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Annotations.php.html#145"><abbr title="App\Http\Livewire\Annotations::setFeatureAtPixel">setFeatureAtPixel</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#246"><abbr title="App\Http\Livewire\EquipmentManagement::edit">edit</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#331"><abbr title="App\Http\Livewire\EquipmentManagement::destroy">destroy</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#157"><abbr title="App\Http\Livewire\EquipmentTypeManagement::store">store</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#203"><abbr title="App\Http\Livewire\EquipmentTypeManagement::edit">edit</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#284"><abbr title="App\Http\Livewire\EquipmentTypeManagement::destroy">destroy</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="InspectionAnnotationTable.php.html#164"><abbr title="App\Http\Livewire\InspectionAnnotationTable::filters">filters</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="InspectionAnnotationTable.php.html#206"><abbr title="App\Http\Livewire\InspectionAnnotationTable::delete">delete</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="InspectionAnnotations.php.html#140"><abbr title="App\Http\Livewire\InspectionAnnotations::update">update</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="InspectionAnnotations.php.html#259"><abbr title="App\Http\Livewire\InspectionAnnotations::addAssigned">addAssigned</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="OnboardingManagement.php.html#30"><abbr title="App\Http\Livewire\OnboardingManagement::mount">mount</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="SitesCardGrid.php.html#32"><abbr title="App\Http\Livewire\SitesCardGrid::mount">mount</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="SyncPanelInformationForm.php.html#90"><abbr title="App\Http\Livewire\SyncPanelInformationForm::checkingForPanelExistence">checkingForPanelExistence</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Annotations.php.html#206"><abbr title="App\Http\Livewire\Annotations::removeAssigned">removeAssigned</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="AssetManagement.php.html#105"><abbr title="App\Http\Livewire\AssetManagement::import">import</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DeleteInspectionForm.php.html#57"><abbr title="App\Http\Livewire\DeleteInspectionForm::destroy">destroy</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DeleteSiteForm.php.html#57"><abbr title="App\Http\Livewire\DeleteSiteForm::destroy">destroy</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DeleteUserAccountForm.php.html#59"><abbr title="App\Http\Livewire\DeleteUserAccountForm::destroy">destroy</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#317"><abbr title="App\Http\Livewire\EquipmentManagement::delete">delete</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="EquipmentManagement.php.html#459"><abbr title="App\Http\Livewire\EquipmentManagement::resetState">resetState</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="EquipmentTable.php.html#118"><abbr title="App\Http\Livewire\EquipmentTable::edit">edit</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="EquipmentTable.php.html#130"><abbr title="App\Http\Livewire\EquipmentTable::delete">delete</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#270"><abbr title="App\Http\Livewire\EquipmentTypeManagement::delete">delete</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="EquipmentTypeManagement.php.html#385"><abbr title="App\Http\Livewire\EquipmentTypeManagement::resetState">resetState</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="EquipmentTypeTable.php.html#103"><abbr title="App\Http\Livewire\EquipmentTypeTable::edit">edit</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="EquipmentTypeTable.php.html#115"><abbr title="App\Http\Livewire\EquipmentTypeTable::delete">delete</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="InspectionAnnotations.php.html#278"><abbr title="App\Http\Livewire\InspectionAnnotations::removeAssigned">removeAssigned</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Onboarding.php.html#116"><abbr title="App\Http\Livewire\Onboarding::store">store</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="SiteManagement.php.html#89"><abbr title="App\Http\Livewire\SiteManagement::mount">mount</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="SiteTable.php.html#35"><abbr title="App\Http\Livewire\SiteTable::builder">builder</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="SitesCardGrid.php.html#63"><abbr title="App\Http\Livewire\SitesCardGrid::search">search</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="SyncPanelInformationForm.php.html#127"><abbr title="App\Http\Livewire\SyncPanelInformationForm::store">store</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 9.2.18</a> using <a href="https://secure.php.net/" target="_top">PHP 8.1.2-1ubuntu2.8</a> at Wed Nov 16 20:38:00 UTC 2022.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../../_js/jquery.min.js" type="text/javascript"></script>
+  <script src="../../_js/d3.min.js" type="text/javascript"></script>
+  <script src="../../_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([37,0,0,0,0,0,0,0,0,0,0,4], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([150,0,0,0,0,0,0,0,0,0,0,12], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,9,"<a href=\"Annotations.php.html#12\">App\\Http\\Livewire\\Annotations<\/a>"],[0,5,"<a href=\"AssetManagement.php.html#14\">App\\Http\\Livewire\\AssetManagement<\/a>"],[100,5,"<a href=\"ContactForm.php.html#11\">App\\Http\\Livewire\\ContactForm<\/a>"],[100,5,"<a href=\"ContactFormDialogModal.php.html#11\">App\\Http\\Livewire\\ContactFormDialogModal<\/a>"],[0,3,"<a href=\"CreateInspectionForm.php.html#9\">App\\Http\\Livewire\\CreateInspectionForm<\/a>"],[0,3,"<a href=\"CreateSiteForm.php.html#10\">App\\Http\\Livewire\\CreateSiteForm<\/a>"],[0,4,"<a href=\"DeleteInspectionForm.php.html#13\">App\\Http\\Livewire\\DeleteInspectionForm<\/a>"],[0,4,"<a href=\"DeleteSiteForm.php.html#13\">App\\Http\\Livewire\\DeleteSiteForm<\/a>"],[0,4,"<a href=\"DeleteUserAccountForm.php.html#13\">App\\Http\\Livewire\\DeleteUserAccountForm<\/a>"],[0,33,"<a href=\"EquipmentManagement.php.html#15\">App\\Http\\Livewire\\EquipmentManagement<\/a>"],[0,7,"<a href=\"EquipmentTable.php.html#13\">App\\Http\\Livewire\\EquipmentTable<\/a>"],[0,27,"<a href=\"EquipmentTypeManagement.php.html#15\">App\\Http\\Livewire\\EquipmentTypeManagement<\/a>"],[0,7,"<a href=\"EquipmentTypeTable.php.html#13\">App\\Http\\Livewire\\EquipmentTypeTable<\/a>"],[0,5,"<a href=\"FilesTable.php.html#11\">App\\Http\\Livewire\\FilesTable<\/a>"],[0,1,"<a href=\"ImageFilesTable.php.html#7\">App\\Http\\Livewire\\ImageFilesTable<\/a>"],[0,23,"<a href=\"InspectionAnnotationTable.php.html#16\">App\\Http\\Livewire\\InspectionAnnotationTable<\/a>"],[0,16,"<a href=\"InspectionAnnotations.php.html#12\">App\\Http\\Livewire\\InspectionAnnotations<\/a>"],[0,3,"<a href=\"InspectionTable.php.html#13\">App\\Http\\Livewire\\InspectionTable<\/a>"],[0,3,"<a href=\"MapViewer.php.html#10\">App\\Http\\Livewire\\MapViewer<\/a>"],[0,3,"<a href=\"NewInspectionModalDialog.php.html#11\">App\\Http\\Livewire\\NewInspectionModalDialog<\/a>"],[100,3,"<a href=\"NewSiteDialogModalForm.php.html#12\">App\\Http\\Livewire\\NewSiteDialogModalForm<\/a>"],[0,8,"<a href=\"Onboarding.php.html#15\">App\\Http\\Livewire\\Onboarding<\/a>"],[0,5,"<a href=\"OnboardingManagement.php.html#9\">App\\Http\\Livewire\\OnboardingManagement<\/a>"],[0,7,"<a href=\"Overview.php.html#13\">App\\Http\\Livewire\\Overview<\/a>"],[0,1,"<a href=\"PanelTable.php.html#10\">App\\Http\\Livewire\\PanelTable<\/a>"],[0,3,"<a href=\"ReportViewer.php.html#10\">App\\Http\\Livewire\\ReportViewer<\/a>"],[100,0,"<a href=\"SiteCard.php.html#9\">App\\Http\\Livewire\\SiteCard<\/a>"],[0,3,"<a href=\"SiteInformationCard.php.html#10\">App\\Http\\Livewire\\SiteInformationCard<\/a>"],[0,6,"<a href=\"SiteManagement.php.html#12\">App\\Http\\Livewire\\SiteManagement<\/a>"],[0,4,"<a href=\"SiteTable.php.html#13\">App\\Http\\Livewire\\SiteTable<\/a>"],[0,5,"<a href=\"SitesCardGrid.php.html#11\">App\\Http\\Livewire\\SitesCardGrid<\/a>"],[0,1,"<a href=\"SitesList.php.html#9\">App\\Http\\Livewire\\SitesList<\/a>"],[0,7,"<a href=\"SyncPanelInformationForm.php.html#12\">App\\Http\\Livewire\\SyncPanelInformationForm<\/a>"],[0,3,"<a href=\"SyncUserRolesForm.php.html#11\">App\\Http\\Livewire\\SyncUserRolesForm<\/a>"],[0,3,"<a href=\"UpdateInspectionInformationForm.php.html#9\">App\\Http\\Livewire\\UpdateInspectionInformationForm<\/a>"],[0,3,"<a href=\"UpdateSiteInformationForm.php.html#9\">App\\Http\\Livewire\\UpdateSiteInformationForm<\/a>"],[0,3,"<a href=\"UpdateUserInformationForm.php.html#9\">App\\Http\\Livewire\\UpdateUserInformationForm<\/a>"],[0,1,"<a href=\"UploadFiles.php.html#9\">App\\Http\\Livewire\\UploadFiles<\/a>"],[0,2,"<a href=\"UserManagement.php.html#12\">App\\Http\\Livewire\\UserManagement<\/a>"],[0,2,"<a href=\"UserSitesManagement.php.html#10\">App\\Http\\Livewire\\UserSitesManagement<\/a>"],[0,3,"<a href=\"UserTable.php.html#12\">App\\Http\\Livewire\\UserTable<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Annotations.php.html#126\">App\\Http\\Livewire\\Annotations::mount<\/a>"],[0,3,"<a href=\"Annotations.php.html#145\">App\\Http\\Livewire\\Annotations::setFeatureAtPixel<\/a>"],[0,1,"<a href=\"Annotations.php.html#161\">App\\Http\\Livewire\\Annotations::resetState<\/a>"],[0,1,"<a href=\"Annotations.php.html#190\">App\\Http\\Livewire\\Annotations::toggleAssigned<\/a>"],[0,2,"<a href=\"Annotations.php.html#206\">App\\Http\\Livewire\\Annotations::removeAssigned<\/a>"],[0,1,"<a href=\"Annotations.php.html#224\">App\\Http\\Livewire\\Annotations::store<\/a>"],[100,1,"<a href=\"AssetManagement.php.html#85\">App\\Http\\Livewire\\AssetManagement::mount<\/a>"],[0,1,"<a href=\"AssetManagement.php.html#95\">App\\Http\\Livewire\\AssetManagement::updatedFile<\/a>"],[0,2,"<a href=\"AssetManagement.php.html#105\">App\\Http\\Livewire\\AssetManagement::import<\/a>"],[0,1,"<a href=\"AssetManagement.php.html#140\">App\\Http\\Livewire\\AssetManagement::export<\/a>"],[100,2,"<a href=\"ContactForm.php.html#46\">App\\Http\\Livewire\\ContactForm::mount<\/a>"],[100,1,"<a href=\"ContactForm.php.html#61\">App\\Http\\Livewire\\ContactForm::updated<\/a>"],[100,1,"<a href=\"ContactForm.php.html#71\">App\\Http\\Livewire\\ContactForm::sendMessage<\/a>"],[100,1,"<a href=\"ContactForm.php.html#96\">App\\Http\\Livewire\\ContactForm::render<\/a>"],[100,2,"<a href=\"ContactFormDialogModal.php.html#53\">App\\Http\\Livewire\\ContactFormDialogModal::mount<\/a>"],[100,1,"<a href=\"ContactFormDialogModal.php.html#68\">App\\Http\\Livewire\\ContactFormDialogModal::updated<\/a>"],[100,1,"<a href=\"ContactFormDialogModal.php.html#78\">App\\Http\\Livewire\\ContactFormDialogModal::sendMessage<\/a>"],[100,1,"<a href=\"ContactFormDialogModal.php.html#107\">App\\Http\\Livewire\\ContactFormDialogModal::render<\/a>"],[0,1,"<a href=\"CreateInspectionForm.php.html#24\">App\\Http\\Livewire\\CreateInspectionForm::mount<\/a>"],[0,1,"<a href=\"CreateInspectionForm.php.html#29\">App\\Http\\Livewire\\CreateInspectionForm::store<\/a>"],[0,1,"<a href=\"CreateInspectionForm.php.html#38\">App\\Http\\Livewire\\CreateInspectionForm::render<\/a>"],[0,1,"<a href=\"CreateSiteForm.php.html#26\">App\\Http\\Livewire\\CreateSiteForm::mount<\/a>"],[0,1,"<a href=\"CreateSiteForm.php.html#37\">App\\Http\\Livewire\\CreateSiteForm::store<\/a>"],[0,1,"<a href=\"CreateSiteForm.php.html#48\">App\\Http\\Livewire\\CreateSiteForm::render<\/a>"],[0,1,"<a href=\"DeleteInspectionForm.php.html#41\">App\\Http\\Livewire\\DeleteInspectionForm::confirmInspectionDeletion<\/a>"],[0,2,"<a href=\"DeleteInspectionForm.php.html#57\">App\\Http\\Livewire\\DeleteInspectionForm::destroy<\/a>"],[0,1,"<a href=\"DeleteInspectionForm.php.html#77\">App\\Http\\Livewire\\DeleteInspectionForm::render<\/a>"],[0,1,"<a href=\"DeleteSiteForm.php.html#41\">App\\Http\\Livewire\\DeleteSiteForm::confirmSiteDeletion<\/a>"],[0,2,"<a href=\"DeleteSiteForm.php.html#57\">App\\Http\\Livewire\\DeleteSiteForm::destroy<\/a>"],[0,1,"<a href=\"DeleteSiteForm.php.html#77\">App\\Http\\Livewire\\DeleteSiteForm::render<\/a>"],[0,1,"<a href=\"DeleteUserAccountForm.php.html#41\">App\\Http\\Livewire\\DeleteUserAccountForm::confirmUserAccountDeletion<\/a>"],[0,2,"<a href=\"DeleteUserAccountForm.php.html#59\">App\\Http\\Livewire\\DeleteUserAccountForm::destroy<\/a>"],[0,1,"<a href=\"DeleteUserAccountForm.php.html#82\">App\\Http\\Livewire\\DeleteUserAccountForm::render<\/a>"],[0,1,"<a href=\"EquipmentManagement.php.html#165\">App\\Http\\Livewire\\EquipmentManagement::mount<\/a>"],[0,4,"<a href=\"EquipmentManagement.php.html#184\">App\\Http\\Livewire\\EquipmentManagement::store<\/a>"],[0,3,"<a href=\"EquipmentManagement.php.html#246\">App\\Http\\Livewire\\EquipmentManagement::edit<\/a>"],[0,4,"<a href=\"EquipmentManagement.php.html#267\">App\\Http\\Livewire\\EquipmentManagement::update<\/a>"],[0,2,"<a href=\"EquipmentManagement.php.html#317\">App\\Http\\Livewire\\EquipmentManagement::delete<\/a>"],[0,3,"<a href=\"EquipmentManagement.php.html#331\">App\\Http\\Livewire\\EquipmentManagement::destroy<\/a>"],[0,4,"<a href=\"EquipmentManagement.php.html#361\">App\\Http\\Livewire\\EquipmentManagement::import<\/a>"],[0,1,"<a href=\"EquipmentManagement.php.html#421\">App\\Http\\Livewire\\EquipmentManagement::export<\/a>"],[0,2,"<a href=\"EquipmentManagement.php.html#459\">App\\Http\\Livewire\\EquipmentManagement::resetState<\/a>"],[0,1,"<a href=\"EquipmentManagement.php.html#479\">App\\Http\\Livewire\\EquipmentManagement::addCustomPropertyInput<\/a>"],[0,1,"<a href=\"EquipmentManagement.php.html#493\">App\\Http\\Livewire\\EquipmentManagement::removeCustomPropertyInput<\/a>"],[0,1,"<a href=\"EquipmentManagement.php.html#508\">App\\Http\\Livewire\\EquipmentManagement::search<\/a>"],[0,1,"<a href=\"EquipmentManagement.php.html#524\">App\\Http\\Livewire\\EquipmentManagement::selectedEquipmentType<\/a>"],[0,1,"<a href=\"EquipmentManagement.php.html#538\">App\\Http\\Livewire\\EquipmentManagement::discardSelection<\/a>"],[0,1,"<a href=\"EquipmentManagement.php.html#552\">App\\Http\\Livewire\\EquipmentManagement::updateCollection<\/a>"],[0,1,"<a href=\"EquipmentManagement.php.html#564\">App\\Http\\Livewire\\EquipmentManagement::updateEquipmentTypes<\/a>"],[0,1,"<a href=\"EquipmentManagement.php.html#577\">App\\Http\\Livewire\\EquipmentManagement::updatedFile<\/a>"],[0,1,"<a href=\"EquipmentManagement.php.html#587\">App\\Http\\Livewire\\EquipmentManagement::updatedDisplayEquipmentCreationForm<\/a>"],[0,1,"<a href=\"EquipmentTable.php.html#40\">App\\Http\\Livewire\\EquipmentTable::builder<\/a>"],[0,1,"<a href=\"EquipmentTable.php.html#54\">App\\Http\\Livewire\\EquipmentTable::configure<\/a>"],[0,1,"<a href=\"EquipmentTable.php.html#69\">App\\Http\\Livewire\\EquipmentTable::columns<\/a>"],[0,2,"<a href=\"EquipmentTable.php.html#118\">App\\Http\\Livewire\\EquipmentTable::edit<\/a>"],[0,2,"<a href=\"EquipmentTable.php.html#130\">App\\Http\\Livewire\\EquipmentTable::delete<\/a>"],[0,1,"<a href=\"EquipmentTypeManagement.php.html#138\">App\\Http\\Livewire\\EquipmentTypeManagement::mount<\/a>"],[0,3,"<a href=\"EquipmentTypeManagement.php.html#157\">App\\Http\\Livewire\\EquipmentTypeManagement::store<\/a>"],[0,3,"<a href=\"EquipmentTypeManagement.php.html#203\">App\\Http\\Livewire\\EquipmentTypeManagement::edit<\/a>"],[0,4,"<a href=\"EquipmentTypeManagement.php.html#222\">App\\Http\\Livewire\\EquipmentTypeManagement::update<\/a>"],[0,2,"<a href=\"EquipmentTypeManagement.php.html#270\">App\\Http\\Livewire\\EquipmentTypeManagement::delete<\/a>"],[0,3,"<a href=\"EquipmentTypeManagement.php.html#284\">App\\Http\\Livewire\\EquipmentTypeManagement::destroy<\/a>"],[0,4,"<a href=\"EquipmentTypeManagement.php.html#314\">App\\Http\\Livewire\\EquipmentTypeManagement::import<\/a>"],[0,1,"<a href=\"EquipmentTypeManagement.php.html#364\">App\\Http\\Livewire\\EquipmentTypeManagement::export<\/a>"],[0,2,"<a href=\"EquipmentTypeManagement.php.html#385\">App\\Http\\Livewire\\EquipmentTypeManagement::resetState<\/a>"],[0,1,"<a href=\"EquipmentTypeManagement.php.html#403\">App\\Http\\Livewire\\EquipmentTypeManagement::addCustomPropertyInput<\/a>"],[0,1,"<a href=\"EquipmentTypeManagement.php.html#417\">App\\Http\\Livewire\\EquipmentTypeManagement::removeCustomPropertyInput<\/a>"],[0,1,"<a href=\"EquipmentTypeManagement.php.html#429\">App\\Http\\Livewire\\EquipmentTypeManagement::updatedFile<\/a>"],[0,1,"<a href=\"EquipmentTypeManagement.php.html#439\">App\\Http\\Livewire\\EquipmentTypeManagement::updatedDisplayEquipmentTypeCreationForm<\/a>"],[0,1,"<a href=\"EquipmentTypeTable.php.html#40\">App\\Http\\Livewire\\EquipmentTypeTable::builder<\/a>"],[0,1,"<a href=\"EquipmentTypeTable.php.html#53\">App\\Http\\Livewire\\EquipmentTypeTable::configure<\/a>"],[0,1,"<a href=\"EquipmentTypeTable.php.html#63\">App\\Http\\Livewire\\EquipmentTypeTable::columns<\/a>"],[0,2,"<a href=\"EquipmentTypeTable.php.html#103\">App\\Http\\Livewire\\EquipmentTypeTable::edit<\/a>"],[0,2,"<a href=\"EquipmentTypeTable.php.html#115\">App\\Http\\Livewire\\EquipmentTypeTable::delete<\/a>"],[0,1,"<a href=\"FilesTable.php.html#56\">App\\Http\\Livewire\\FilesTable::mount<\/a>"],[0,1,"<a href=\"FilesTable.php.html#66\">App\\Http\\Livewire\\FilesTable::confirmMediaDeletion<\/a>"],[0,1,"<a href=\"FilesTable.php.html#82\">App\\Http\\Livewire\\FilesTable::destroy<\/a>"],[0,1,"<a href=\"FilesTable.php.html#102\">App\\Http\\Livewire\\FilesTable::updateFilesCollection<\/a>"],[0,1,"<a href=\"FilesTable.php.html#112\">App\\Http\\Livewire\\FilesTable::render<\/a>"],[0,1,"<a href=\"ImageFilesTable.php.html#9\">App\\Http\\Livewire\\ImageFilesTable::render<\/a>"],[0,1,"<a href=\"InspectionAnnotationTable.php.html#41\">App\\Http\\Livewire\\InspectionAnnotationTable::builder<\/a>"],[0,1,"<a href=\"InspectionAnnotationTable.php.html#57\">App\\Http\\Livewire\\InspectionAnnotationTable::configure<\/a>"],[0,11,"<a href=\"InspectionAnnotationTable.php.html#70\">App\\Http\\Livewire\\InspectionAnnotationTable::columns<\/a>"],[0,3,"<a href=\"InspectionAnnotationTable.php.html#164\">App\\Http\\Livewire\\InspectionAnnotationTable::filters<\/a>"],[0,3,"<a href=\"InspectionAnnotationTable.php.html#206\">App\\Http\\Livewire\\InspectionAnnotationTable::delete<\/a>"],[0,4,"<a href=\"InspectionAnnotationTable.php.html#224\">App\\Http\\Livewire\\InspectionAnnotationTable::destroySelected<\/a>"],[0,1,"<a href=\"InspectionAnnotations.php.html#110\">App\\Http\\Livewire\\InspectionAnnotations::mount<\/a>"],[0,1,"<a href=\"InspectionAnnotations.php.html#124\">App\\Http\\Livewire\\InspectionAnnotations::edit<\/a>"],[0,3,"<a href=\"InspectionAnnotations.php.html#140\">App\\Http\\Livewire\\InspectionAnnotations::update<\/a>"],[0,1,"<a href=\"InspectionAnnotations.php.html#176\">App\\Http\\Livewire\\InspectionAnnotations::delete<\/a>"],[0,4,"<a href=\"InspectionAnnotations.php.html#187\">App\\Http\\Livewire\\InspectionAnnotations::destroy<\/a>"],[0,1,"<a href=\"InspectionAnnotations.php.html#226\">App\\Http\\Livewire\\InspectionAnnotations::resetState<\/a>"],[0,3,"<a href=\"InspectionAnnotations.php.html#259\">App\\Http\\Livewire\\InspectionAnnotations::addAssigned<\/a>"],[0,2,"<a href=\"InspectionAnnotations.php.html#278\">App\\Http\\Livewire\\InspectionAnnotations::removeAssigned<\/a>"],[0,1,"<a href=\"InspectionTable.php.html#27\">App\\Http\\Livewire\\InspectionTable::builder<\/a>"],[0,1,"<a href=\"InspectionTable.php.html#40\">App\\Http\\Livewire\\InspectionTable::configure<\/a>"],[0,1,"<a href=\"InspectionTable.php.html#50\">App\\Http\\Livewire\\InspectionTable::columns<\/a>"],[0,1,"<a href=\"MapViewer.php.html#41\">App\\Http\\Livewire\\MapViewer::mount<\/a>"],[0,1,"<a href=\"MapViewer.php.html#54\">App\\Http\\Livewire\\MapViewer::updateFilesCollection<\/a>"],[0,1,"<a href=\"MapViewer.php.html#72\">App\\Http\\Livewire\\MapViewer::render<\/a>"],[0,1,"<a href=\"NewInspectionModalDialog.php.html#53\">App\\Http\\Livewire\\NewInspectionModalDialog::mount<\/a>"],[0,1,"<a href=\"NewInspectionModalDialog.php.html#63\">App\\Http\\Livewire\\NewInspectionModalDialog::store<\/a>"],[0,1,"<a href=\"NewInspectionModalDialog.php.html#79\">App\\Http\\Livewire\\NewInspectionModalDialog::render<\/a>"],[100,1,"<a href=\"NewSiteDialogModalForm.php.html#60\">App\\Http\\Livewire\\NewSiteDialogModalForm::mount<\/a>"],[100,1,"<a href=\"NewSiteDialogModalForm.php.html#70\">App\\Http\\Livewire\\NewSiteDialogModalForm::store<\/a>"],[100,1,"<a href=\"NewSiteDialogModalForm.php.html#86\">App\\Http\\Livewire\\NewSiteDialogModalForm::render<\/a>"],[0,1,"<a href=\"Onboarding.php.html#73\">App\\Http\\Livewire\\Onboarding::mount<\/a>"],[0,1,"<a href=\"Onboarding.php.html#84\">App\\Http\\Livewire\\Onboarding::updated<\/a>"],[0,1,"<a href=\"Onboarding.php.html#95\">App\\Http\\Livewire\\Onboarding::setSite<\/a>"],[0,1,"<a href=\"Onboarding.php.html#106\">App\\Http\\Livewire\\Onboarding::setOnboarding<\/a>"],[0,2,"<a href=\"Onboarding.php.html#116\">App\\Http\\Livewire\\Onboarding::store<\/a>"],[0,1,"<a href=\"Onboarding.php.html#137\">App\\Http\\Livewire\\Onboarding::finish<\/a>"],[0,1,"<a href=\"Onboarding.php.html#153\">App\\Http\\Livewire\\Onboarding::render<\/a>"],[0,3,"<a href=\"OnboardingManagement.php.html#30\">App\\Http\\Livewire\\OnboardingManagement::mount<\/a>"],[0,1,"<a href=\"OnboardingManagement.php.html#46\">App\\Http\\Livewire\\OnboardingManagement::markAsCompleted<\/a>"],[0,1,"<a href=\"OnboardingManagement.php.html#62\">App\\Http\\Livewire\\OnboardingManagement::render<\/a>"],[0,1,"<a href=\"Overview.php.html#78\">App\\Http\\Livewire\\Overview::mount<\/a>"],[0,4,"<a href=\"Overview.php.html#90\">App\\Http\\Livewire\\Overview::import<\/a>"],[0,1,"<a href=\"Overview.php.html#174\">App\\Http\\Livewire\\Overview::export<\/a>"],[0,1,"<a href=\"Overview.php.html#201\">App\\Http\\Livewire\\Overview::updatedFile<\/a>"],[0,1,"<a href=\"PanelTable.php.html#36\">App\\Http\\Livewire\\PanelTable::imported<\/a>"],[0,1,"<a href=\"ReportViewer.php.html#41\">App\\Http\\Livewire\\ReportViewer::mount<\/a>"],[0,1,"<a href=\"ReportViewer.php.html#53\">App\\Http\\Livewire\\ReportViewer::updateFilesCollection<\/a>"],[0,1,"<a href=\"ReportViewer.php.html#65\">App\\Http\\Livewire\\ReportViewer::render<\/a>"],[0,1,"<a href=\"SiteInformationCard.php.html#31\">App\\Http\\Livewire\\SiteInformationCard::confirmInspectionCreation<\/a>"],[0,1,"<a href=\"SiteInformationCard.php.html#45\">App\\Http\\Livewire\\SiteInformationCard::store<\/a>"],[0,1,"<a href=\"SiteInformationCard.php.html#55\">App\\Http\\Livewire\\SiteInformationCard::render<\/a>"],[0,2,"<a href=\"SiteManagement.php.html#89\">App\\Http\\Livewire\\SiteManagement::mount<\/a>"],[0,1,"<a href=\"SiteManagement.php.html#103\">App\\Http\\Livewire\\SiteManagement::search<\/a>"],[0,1,"<a href=\"SiteManagement.php.html#121\">App\\Http\\Livewire\\SiteManagement::selectedOwner<\/a>"],[0,1,"<a href=\"SiteManagement.php.html#139\">App\\Http\\Livewire\\SiteManagement::discardSelection<\/a>"],[0,1,"<a href=\"SiteManagement.php.html#153\">App\\Http\\Livewire\\SiteManagement::store<\/a>"],[0,2,"<a href=\"SiteTable.php.html#35\">App\\Http\\Livewire\\SiteTable::builder<\/a>"],[0,1,"<a href=\"SiteTable.php.html#55\">App\\Http\\Livewire\\SiteTable::configure<\/a>"],[0,1,"<a href=\"SiteTable.php.html#66\">App\\Http\\Livewire\\SiteTable::columns<\/a>"],[0,3,"<a href=\"SitesCardGrid.php.html#32\">App\\Http\\Livewire\\SitesCardGrid::mount<\/a>"],[0,2,"<a href=\"SitesCardGrid.php.html#63\">App\\Http\\Livewire\\SitesCardGrid::search<\/a>"],[0,1,"<a href=\"SitesList.php.html#16\">App\\Http\\Livewire\\SitesList::render<\/a>"],[0,1,"<a href=\"SyncPanelInformationForm.php.html#79\">App\\Http\\Livewire\\SyncPanelInformationForm::mount<\/a>"],[0,3,"<a href=\"SyncPanelInformationForm.php.html#90\">App\\Http\\Livewire\\SyncPanelInformationForm::checkingForPanelExistence<\/a>"],[0,2,"<a href=\"SyncPanelInformationForm.php.html#127\">App\\Http\\Livewire\\SyncPanelInformationForm::store<\/a>"],[0,1,"<a href=\"SyncPanelInformationForm.php.html#170\">App\\Http\\Livewire\\SyncPanelInformationForm::render<\/a>"],[0,1,"<a href=\"SyncUserRolesForm.php.html#41\">App\\Http\\Livewire\\SyncUserRolesForm::mount<\/a>"],[0,1,"<a href=\"SyncUserRolesForm.php.html#53\">App\\Http\\Livewire\\SyncUserRolesForm::update<\/a>"],[0,1,"<a href=\"SyncUserRolesForm.php.html#67\">App\\Http\\Livewire\\SyncUserRolesForm::render<\/a>"],[0,1,"<a href=\"UpdateInspectionInformationForm.php.html#33\">App\\Http\\Livewire\\UpdateInspectionInformationForm::mount<\/a>"],[0,1,"<a href=\"UpdateInspectionInformationForm.php.html#44\">App\\Http\\Livewire\\UpdateInspectionInformationForm::update<\/a>"],[0,1,"<a href=\"UpdateInspectionInformationForm.php.html#58\">App\\Http\\Livewire\\UpdateInspectionInformationForm::render<\/a>"],[0,1,"<a href=\"UpdateSiteInformationForm.php.html#51\">App\\Http\\Livewire\\UpdateSiteInformationForm::mount<\/a>"],[0,1,"<a href=\"UpdateSiteInformationForm.php.html#66\">App\\Http\\Livewire\\UpdateSiteInformationForm::update<\/a>"],[0,1,"<a href=\"UpdateSiteInformationForm.php.html#82\">App\\Http\\Livewire\\UpdateSiteInformationForm::render<\/a>"],[0,1,"<a href=\"UpdateUserInformationForm.php.html#44\">App\\Http\\Livewire\\UpdateUserInformationForm::mount<\/a>"],[0,1,"<a href=\"UpdateUserInformationForm.php.html#55\">App\\Http\\Livewire\\UpdateUserInformationForm::update<\/a>"],[0,1,"<a href=\"UpdateUserInformationForm.php.html#71\">App\\Http\\Livewire\\UpdateUserInformationForm::render<\/a>"],[0,1,"<a href=\"UploadFiles.php.html#23\">App\\Http\\Livewire\\UploadFiles::render<\/a>"],[0,1,"<a href=\"UserManagement.php.html#64\">App\\Http\\Livewire\\UserManagement::store<\/a>"],[0,1,"<a href=\"UserManagement.php.html#91\">App\\Http\\Livewire\\UserManagement::randomPassword<\/a>"],[0,1,"<a href=\"UserSitesManagement.php.html#31\">App\\Http\\Livewire\\UserSitesManagement::mount<\/a>"],[0,1,"<a href=\"UserSitesManagement.php.html#40\">App\\Http\\Livewire\\UserSitesManagement::render<\/a>"],[0,1,"<a href=\"UserTable.php.html#19\">App\\Http\\Livewire\\UserTable::builder<\/a>"],[0,1,"<a href=\"UserTable.php.html#30\">App\\Http\\Livewire\\UserTable::configure<\/a>"],[0,1,"<a href=\"UserTable.php.html#40\">App\\Http\\Livewire\\UserTable::columns<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

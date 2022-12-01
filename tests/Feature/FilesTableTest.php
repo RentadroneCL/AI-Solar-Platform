@@ -41,7 +41,7 @@ it('confirm that the user would like to delete the media resource', function () 
         ->assertDispatchedBrowserEvent('confirming-delete-media')
         ->assertSet('mediaId', $media->id)
         ->assertStatus(200);
-})->skip('Actions - Does not support creating temporary URLs');;
+})->skip('Actions - Does not support creating temporary URLs');
 
 it('update files collection', function () {
     $user = User::factory()->create();
