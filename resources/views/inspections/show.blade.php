@@ -32,7 +32,7 @@
 
             <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
               <a class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 cursor-pointer hover:text-gray-700 dark:hover:text-slate-400 hover:border-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-slate-400 focus:border-gray-300" :class="{'text-gray-700 dark:text-slate-400 border-blue-400 border-b-2 font-semibold': tab === '#annotations'}" @click="tab = '#annotations'">
-                <i class="mr-2 fa-solid fa-note-sticky fa-fw text-slate-500"></i> {{ __('Annotations') }}
+                <i class="fa-solid fa-clipboard mr-2 fa-fw text-slate-500"></i> {{ __('Annotations') }}
               </a>
             </div>
 

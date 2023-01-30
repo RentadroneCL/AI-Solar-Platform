@@ -3,7 +3,7 @@
   <!-- Overlay Pane -->
   <div
     x-data="{
-      show: @entangle('displayOverlayPane').defer,
+      show: $wire.entangle('displayOverlayPane').defer,
     }"
     x-show="show"
     x-transition
@@ -36,12 +36,17 @@
           <textarea wire:model.lazy="state.content" class="w-full mt-1 border-gray-300 rounded-md shadow-sm dark:bg-slate-600/25 dark:text-slate-200 dark:border-slate-600 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" rows="4" placeholder="{{ __('Leave a comment') }}"></textarea>
           <x-jet-input-error for="state.content" class="mt-2" />
         </div>
+        <!-- Feature dropdown -->
+        <div class="col-span-6 mb-4">
+          <livewire:features>
+        </div>
         <div class="col-span-6 mb-4">
           <x-jet-label for="state.custom_properties.assignees" value="{{ __('Team Members') }}" />
           <div class="inline-flex items-center justify-start mt-1 space-x-3">
             @forelse ($state['custom_properties']['assignees'] as $assigned)
               <div class="relative mt-1">
                 <div
+                  wire:key="assigned-{{ $assigned['id'] }}"
                   wire:click="removeAssigned({{ $assigned['id'] }})"
                   class="absolute top-0 right-0 p-1 -mt-2 -mr-2 text-xs border rounded-full shadow-sm cursor-pointer bg-slate-50 border-slate-100 dark:border-slate-200 text-rose-500 hover:bg-slate-100 dark:bg-slate-200 dark:hover-bg-slate-300"
                 >
@@ -50,9 +55,9 @@
                 <img class="object-cover border border-transparent rounded-full shadow-inner w-11 h-11 hover:border-2 hover:border-slate-200 dark:hover:border-slate-300" src="{{ $assigned['profile_photo_url'] }}" alt="{{ $assigned['name'] }} avatar's" title="{{ $assigned['email'] }}">
               </div>
             @empty
-              <div class="max-w-md px-3 py-2 rounded-md shadow-sm bg-slate-50 dark:bg-slate-600">
+              <div class="max-w-sm px-3 py-2 rounded-md shadow-sm bg-slate-50 dark:bg-slate-600">
                 <h3 class="text-sm font-semibold text-slate-900 dark:text-slate-200">{{ __('Add team members') }}</h3>
-                <p class="text-xs text-slate-700 dark:text-slate-400">{{ __("You haven't added any team members to your project yet. As the owner of this project, you can manage team member permissions") }}</p>
+                <p class="text-xs text-slate-700 dark:text-slate-400">{{ __("You haven't more suggestion, consider to add more member to the current team") }}</p>
               </div>
             @endforelse
             <div class="static">
@@ -68,7 +73,7 @@
               <!-- Suggestion lists -->
               <div
                 x-data="{
-                  show: @entangle('displaySuggestions').defer,
+                  show: $wire.entangle('displaySuggestions').defer,
                 }"
                 x-on:click.away="show = false"
                 x-on:close.stop="show = false"
@@ -90,15 +95,15 @@
                   role="none"
                 >
                   <x-jet-label for="query" value="{{ __('Assigned to') }}" />
-                  {{-- <x-jet-input id="query" type="text" class="block w-full mt-1" wire:model.lazy="query" placeholder="{{ __('Search...') }}" /> --}}
-                  <x-jet-input-error for="query" class="mt-2" />
+                  {{-- <x-jet-input id="query" type="text" class="block w-full mt-1" wire:model.lazy="query" placeholder="{{ __('Search...') }}" />
+                  <x-jet-input-error for="query" class="mt-2" /> --}}
                   <div class="flex flex-col items-center justify-start mt-2 border divide-y rounded-md dark:divide-slate-600 dark:border-slate-600">
                     @forelse ($suggestions as $suggestion)
                       <div
                         x-on:click="show = false"
                         x-on:click.stop
+                        wire:key="suggestion-{{ $suggestion['id'] }}"
                         wire:click="addAssigned({{ $suggestion['id'] }})"
-                        wire:loading.attr="disabled"
                         class="inline-flex items-center justify-start w-full p-2 bg-white cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-500 dark:bg-slate-800"
                       >
                         <img class="object-cover w-8 h-8 mr-4 border border-transparent rounded-full shadow-inner hover:border-2 hover:border-slate-200 dark:hover:border-slate-300" src="{{ $suggestion['profile_photo_url'] }}" alt="{{ $suggestion['name'] }} avatar's" title="{{ $suggestion['email'] }}">
@@ -108,15 +113,16 @@
                         </div>
                       </div>
                     @empty
-                      <div class="rounded-md shadow-sm bg-slate-50 dark:bg-slate-600">
-                        <h3 class="text-sm font-semibold text-slate-900 dark:text-slate-200">{{ __('Add team members') }}</h3>
-                        <p class="text-xs text-slate-700 dark:text-slate-400">{{ __("You haven't added any team members to your project yet. As the owner of this project, you can manage team member permissions") }}</p>
+                      <div class="max-w-sm px-3 py-2 rounded-md shadow-sm bg-slate-50 dark:bg-slate-600">
+                        <h3 class="text-sm font-semibold text-slate-900 dark:text-slate-200">{{ __("You haven't more suggestion") }}</h3>
+                        <p class="text-xs text-slate-700 dark:text-slate-400">{{ __("consider to add more member to the current team") }}</p>
                       </div>
                     @endforelse
                   </div>
                 </div>
               </div>
             </div>
+            <x-jet-input-error for="state.custom_properties.assignees" class="mt-2" />
           </div>
         </div>
         <div class="col-span-6 mb-4">

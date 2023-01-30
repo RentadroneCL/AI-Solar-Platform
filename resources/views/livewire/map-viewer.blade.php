@@ -269,14 +269,14 @@
                         </div>
                       </div>
 
-                      <div class="flex flex-col justify-start w-full">
+                      {{-- <div class="flex flex-col justify-start w-full">
                         <button type="button" @click="annotations = !annotations" class="inline-flex items-center justify-start w-full px-4 py-2 my-2 font-semibold transition duration-150 ease-in-out border-transparent rounded-md focus:bg-slate-50 dark:focus:bg-slate-600 active:bg-slate-50 dark:active:bg-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 dark:hover:text-slate-300 dark:active:text-slate-400 dark:focus:text-slate-400 focus:outline-none" :class="{ 'text-slate-600': !annotations, 'text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-700': annotations }">
                           <i class="mr-2 fa-solid fa-note-sticky fa-fw"></i> {{ __('Annotations') }} <i class="ml-auto fas fa-fw" :class="{ 'fa-chevron-down': !annotations, 'fa-chevron-up': annotations }"></i>
                         </button>
                         <div class="block w-full px-4 py-2" x-show="annotations">
                           <livewire:annotations :model="$model">
                         </div>
-                      </div>
+                      </div> --}}
                     </div>
                   </div>
                 </div>
