@@ -6,11 +6,7 @@
 [![License](https://poser.pugx.org/composer/spdx-licenses/license)](https://packagist.org/packages/composer/spdx-licenses)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
-[Rentadrone.cl](https://rentadrone.cl).
-
-# Forum
-
-This project is part of the [UNICEF Innovation Fund](https://unicef-if.discourse.group/c/projects/rentadrone/10). You can post comments or questions about each category of [Rentadrone Developers](https://rentadrone.cl/developers/) algorithms. We encourage users to participate in the forum and to engage with fellow users.
+To learn all about it, head over to the extensive [documentation](https://rentadronecl.github.io).
 
 # Developers
 
