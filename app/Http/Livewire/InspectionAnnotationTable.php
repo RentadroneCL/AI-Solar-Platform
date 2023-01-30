@@ -58,7 +58,7 @@ class InspectionAnnotationTable extends DataTableComponent
     {
         $this->setPrimaryKey('id')
             ->setBulkActions([
-                'destroySelected' => __('Delete'),
+                'destroySelected' => __('Delete selected'),
             ]);
     }
 
@@ -73,6 +73,23 @@ class InspectionAnnotationTable extends DataTableComponent
             Column::make("Id", "id")
                 ->sortable(),
             Column::make(__('Title'), "custom_properties->title")
+                ->sortable(),
+            Column::make(__('Status'), "custom_properties->status")
+                ->format(function ($value, $row, Column $column) {
+                    switch ($value) {
+                        case 'to_do':
+                            return "<div class=\"simplemap-tables-badge-column\"><div class=\"secondary-badge\"><i class=\"fa-solid fa-tag fa-fw\"></i><span>".Str::ucfirst(__('to do'))."</span></div></div>";
+                        case 'pending':
+                            return "<div class=\"simplemap-tables-badge-column\"><div class=\"warning-badge\"><i class=\"fa-solid fa-tag fa-fw\"></i><span>".Str::ucfirst(__('pending'))."</span></div></div>";
+                        case 'in_progress':
+                            return "<div class=\"simplemap-tables-badge-column\"><div class=\"info-badge\"><i class=\"fa-solid fa-tag fa-fw\"></i><span>".Str::ucfirst(__('in progress'))."</span></div></div>";
+                        case 'delayed':
+                            return "<div class=\"simplemap-tables-badge-column\"><div class=\"danger-badge\"><i class=\"fa-solid fa-tag fa-fw\"></i><span>".Str::ucfirst(__('delayed'))."</span></div></div>";
+                        default:
+                            return "<div class=\"simplemap-tables-badge-column\"><div class=\"success-badge\"><i class=\"fa-solid fa-tag fa-fw\"></i><span>".Str::ucfirst(__('done'))."</span></div></div>";
+                    }
+                })
+                ->html()
                 ->sortable(),
             Column::make(__('Assigned'), "custom_properties->assignees")
                 ->format(function ($value, $row, Column $column) {
@@ -89,34 +106,17 @@ class InspectionAnnotationTable extends DataTableComponent
                     EOT;
                 })
                 ->html(),
-            Column::make(__('Status'), "custom_properties->status")
-                ->format(function ($value, $row, Column $column) {
-                    switch ($value) {
-                        case 'to_do':
-                            return "<label class=\"status\">".Str::ucfirst(__('to do'))."</label><br>";
-                        case 'pending':
-                            return "<label class=\"status pending\">".Str::ucfirst(__('pending'))."</label><br>";
-                        case 'in_progress':
-                            return "<label class=\"status in_progress\">".Str::ucfirst(__('in progress'))."</label><br>";
-                        case 'delayed':
-                            return "<label class=\"status delayed\">".Str::ucfirst(__('delayed'))."</label><br>";
-                        default:
-                            return "<label class=\"status done\">".Str::ucfirst(__('done'))."</label><br>";
-                    }
-                })
-                ->html()
-                ->sortable(),
             Column::make(__('Priority'), "custom_properties->priority")
                 ->format(function ($value, $row, Column $column) {
                     switch ($value) {
                         case 'high':
-                            return "<i class=\"fa-solid priority high mr-2 fa-fw fa-triangle-exclamation\"></i>" . Str::ucfirst($value);
+                            return "<div class=\"simplemap-tables-badge-column\"><div class=\"danger-badge\"><span>".Str::ucfirst($value)."</span></div></div>";
                         case 'medium':
-                            return "<i class=\"fa-solid priority medium text-yellow-500 mr-2 fa-fw fa-triangle-exclamation\"></i>". Str::ucfirst($value);
+                            return "<div class=\"simplemap-tables-badge-column\"><div class=\"warning-badge\"><span>".Str::ucfirst($value)."</span></div></div>";
                         case 'low':
-                            return "<i class=\"fa-solid priority low text-blue-500 mr-2 fa-fw fa-triangle-exclamation\"></i>" . Str::ucfirst($value);
+                            return "<div class=\"simplemap-tables-badge-column\"><div class=\"info-badge\"><span>".Str::ucfirst($value)."</span></div></div>";
                         default:
-                            return "<i class=\"fa-solid priority mr-2 fa-fw fa-triangle-exclamation\"></i>" . Str::ucfirst($value);
+                            return "<div class=\"simplemap-tables-badge-column\"><div class=\"secondary-badge\"><span>".Str::ucfirst($value)."</span></div></div>";
                     }
                 })
                 ->html()
@@ -178,6 +178,43 @@ class InspectionAnnotationTable extends DataTableComponent
                 ->filter(function (Builder $builder, string $value) {
                     if ($value !== '') {
                         $builder->whereJsonContains('custom_properties->priority', $value);
+                    }
+                }),
+            SelectFilter::make(__('Fail type'))
+                ->options([
+                    '' => __('Default'),
+                    1 => __('AN AFFECTED CELL OR CONNECTION'),
+                    2 => __('2 TO 4 CELLS AFFECTED'),
+                    3 => __('5 OR MORE CELLS AFFECTED'),
+                    4 => __('BYPASS DIODE'),
+                    5 => __('DISCONNECTED / DEACTIVATED SINGLE PANEL'),
+                    6 => __('CONNECTIONS OR OTHERS'),
+                    7 => __('SOILING / DIRTY'),
+                    8 => __('DAMAGED TRACKER'),
+                    9 => __('SHADOWING'),
+                    10 => __('MISSING PANEL'),
+                    11 => __('DISCONNECTED / DEACTIVATED STRING'),
+                    12 => __('DISCONNECTED / DEACTIVATED ZONE'),
+                    13 => __('HOT SPOT SINGLE'),
+                    14 => __('HOT SPOT MULTI'),
+                    15 => __('BYPASS DIODE MULTI'),
+                ])
+                ->filter(function (Builder $builder, string $value) {
+                    if ($value !== '') {
+                        $builder->whereJsonContains('custom_properties->feature->values->failCode', $value);
+                    }
+                }),
+            SelectFilter::make(__('Severity'))
+                ->options([
+                    '' => __('Default'),
+                    1 => __('Low / Minor'),
+                    2 => __('Middle / Major'),
+                    3 => __('High / Critical'),
+                    4 => __('Indeterminate'),
+                ])
+                ->filter(function (Builder $builder, string $value) {
+                    if ($value !== '') {
+                        $builder->whereJsonContains('custom_properties->feature->values->severity', $value);
                     }
                 }),
             DateFilter::make(__('Commissioning at'))

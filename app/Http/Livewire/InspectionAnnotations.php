@@ -3,10 +3,10 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
 use App\Models\{Inspection, Annotation, User};
+use Illuminate\Support\{Arr, Collection as Collect};
 use Illuminate\Support\Facades\{Auth, Hash, Validator};
 
 class InspectionAnnotations extends Component
@@ -23,7 +23,7 @@ class InspectionAnnotations extends Component
      *
      * @var Collection
      */
-    public ?Collection $suggestions = null;
+    public Collect $suggestions;
 
     /**
      * Indicates if annotation deletion is being confirmed.
@@ -75,6 +75,10 @@ class InspectionAnnotations extends Component
             'status' => '',
             'priority' => '',
             'commissioning_at' => null,
+            'feature' => [
+                'values' => [],
+                'geometry' => [],
+            ]
         ],
     ];
 
@@ -111,18 +115,33 @@ class InspectionAnnotations extends Component
     {
         $this->state['user_id'] = Auth::id();
 
-        // Get all of the team's users, excluding the owner...
-        $this->suggestions = Auth::user()->currentTeam->users ?? collect([]);
+        $this->suggestions = collect([]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param array $payload - Current row selection.
+     *
      * @return void
      */
     public function edit(array $payload = []): void
     {
+        $this->resetErrorBag();
+
+        $assignees = collect(Arr::get($payload, 'custom_properties.assignees'));
+
+        if ($assignees->isEmpty()) {
+            $this->suggestions = Auth::user()->currentTeam->users;
+        }
+
+        // Filtered suggestions - users that not in the assignees array
+        if ($assignees->isNotEmpty()) {
+            $this->suggestions = Auth::user()->currentTeam
+                ->users
+                ->reject(fn($item) => in_array($item->id, $assignees->pluck('id')->toArray()));
+        }
+
         $this->state = [
             'annotation_id' => $payload['id'],
             'content' => $payload['content'],
@@ -139,11 +158,11 @@ class InspectionAnnotations extends Component
      */
     public function update(): void
     {
+        $this->resetErrorBag();
+        $this->validate();
+
         try {
             abort_unless($this->inspection->site->isOwner() || Auth::user()->hasRole('administrator'), 403);
-
-            $this->resetErrorBag();
-            $this->validate();
 
             $annotation = Annotation::findOrFail($this->state['annotation_id']);
             $annotation->update(
@@ -170,7 +189,8 @@ class InspectionAnnotations extends Component
     /**
      * Handle delete event.
      *
-     * @param array $payload
+     * @param array $payload - Event data.
+     *
      * @return void
      */
     public function delete(array $payload = []): void
@@ -228,9 +248,7 @@ class InspectionAnnotations extends Component
         $this->password = '';
         $this->confirmingAnnotationDeletion = false;
         $this->displayOverlayPane = false;
-
-        // Get all of the team's users, excluding the owner...
-        $this->suggestions = Auth::user()->currentTeam->users ?? collect([]);
+        $this->suggestions = collect([]);
 
         $this->state = [
             'user_id' => Auth::id(),
@@ -243,8 +261,8 @@ class InspectionAnnotations extends Component
                 'priority' => '',
                 'commissioning_at' => null,
                 'feature' => [
-                    'values' => null,
-                    'geometry' => null,
+                    'values' => [],
+                    'geometry' => [],
                 ],
             ],
         ];
@@ -267,6 +285,9 @@ class InspectionAnnotations extends Component
         }
 
         $this->state['custom_properties']['assignees'] = $collection->push($user);
+
+        // Exclude selected user from array.
+        $this->suggestions = collect($this->suggestions)->reject(fn($item) => $item['id'] === $user->id);
     }
 
     /**
@@ -283,5 +304,7 @@ class InspectionAnnotations extends Component
             = collect($this->state['custom_properties']['assignees'])
             ->filter(fn($item) => $item['id'] !== $user->id)
             ->toArray();
+
+        $this->suggestions->push($user);
     }
 }
