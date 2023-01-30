@@ -39,6 +39,16 @@ class NewInspectionModalDialog extends Component
     ];
 
     /**
+     * Error Message.
+     *
+     * @var array
+     */
+    protected array $messages = [
+        'state.name.required' => 'The name field is required.',
+        'state.commissioning_date.required' => 'The commissioning date field is required.',
+    ];
+
+    /**
      * Indicates if site deletion is being confirmed.
      *
      * @var bool
@@ -56,7 +66,7 @@ class NewInspectionModalDialog extends Component
     }
 
     /**
-     * Undocumented function
+     * Store a newly created resource in storage.
      *
      * @return Redirector
      */
@@ -69,15 +79,5 @@ class NewInspectionModalDialog extends Component
         $inspection = Inspection::create($this->state);
 
         return redirect()->route('inspection.show', $inspection->fresh());
-    }
-
-    /**
-     * Render the component.
-     *
-     * @return View
-     */
-    public function render(): View
-    {
-        return view('livewire.new-inspection-modal-dialog');
     }
 }
