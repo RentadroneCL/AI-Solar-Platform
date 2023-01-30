@@ -27,6 +27,8 @@ class Annotation extends Model
      */
     protected $fillable = [
         'user_id',
+        'annotable_type',
+        'annotable_id',
         'content',
         'custom_properties',
     ];
