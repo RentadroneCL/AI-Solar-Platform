@@ -12,7 +12,7 @@ module.exports = {
   darkMode: 'class',
   theme: {
     fontFamily: {
-      sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+      sans: ['DM Sans', ...defaultTheme.fontFamily.sans],
     },
   },
   variants: {
