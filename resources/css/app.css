@@ -27,24 +27,36 @@
   @apply text-rose-500;
 }
 
-.status {
-  @apply font-semibold p-1 rounded-lg shadow-sm text-xs border-2 border-slate-200 text-slate-600 dark:text-slate-400 dark:bg-slate-600 dark:border-slate-600;
+/**
+ * Customs style for table columns
+ * */
+
+.simplemap-tables-badge-column {
+  @apply flex items-center;
 }
 
-.status.pending {
-  @apply text-yellow-500 border-yellow-500 bg-yellow-200;
+.simplemap-tables-badge-column > div {
+  @apply inline-flex items-center justify-center space-x-1 rtl:space-x-reverse min-h-[6px] px-2 py-0.5 text-sm font-medium tracking-tight rounded-xl whitespace-nowrap text-slate-700 bg-slate-500/10 dark:text-slate-300 dark:bg-slate-500/20;
 }
 
-.status.in_progress {
-  @apply text-blue-500 border-blue-500 bg-blue-200;
+.simplemap-tables-badge-column > div.secondary-badge {
+  @apply text-gray-700 bg-gray-500/10 dark:text-gray-300 dark:bg-gray-500/20;
 }
 
-.status.delayed {
-  @apply text-rose-500 border-rose-500 bg-rose-200;
+.simplemap-tables-badge-column > div.info-badge {
+  @apply text-blue-700 bg-blue-500/10 dark:text-blue-300 dark:bg-blue-500/20;
 }
 
-.status.done {
-  @apply text-green-500 border-green-500 bg-green-200;
+.simplemap-tables-badge-column > div.success-badge {
+  @apply text-green-700 bg-green-500/10 dark:text-green-500 dark:bg-green-500/20;
+}
+
+.simplemap-tables-badge-column > div.warning-badge {
+  @apply text-yellow-700 bg-yellow-500/10 dark:text-yellow-500 dark:bg-yellow-500/20;
+}
+
+.simplemap-tables-badge-column > div.danger-badge {
+  @apply text-red-700 bg-red-500/10 dark:text-red-500 dark:bg-red-500/20;
 }
 
 /* Toggle */
