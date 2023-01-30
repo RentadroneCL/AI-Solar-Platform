@@ -1,5 +1,5 @@
 {
-    "name": "rentadrone.cl/droneraising",
+    "name": "simplemap/platform",
     "type": "project",
     "description": "Administration tool for your organization projects, with an intuitive control panel, team accounts, and more.",
     "license": "MIT",
@@ -10,8 +10,8 @@
     "authors": [
         {
             "name": "Alvaro Farias",
-            "email": "alvaro.farias@rentadrone.cl",
-            "homepage": "https://rentadrone.cl",
+            "email": "alvaro.farias@simplemap.io",
+            "homepage": "https://simplemap.io",
             "role": "Lead programmer"
         }
     ],

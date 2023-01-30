@@ -22,7 +22,7 @@
         "@uppy/core": "^1.16.0",
         "@uppy/dashboard": "^1.16.0",
         "@uppy/xhr-upload": "^1.6.10",
-        "alpinejs": "^3.10.0",
+        "alpinejs": "^3.10.5",
         "autoprefixer": "^10.0.2",
         "axios": "^0.21",
         "chart.js": "^3.8.0",
