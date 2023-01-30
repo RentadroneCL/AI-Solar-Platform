@@ -1,25 +1,121 @@
 <div class="flex flex-col justify-start">
-  <x-jet-action-message class="inline-flex items-center justify-start my-2" on="saved">
-    <i class="p-1 mr-2 text-blue-200 bg-blue-400 border border-blue-400 rounded-md shadow-sm fa-solid fa-info fa-fw"></i> {{ __('Updated data!') }}
-  </x-jet-action-message>
-
-  <x-jet-action-message class="p-4 my-2 border-2 rounded-lg shadow-sm bg-rose-500 border-rose-400" on="error">
-    <p class="inline-flex items-center text-base text-rose-200">
-      <i class="p-1 mr-2 border rounded-md shadow-sm text-rose-200 bg-rose-400 border-rose-400 fa-solid fa-exclamation fa-fw"></i> {{ __('An unexpected error has occurred') }}
-    </p>
-  </x-jet-action-message>
-
-  @if ($site->equipmentTypes->isEmpty())
+  <div
+    x-data="{
+      equipmentTypesIsEmpty: @entangle('equipmentTypesIsEmpty').defer
+    }"
+    x-show="equipmentTypesIsEmpty"
+  >
     <div class="flex flex-col items-center justify-center px-6 py-12 border-2 border-dashed rounded-lg border-slate-200 dark:border-slate-600">
-      <i class="mb-4 fa-solid fa-screwdriver-wrench fa-fw fa-3x text-slate-400"></i>
-      <p class="font-semibold text-slate-900 dark:text-slate-400">{{ __('No equipment types registered') }}</p>
-      <div class="mt-3 text-sm text-gray-600 dark:text-slate-500">
+      <i class="mb-4 fa-solid fa-screwdriver-wrench fa-fw fa-2x text-slate-400"></i>
+      <p class="font-semibold text-lg text-slate-900 dark:text-slate-400">{{ __('Equipment type "panel" not defined') }}</p>
+      <div class="mt-3 text-base text-gray-600 dark:text-slate-500">
         {{ __('In order to dump data, at least the equipment type ') }} <code class="p-1 text-sm font-semibold text-blue-600 bg-blue-200 rounded-md shadow-sm">{{ __('panel') }}</code> {{ __(' or similar must be defined in the equipment types section.') }}
       </div>
-      <x-button-link href="{{ route('site.show', $site) }}" class="w-full mt-4 md:w-auto">
-        <i class="mr-2 text-blue-300 dark:text-white fa-solid fa-wrench fa-fw"></i>  {{ __('Create equipment type') }}
-      </x-button-link>
+      <x-jet-button
+        wire:click="$toggle('displayEquipmentTypeCreationForm')"
+        wire:loading.attr="disabled"
+        class="mt-4"
+      >
+        {{ __('Create equipment') }}
+      </x-jet-button>
     </div>
+    <!-- Create equipment type modal -->
+    <x-jet-dialog-modal wire:model="displayEquipmentTypeCreationForm">
+      <x-slot name="title">{{ __('New type') }}</x-slot>
+      <x-slot name="content">
+        <div class="p-4 mb-4 text-blue-200 bg-blue-500 border-2 border-blue-400 rounded-lg shadow-sm">
+          <div class="inline-flex items-center">
+            <i class="mr-2 fa-solid fa-circle-info fa-fw fa-2x"></i>
+            <div class="flex flex-col text-sm">
+              <p class="max-w-md mb-1">
+                {{ __('We recommend using a well-defined convention for naming assets like a combination of the type of asset and brand or model, For example: ') }}
+                `<code class="text-xs font-semibold text-white">Panel</code>` {{ __('or') }} `<code class="text-xs font-semibold text-white">"{{ __('Panel Brand') }}" - "{{ __('Panel Model') }}"</code>`
+              </p>
+            </div>
+          </div>
+        </div>
+        <form wire:submit.prevent="store">
+          <div class="col-span-6 mb-4">
+            <x-jet-label for="name" value="{{ __('Name') }}" />
+            <x-jet-input id="name" type="text" class="block w-full mt-1" wire:model.lazy="state.name" autocomplete="name" required />
+            <x-jet-input-error for="state.name" class="mt-2" />
+          </div>
+          <div class="col-span-6 mb-4">
+            <x-jet-label for="quantity" value="{{ __('Quantity') }}" />
+            <x-jet-input id="quantity" type="number" class="block w-full mt-1" wire:model.lazy="state.quantity" autocomplete="quantity" required />
+            <x-jet-input-error for="state.quantity" class="mt-2" />
+          </div>
+          <div class="col-span-6 mb-4">
+            <div class="p-4 mb-4 text-blue-200 bg-blue-500 border-2 border-blue-400 rounded-lg shadow-sm">
+              <div class="inline-flex items-center">
+                <i class="mr-2 fa-solid fa-circle-info fa-fw fa-2x"></i>
+                <div class="flex flex-col text-sm">
+                  <p class="max-w-md mb-1">
+                    {{ __('You can also conditionally apply technical specifications for a type of asset using the feature/value convention using the inputs below. For example, ') }} `<code class="text-xs font-semibold text-white">feature:material</code>`, `<code class="text-xs font-semibold text-white">value:monocrystalline</code>`
+                  </p>
+                </div>
+              </div>
+            </div>
+            <x-jet-label class="mb-4" for="custom_properties[][]" value="{{ __('Properties') }}" />
+            @foreach ($state['custom_properties'] as $key => $value)
+              <div class="grid grid-cols-3 gap-4 mb-2">
+                <div class="col-span-1">
+                  <x-jet-label for="custom_properties[{{$key}}][key]" value="{{ __('Feature') }}" />
+                  <x-jet-input id="custom_properties[{{$key}}][key]" type="text" class="block w-full mt-1" wire:model.lazy="state.custom_properties.{{$key}}.key" />
+                  <x-jet-input-error for="state.custom_properties.{{$key}}.key" class="mt-2" />
+                </div>
+                <div class="col-span-1">
+                  <x-jet-label for="custom_properties[{{$key}}][value]" value="{{ __('Value') }}" />
+                  <x-jet-input id="custom_properties[{{$key}}[value]" type="text" class="block w-full mt-1" wire:model.lazy="state.custom_properties.{{$key}}.value" />
+                  <x-jet-input-error for="state.custom_properties.{{$key}}.value" class="mt-2" />
+                </div>
+                @if ($key > 0)
+                  <div class="col-span-1 mt-auto mb-1">
+                    <x-jet-danger-button class="px-2 py-2" title="{{ __('Remove') }}" wire:click='removeCustomPropertyInput({{$key}})'>
+                      <i class="fa-solid fa-trash fa-fw text-rose-300"></i>
+                    </x-jet-danger-button>
+                  </div>
+                @endif
+              </div>
+            @endforeach
+            <x-jet-secondary-button class="mt-5" wire:click='addCustomPropertyInput'>
+              <i class="mr-2 fa-solid fa-plus fa-fw"></i> {{ __('Add properties') }}
+            </x-jet-secondary-button>
+          </div>
+        </form>
+      </x-slot>
+      <x-slot name="footer">
+        <div class="inline-flex items-center">
+          <x-jet-secondary-button wire:click="$toggle('displayEquipmentTypeCreationForm')" wire:loading.attr="disabled">
+            {{ __('Nevermind') }}
+          </x-jet-secondary-button>
+          <x-jet-button class="ml-2" wire:click="store" wire:loading.attr="disabled">
+            <i class="mr-2 text-blue-300 dark:text-white fa-solid fa-circle-plus fa-fw"></i> {{ __('Create') }}
+          </x-jet-button>
+        </div>
+      </x-slot>
+    </x-jet-dialog-modal>
+  </div>
+
+  <div
+    x-data="{
+      datasetIsEmpty: @entangle('datasetIsEmpty').defer,
+      equipmentTypesIsEmpty: @entangle('equipmentTypesIsEmpty').defer
+    }"
+    x-show="(equipmentTypesIsEmpty === false && datasetIsEmpty === true)"
+    class="flex flex-col items-center justify-center px-6 py-12 border-2 border-dashed rounded-lg border-slate-200 dark:border-slate-600"
+  >
+    <i class="fa-solid fa-database fill-current fa-2x fa-fw mb-3"></i>
+    <p class="font-semibold text-slate-900 dark:text-slate-400">{{ __('No inspection data') }}</p>
+    <div class="mt-1 text-sm text-gray-600 dark:text-slate-500">{{ __('Get started by uploading the inspection data.') }}</div>
+    <x-jet-secondary-button wire:click="$toggle('showImportModal')" class="w-full mt-4 md:w-auto">
+      <i class="fa-solid fa-upload fa-fw mr-2 fill-current"></i>
+      {{ __('Import data') }}
+    </x-jet-secondary-button>
+  </div>
+
+  @if ($site->equipmentTypes->isEmpty())
+
   @else
     @if (count($dataset))
       {{-- Update inspection data --}}
@@ -448,14 +544,7 @@
         </div>
       </div>
     @else
-      <div class="flex flex-col items-center justify-center px-6 py-12 border-2 border-dashed rounded-lg border-slate-200 dark:border-slate-600">
-        <i class="mb-4 fa-solid fa-database fa-fw fa-3x text-slate-400"></i>
-        <p class="font-semibold text-slate-900 dark:text-slate-400">{{ __('No inspection data') }}</p>
-        <div class="mt-3 text-sm text-gray-600 dark:text-slate-500">{{ __('Get started by uploading the inspection data.') }}</div>
-        <x-jet-secondary-button wire:click="$toggle('showImportModal')" class="w-full mt-4 md:w-auto">
-          <i class="mr-2 fa-solid fa-cloud-arrow-up fa-fw text-slate-400"></i>  {{ __('Import csv') }}
-        </x-jet-secondary-button>
-      </div>
+
     @endif
   @endif
 
@@ -465,19 +554,43 @@
     <x-slot name="content">
       <p class="text-base text-slate-900 dark:text-slate-400">
         {{ __('You can choose a resource to import them into and match up headings from the CSV to the appropriate fields of the resource.') }}
+        {{  __('See CSV example file to follow ') }} <a class="cursor-pointer ml-1" href="{{ asset('examples/inspection_data_example.csv') }}" id="csv_example" target="_blank"><code class="p-1 text-sm font-semibold text-blue-600 bg-blue-200 rounded-md shadow-sm">file.csv</code></a>
       </p>
-      <div class="hidden mt-4 md:block">
-        <h3 class="font-semibold text-slate-900 dark:text-slate-400">{{ __('CSV example file') }}</h3>
-        <p class="text-slate-700 dark:text-slate-500">
-          {{ __('We will use the following file ') }} <a class="cursor-pointer" href="{{ asset('examples/inspection_data_example.csv') }}" id="csv_example" target="_blank"><code class="p-1 text-sm font-semibold text-blue-600 bg-blue-200 rounded-md shadow-sm">file.csv</code></a>
-        </p>
+      <div class="flex flex-col justify-start my-2 w-full">
+        <x-jet-label for="type" value="{{ __('Select equipment type') }}" />
+        <select wire:model.lazy="state.equipment_type_id" id="equipment_type_id" name="equipment_type_id" required class="w-full mt-1 border-gray-300 dark:text-slate-400 bg-slate-50 dark:bg-slate-600/25 border-slate-200 dark:border-slate-600 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+          <option value="">{{ __('Select an option...') }}</option>
+          @foreach ($equipmentTypes as $equipmentType)
+            <option value="{{ $equipmentType->id }}">{{ $equipmentType->name }}</option>
+          @endforeach
+        </select>
+        <x-jet-input-error for="state.equipment_type_id" class="mt-2" />
       </div>
-      <div class="inline-flex w-full my-4">
-        <div class="inline-flex items-center justify-center w-1/6 px-4 py-3 font-semibold tracking-widest transition bg-white border-2 border-r rounded-l-lg shadow-sm cursor-pointer dark:bg-slate-600/25 text-slate-900 dark:text-slate-400 border-slate-200 dark:border-slate-600 hover:text-slate-800 dark:hover:text-slate-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-slate-800 dark:active:text-slate-300 active:bg-slate-50 dark:active:bg-slate-700 disabled:opacity-25">
-          <i class="mr-2 cursor-pointer fas fa-folder-open fa-fw fa-lg text-slate-500 dark:text-slate-400"></i>
-          <input wire:model="file" id="file" name="file" class="absolute w-1/6 opacity-0 cursor-pointer pin-x pin-y" type="file" accept="text/csv">
+      <!-- Dropzone file -->
+      <div
+        x-data="{
+          isUploaded: false,
+          file: @entangle('file').defer,
+        }"
+        x-on:livewire-upload-finish="isUploaded = true"
+        x-on:livewire-upload-error="isUploaded = false"
+        class="flex items-center justify-center w-full"
+      >
+        <label x-show="isUploaded === false" for="dropzone-file" class="p-4 flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+          <div class="flex flex-col items-center justify-center pt-5 pb-6">
+            <i class="fa-solid fa-cloud-arrow-up fa-2x fill-current mb-3 text-slate-400"></i>
+            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">{{ __('Click to upload') }}</span> {{ __('or drag and drop') }}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{{ __('only text/csv format accepted') }}</p>
+          </div>
+          <input wire:model="file" id="dropzone-file" type="file" accept="text/csv" class="hidden" />
+        </label>
+        <div x-show="isUploaded" class="flex flex-col justify-start w-full my-2">
+          <x-jet-label for="type" value="{{ __('Temporary file') }}" />
+          <div class="inline-flex items-center justify-start w-full border border-slate-200 dark:border-slate-600 rounded-md px-3 py-2 mt-1 bg-slate-50 dark:bg-slate-600/25">
+            <i class="fa-solid fa-file-csv fa-fw mr-2 fill-current"></i>
+            <p x-show="isUploaded" class="text-sm dark:text-slate-400 text-slate-600 w-full h-6" x-text="file.substring(0, 62).replace('livewire-file', 'simplemap-file')"></p>
+          </div>
         </div>
-        <input wire:model="filename" class="w-5/6 px-4 py-3 text-gray-600 border-2 border-l rounded-r-lg shadow-sm dark:text-slate-400 bg-slate-50 dark:bg-slate-600/25 border-slate-200 dark:border-slate-600 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" type="text" readonly disabled>
       </div>
       <x-jet-input-error for="file" class="mt-2" />
       <div wire:loading class="inline-flex items-center justify-start w-full mt-2 text-sm text-slate-600 dark:text-slate-400">
@@ -490,7 +603,7 @@
           {{ __('Nevermind') }}
         </x-jet-secondary-button>
         <x-jet-button class="ml-2" wire:click="import" wire:loading.attr="disabled">
-          <i class="mr-2 text-blue-300 dark:text-white fa-solid fa-cloud-arrow-up fa-fw"></i> {{ __('Upload file') }}
+          {{ __('Import') }}
         </x-jet-button>
       </div>
     </x-slot>

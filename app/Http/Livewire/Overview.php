@@ -5,14 +5,35 @@ namespace App\Http\Livewire;
 use League\Csv\Writer;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\{Auth, DB};
+use Illuminate\Support\Facades\{Auth, DB, Validator};
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Illuminate\Support\{LazyCollection, Arr, Collection};
-use App\Models\{Inspection, Site, Equipment, EquipmentType};
+use Illuminate\Support\{LazyCollection, Arr, Collection, Carbon, Str};
+use App\Models\{Site, Inspection, Equipment, EquipmentType, Annotation};
 
 class Overview extends Component
 {
     use WithFileUploads;
+
+    /**
+     * Equipment types expression.
+     *
+     * @var boolean
+     */
+    public $equipmentTypesIsEmpty = false;
+
+    /**
+     * Dataset expression.
+     *
+     * @var boolean
+     */
+    public $datasetIsEmpty = false;
+
+    /**
+     * Display equipment type creation form.
+     *
+     * @var boolean
+     */
+    public $displayEquipmentTypeCreationForm = false;
 
     /**
      * Display import CSV modal.
@@ -25,20 +46,6 @@ class Overview extends Component
      * CSV file.
      */
     public $file;
-
-    /**
-     * Uploaded filename.
-     *
-     * @var string
-     */
-    public string $filename = 'Browse file';
-
-    /**
-     * CSV headers.
-     *
-     * @var array
-     */
-    protected array $csvHeader = [];
 
     /**
      * Site model.
@@ -55,6 +62,13 @@ class Overview extends Component
     public Inspection $inspection;
 
     /**
+     * Equipment types collection.
+     *
+     * @var Collection
+     */
+    public Collection $equipmentTypes;
+
+    /**
      * Custom property data.
      *
      * @var Collection
@@ -62,12 +76,42 @@ class Overview extends Component
     public Collection $dataset;
 
     /**
+     * The component's state.
+     *
+     * @var array
+     */
+    public array $state = [
+        'name' => 'Panel',
+        'quantity' => 0,
+        'custom_properties' => [
+            ['key' => '', 'value' => ''],
+        ],
+    ];
+
+    /**
      * Validation rules.
      *
      * @var array
      */
     protected array $rules = [
-        'file' => 'required|file|mimes:csv',
+        'state.name' => 'required|string|min:2',
+        'state.quantity' => 'required|integer|min:1',
+        'state.custom_properties.*.key' =>'nullable|string|min:2',
+        'state.custom_properties.*.value' =>'nullable|string|min:2',
+    ];
+
+    /**
+     * Custom error messages.
+     *
+     * @var array
+     */
+    protected $messages = [
+        'state.name.required' => 'The name field is required.',
+        'state.quantity.required' => 'The quantity field is required.',
+        'state.quantity.min' => 'The quantity must be at least 1.',
+        'state.custom_properties.*.key.filled' => 'The feature field must have a value.',
+        'state.custom_properties.*.value.filled' => 'The value field must have a value.',
+        'state.equipment_type_id.required' => 'The equipment type field is required.',
     ];
 
     /**
@@ -79,82 +123,74 @@ class Overview extends Component
     {
         $this->site = $this->inspection->site;
 
+        $this->state['site_id'] = $this->site->id;
+
+        $this->equipmentTypesIsEmpty = $this->site->equipmentTypes->isEmpty();
+
+        $this->equipmentTypes = $this->site->equipmentTypes;
+
         $this->dataset = collect($this->inspection->getCustomProperty('data'));
+
+        $this->datasetIsEmpty = $this->dataset->isEmpty();
     }
 
     /**
-     * Import csv file. -> This method need to be moved to a queue
+     * Parse CSV file.
      *
-     * @return mixed
+     * @return Collection
      */
-    public function import(): mixed
+    public function parseFile(): Collection
     {
-        abort_unless(
-            $this->site->isOwner() || Auth::user()->hasRole('administrator'),
-            403
-        );
-
-        $this->resetErrorBag();
-
-        $this->validate();
-
         $collection = collect([]);
 
-        // Read CSV file.
         LazyCollection::make(function () {
             $file = fopen($this->file->temporaryUrl(), 'r');
 
             while ($data = fgetcsv($file)) {
                 yield $data;
             }
-        })->each(function ($item) use ($collection) {
-            $collection->push($item);
-        });
+        })->each(fn($item) => $collection->push($item));
 
-        $this->csvHeader = $collection->first();
+        return $collection->skip(1)->map(
+            fn($item) => array_combine($collection->first(), $item)
+        );
+    }
 
-        $filtered = $collection
-            ->skip(1)
-            ->map(fn($item) => array_combine($this->csvHeader, $item));
+    /**
+     * Import CSV file.
+     *
+     * @return mixed
+     */
+    public function import(): mixed
+    {
+        abort_unless($this->site->isOwner() || Auth::user()->hasRole('administrator'), 403);
+
+        $this->resetErrorBag();
+
+        $this->validate([
+            'file' => 'required|file|mimes:csv',
+            'state.equipment_type_id' => 'required|integer',
+        ]);
+
+        $csvData = $this->parseFile();
 
         $quantity = EquipmentType::findOrFail(
-            $filtered->first()['equipment_type_id']
+            $this->state['equipment_type_id']
         )->quantity;
 
         $counter = $this->site->equipments()
-            ->where(['equipment_type_id' => $filtered->first()['equipment_type_id']])
+            ->where(['equipment_type_id' => $this->state['equipment_type_id']])
             ->count();
 
         try {
-            DB::transaction(function () use ($filtered) {
+            DB::transaction(function () use ($csvData) {
                 // Update the inspection metadata.
-                $this->inspection->setCustomProperty('data', $filtered)->save();
+                $this->inspection->setCustomProperty('data', $csvData)->save();
 
                 // Update inspection tracking data for the current item.
-                $filtered->map(function ($item) {
-                    $equipment = Equipment::query()->where([
-                        'equipment_type_id' => $item['equipment_type_id'],
-                        'uuid' => $item['uuid'],
-                        'name' => $item['name'],
-                    ])->firstOr(function () use ($item) {
-                        $newEquipment = Equipment::create([
-                            'equipment_type_id' => $item['equipment_type_id'],
-                            'uuid' => $item['uuid'],
-                            'name' => $item['name'],
-                            'brand' => $item['brand'] ?? null,
-                            'model' => $item['model'] ?? null,
-                            'serial' => $item['serial'] ?? null,
-                        ]);
-
-                        return $newEquipment;
-                    });
-
-                    // Adds a new custom property or updates an existing one.
-                    $value = collect($item)
-                        ->except(['equipment_type_id', 'uuid', 'name'])
-                        ->toArray();
-
-                    $equipment->setCustomProperty("inspections.{$this->inspection->id}", $value)->save();
+                $csvData->map(function ($item) {
+                    $this->setEquipment($item);
+                    $this->setAnnotation($item);
                 });
             });
 
@@ -162,7 +198,10 @@ class Overview extends Component
 
         } catch (\Throwable $th) {
             $this->showImportModal = false;
-            $this->emit('error', $th->getMessage());
+            $this->dispatchBrowserEvent('alert', [
+                'type' => 'error',
+                'message' => __('An unexpected error has occurred')
+            ]);
         }
     }
 
@@ -194,12 +233,123 @@ class Overview extends Component
     }
 
     /**
-     * Updated file property.
+     * Store a newly created resource in storage.
      *
      * @return void
      */
-    public function updatedFile(): void
+    public function store(): void
     {
-        $this->filename = $this->file->temporaryUrl();
+        abort_unless($this->site->isOwner() || Auth::user()->hasRole('administrator'), 403);
+
+        $this->resetErrorBag();
+        $this->validate();
+
+        // Remove empty values from the custom properties array.
+        $this->state['custom_properties']
+            = collect($this->state['custom_properties'])
+            ->reject(fn($item) => empty($item['key']) && empty($item['value']))
+            ->toArray();
+
+        $type = EquipmentType::create(
+            Arr::except(array: $this->state, keys: 'custom_properties')
+        );
+        $type->setCustomProperty(
+            name: 'features',
+            value: $this->state['custom_properties']
+        );
+        $type->save();
+
+        $this->resetState();
+
+        $this->equipmentTypesIsEmpty = false;
+
+        $this->equipmentTypes = $this->site->equipmentTypes;
+
+        $this->dispatchBrowserEvent('alert', [
+            'type' => 'success',
+            'message' => __('Successfully created panel\' type equipment')
+        ]);
+    }
+
+    /**
+     * Reset component state.
+     *
+     * @return void
+     */
+    public function resetState(): void
+    {
+        $this->state = [
+            'name' => 'Panel',
+            'quantity' => 0,
+            'custom_properties' => [
+                ['key' => '', 'value' => ''],
+            ],
+        ];
+    }
+
+    /**
+     * Update inspection tracking data for the current item.
+     *
+     * @param array $item
+     * @return Equipment
+     */
+    public function setEquipment(array $item = []): Equipment
+    {
+        $equipment = Equipment::query()->where([
+            'equipment_type_id' => $this->state['equipment_type_id'],
+            'uuid' => $item['uuid'],
+            'name' => $item['name'],
+        ])->firstOr(function () use ($item) {
+            return Equipment::create([
+                'equipment_type_id' => $this->state['equipment_type_id'],
+                'uuid' => $item['uuid'],
+                'name' => $item['name'],
+                'brand' => $item['brand'] ?? null,
+                'model' => $item['model'] ?? null,
+                'serial' => $item['serial'] ?? null,
+            ]);
+        });
+
+        // Adds a new custom property or updates an existing one.
+        $value = collect($item)->except(['equipment_type_id', 'uuid', 'name'])->toArray();
+
+        $equipment->setCustomProperty("inspections.{$this->inspection->id}", $value)->save();
+
+        return $equipment;
+    }
+
+    /**
+     * Create annotation for the current equipment.
+     *
+     * @param array $item
+     * @return Annotation
+     */
+    public function setAnnotation(array $item = []): Annotation
+    {
+        $record = [
+            'user_id' => Auth::id(),
+            'annotable_type' => Inspection::class,
+            'annotable_id' => $this->inspection->id,
+            'content' => __('Automatically generated over imported data.'),
+            'custom_properties' => [
+                'feature' => [
+                    'values' => $item,
+                ],
+                'title' => "I{$this->inspection->id}-{$item['name']}",
+                'status' => 'to_do',
+                'priority' => 'high',
+                'assignees' => [],
+                'commissioning_at' => Carbon::now()->toDateString(),
+            ],
+        ];
+
+        return Annotation::firstOrCreate(
+            [
+                'annotable_type' => Inspection::class,
+                'annotable_id' => $this->inspection->id,
+                'custom_properties->title' => "I{$this->inspection->id}-{$item['name']}"
+            ],
+            $record
+        );
     }
 }
