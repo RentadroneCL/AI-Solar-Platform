@@ -231,14 +231,29 @@ it('fails when administrator or owner tries delete the specified resource in sto
 it('can reset the component state', function () {
     $user = User::factory()->withPersonalTeam()->create();
     $inspection = Inspection::factory()->create();
+    $annotation = Annotation::factory()->create([
+        'user_id' => $user->id,
+        'annotable_type' => Inspection::class,
+        'annotable_id' => $inspection->id,
+        'content' => faker()->text(),
+        'custom_properties' => [
+            'status' => 'to_do',
+            'priority' => 'low',
+            'assignees' => [],
+            'commissioning_at' => Carbon::now()->toDateString(),
+        ],
+    ]);
+    $state = [...$annotation->toArray()];
+    $state['annotation_id'] = $annotation->id;
     $this->actingAs($user)
         ->livewire(InspectionAnnotations::class, ['inspection' => $inspection])
         ->assertViewIs('livewire.inspection-annotations')
+        ->set('state', $state)
         ->call('resetState')
         ->assertSet('password', '')
         ->assertSet('confirmingAnnotationDeletion', false)
         ->assertSet('displayOverlayPane', false)
-        ->assertSet('suggestions', $user->currentTeam->users)
+        ->assertSet('suggestions', collect([]))
         ->assertSet('state', [
             'user_id' => $user->id,
             'annotation_id' => null,
@@ -250,8 +265,8 @@ it('can reset the component state', function () {
                 'priority' => '',
                 'commissioning_at' => null,
                 'feature' => [
-                    'values' => null,
-                    'geometry' => null,
+                    'values' => [],
+                    'geometry' => [],
                 ]
             ]
         ])
