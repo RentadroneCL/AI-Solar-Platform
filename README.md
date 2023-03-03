@@ -1,14 +1,23 @@
-# Solar Platform
+<p align="center" dir="auto">
+  <a href="https://simplemap.io" rel="nofollow"><img src="https://user-images.githubusercontent.com/1696665/222504918-2c16d594-be82-4914-8a19-e8af5dfb4b26.png" width="500" style="max-width: 100%;"></a>
+</p>
 
-[![Continuous Integration](https://github.com/RentadroneCL/AI-Solar-Platform/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/RentadroneCL/AI-Solar-Platform/actions/workflows/continuous-integration.yml)
-[![Coverage Status](https://coveralls.io/repos/github/RentadroneCL/AI-Solar-Platform/badge.svg)](https://coveralls.io/github/RentadroneCL/AI-Solar-Platform)
-[![PHP Version Require](https://img.shields.io/packagist/php-v/laravel/framework)](https://img.shields.io/packagist/php-v/laravel/framework)
-[![License](https://poser.pugx.org/composer/spdx-licenses/license)](https://packagist.org/packages/composer/spdx-licenses)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
+<p align="center">
+  <a href="https://github.com/RentadroneCL/AI-Solar-Platform/tags"><img src="https://img.shields.io/github/v/tag/RentadroneCL/AI-Solar-Platform?colorA=363a4f&style=for-the-badge"></a>
+  <a href="https://github.com/RentadroneCL/AI-Solar-Platform/actions/workflows"><img src="https://img.shields.io/github/actions/workflow/status/RentadroneCL/AI-Solar-Platform/continuous-integration.yml?colorA=363a4f&label=Continuous%20Integration&logo=github&style=for-the-badge"></a>
+  <a href="https://github.com/RentadroneCL/AI-Solar-Platform/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/RentadroneCL/AI-Solar-Platform?colorA=363a4f&style=for-the-badge"></a>
+  <a href="https://github.com/RentadroneCL/AI-Solar-Platform/blob/development/CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg?colorA=363a4f&style=for-the-badge"></a>
+  <a href="https://github.com/RentadroneCL/AI-Solar-Platform/stargazers"><img src="https://img.shields.io/github/stars/RentadroneCL/AI-Solar-Platform?colorA=363a4f&colorB=b7bdf8&style=for-the-badge"></a>
+  <a href="https://github.com/RentadroneCL/AI-Solar-Platform/issues"><img src="https://img.shields.io/github/issues/RentadroneCL/AI-Solar-Platform?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+  <a href="https://github.com/RentadroneCL/AI-Solar-Platform/contributors"><img src="https://img.shields.io/github/contributors/RentadroneCL/AI-Solar-Platform?colorA=363a4f&colorB=a6da95&style=for-the-badge"></a>
+  <a href="https://opencollective.com/simple-map"><img src="https://img.shields.io/opencollective/sponsors/simple-map?colorA=363a4f&logo=open%20collective&style=for-the-badge"></a>
+</p>
+
+# Solar Platform
 
 To learn all about it, head over to the extensive [documentation](https://rentadronecl.github.io).
 
-# Developers
+## Developers
 
 Help improve our software! We welcome contributions from everyone, whether to add new features, improve speed, fix existing bugs or add support. [Check our code of conduct](CODE_OF_CONDUCT.md), [the contributing guidelines](CONTRIBUTING.md) and how decisions are made.
 
@@ -18,7 +27,7 @@ Any code contributions are welcomed as long as they are discussed in [Github Iss
 
 You can open a new issue based on code from an existing pull request. For more information, see [the template for filling issues](https://github.com/RentadroneCL/AI-Solar-Platform/blob/master/.github/ISSUE_TEMPLATE/feature_request.md)
 
-# Contributing
+## Contributing
 
 Contributions are **welcome** and will be fully **credited**. We accept contributions via Pull Requests on [GitHub](https://github.com/RentadroneCL/AI-Solar-Platform).
 
@@ -36,12 +45,12 @@ Contributions are **welcome** and will be fully **credited**. We accept contribu
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within lms, please send an e-mail to lms team via [contacto@rentadrone.cl](mailto:contacto@rentadrone.cl). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within lms, please send an e-mail to lms team via [contacto@simplemap.io](mailto:contacto@simplemap.io). All security vulnerabilities will be promptly addressed.
 
 ## [Code of Conduct](https://github.com/RentadroneCL/AI-Solar-Platform/blob/master/CODE_OF_CONDUCT.md)
 
-The lms code of conduct is derived from the [Contributor Covenant](https://www.contributor-covenant.org). Any violations of the code of conduct may be reported to [Rentadrone.cl](mailto:contacto@rentadrone.cl)
+The [simplemap.io](https://rentadronecl.github.io) Solar Platform code of conduct is derived from the [Contributor Covenant](https://www.contributor-covenant.org). Any violations of the code of conduct may be reported to [simplemap.io](mailto:contacto@simplemap.io)
 
 ## License
 
-Solar platform software is licensed under the [MIT license.](LICENSE.md)
+[simplemap.io](https://rentadronecl.github.io) Solar Platform software is licensed under the [MIT license.](LICENSE.md)
